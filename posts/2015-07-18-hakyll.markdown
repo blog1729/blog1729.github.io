@@ -34,6 +34,8 @@ So here is one way you can have a setup like me.
 
 11. In order to generate files, you can use `./site build` but if you have made deletions, then the changes do not propagate to _site folder. So you will have to use `./site rebuild` which basically removes the _site folder and then starts a fresh build. The problem here is that rebuild will remove all contents of _site folder including the .git file, which messes up things. To combat this problem, I wrote a tiny script `clean.sh` which you can get [here](https://github.com/blog1729/blog1729.github.io/blob/source/clean.sh). I recommend you download it, keep it in the same directory where `site` is placed and use the script instead of `./site rebuild` (you have to run `sh clean.sh`.)
 
+	If, by mistake, the `.git` file inside `_site` got removed, you may create a file with the same name having content `gitdir: ../.git/modules/_site`.
+
 12. `cd _site`, `git add --all`, `git commit -m 'changes'`.
 
 13. Push the changes (of _site folder) to github by `git push origin master`.
