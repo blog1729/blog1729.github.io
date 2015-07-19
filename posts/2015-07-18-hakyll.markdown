@@ -2,29 +2,30 @@
 title: Hakyll
 ---
 
-Finally I've set up [Hakyll](http://jaspervdj.be/hakyll/) on my blog!
-The current configuration uses Hakyll and github and took  me a fair amount of time to configure.
-So here is one way you can have a setup like me.
+Finally I've set up [Hakyll](http://jaspervdj.be/hakyll/)!
+The current setup uses Hakyll to generate static site and Github pages to host it.
+It took  me a fair amount of time to make things run smoothly.
+If you want to create a blog using Hakyll and Github pages, here is one way you could get things running.
 
 1. **Download Hakyll**
 
-	You can either use `cabal install hakyll` or get it from your from your package manager.
+	If you have `cabal-install` installed, you may download it using `cabal install hakyll`, if not, you can download it using your package manager.
 
-2. Now that you have Hakyll, create a blog by running `hakyll-init name-of-your-blog`.
+2. Now that you have Hakyll, generate the necessary files on your computer by running `hakyll-init name-of-your-blog`.
 
 3. **Create repository at Github**
 
-	The name of the repository should be `your-userid.github.io` in order use Github pages.
+	The name of the repository should be `your-userid.github.io` in order to use Github pages.
 
 4. Initialize the git repository: `git init`.
 
 5. Create `.gitignore`.
 
-	[Here](https://github.com/blog1729/blog1729.github.io/blob/source/.gitignore) is what my .gitignore looks like.
+	[Here](https://github.com/blog1729/blog1729.github.io/blob/source/.gitignore) is what my `.gitignore` looks like.
 
 6. `git remote add origin https://github.com/username/username.github.io.git`
 
-7. Compile site.hs by `ghc --make site.hs`
+7. Compile `site.hs` by `ghc --make site.hs`.
 
 8. `git commit --allow-empty -m "dummy"`.
 
@@ -32,16 +33,13 @@ So here is one way you can have a setup like me.
 
 10. `git submodule add https://github.com/username/username.github.io _site`
 
-11. In order to generate files, you can use `./site build` but if you have made deletions, then the changes do not propagate to _site folder. So you will have to use `./site rebuild` which basically removes the _site folder and then starts a fresh build. The problem here is that rebuild will remove all contents of _site folder including the .git file, which messes up things. To combat this problem, I wrote a tiny script `clean.sh` which you can get [here](https://github.com/blog1729/blog1729.github.io/blob/source/clean.sh). I recommend you download it, keep it in the same directory where `site` is placed and use the script instead of `./site rebuild` (you have to run `sh clean.sh`.)
+11. In order to generate files, you can use `./site build` but if you have made deletions, then the changes do not propagate to _site folder. So you will have to use `./site rebuild` which basically removes the _site folder and then starts a fresh build. The problem here is that rebuild will remove all contents of _site folder including the .git file, which messes up things. To combat this problem, I wrote a tiny script `clean.sh` which you can get [here](https://github.com/blog1729/blog1729.github.io/blob/source/clean.sh). I recommend you download it, keep it in the same directory where `site` executable is placed and use the script instead of `./site rebuild` (you have to run `sh clean.sh`.)
 
 	If, by mistake, the `.git` file inside `_site` got removed, you may create a file with the same name having content `gitdir: ../.git/modules/_site`.
 
 12. `cd _site`, `git add --all`, `git commit -m 'changes'`.
 
-13. Push the changes (of _site folder) to github by `git push origin master`.
+13. Push the changes (of `_site` folder) to github by `git push origin master`.
 	Similarly, push the changes of the root folder (the source branch) to github by `git push origin source`.
 
-That's it! Now your blog will be alive at the address `username.github.io`. Happy Hakyll!
-
-	
-	
+That's it. Now your blog will be live at the address `username.github.io`!
