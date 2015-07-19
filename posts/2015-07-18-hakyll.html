@@ -27,27 +27,27 @@
     
 </div>
 
-<p>Finally I’ve set up <a href="http://jaspervdj.be/hakyll/">Hakyll</a> on my blog! The current configuration uses Hakyll and github and took me a fair amount of time to configure. So here is one way you can have a setup like me.</p>
+<p>Finally I’ve set up <a href="http://jaspervdj.be/hakyll/">Hakyll</a>! The current setup uses Hakyll to generate static site and Github pages to host it. It took me a fair amount of time to make things run smoothly. If you want to create a blog using Hakyll and Github pages, here is one way you could get things running.</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Download Hakyll</strong></p>
-<p>You can either use <code>cabal install hakyll</code> or get it from your from your package manager.</p></li>
-<li><p>Now that you have Hakyll, create a blog by running <code>hakyll-init name-of-your-blog</code>.</p></li>
+<p>If you have <code>cabal-install</code> installed, you may download it using <code>cabal install hakyll</code>, if not, you can download it using your package manager.</p></li>
+<li><p>Now that you have Hakyll, generate the necessary files on your computer by running <code>hakyll-init name-of-your-blog</code>.</p></li>
 <li><p><strong>Create repository at Github</strong></p>
-<p>The name of the repository should be <code>your-userid.github.io</code> in order use Github pages.</p></li>
+<p>The name of the repository should be <code>your-userid.github.io</code> in order to use Github pages.</p></li>
 <li><p>Initialize the git repository: <code>git init</code>.</p></li>
 <li><p>Create <code>.gitignore</code>.</p>
-<p><a href="https://github.com/blog1729/blog1729.github.io/blob/source/.gitignore">Here</a> is what my .gitignore looks like.</p></li>
+<p><a href="https://github.com/blog1729/blog1729.github.io/blob/source/.gitignore">Here</a> is what my <code>.gitignore</code> looks like.</p></li>
 <li><p><code>git remote add origin https://github.com/username/username.github.io.git</code></p></li>
-<li><p>Compile site.hs by <code>ghc --make site.hs</code></p></li>
+<li><p>Compile <code>site.hs</code> by <code>ghc --make site.hs</code>.</p></li>
 <li><p><code>git commit --allow-empty -m &quot;dummy&quot;</code>.</p></li>
 <li><p><code>git checkout --orphan source</code>.</p></li>
 <li><p><code>git submodule add https://github.com/username/username.github.io _site</code></p></li>
-<li><p>In order to generate files, you can use <code>./site build</code> but if you have made deletions, then the changes do not propagate to _site folder. So you will have to use <code>./site rebuild</code> which basically removes the _site folder and then starts a fresh build. The problem here is that rebuild will remove all contents of _site folder including the .git file, which messes up things. To combat this problem, I wrote a tiny script <code>clean.sh</code> which you can get <a href="https://github.com/blog1729/blog1729.github.io/blob/source/clean.sh">here</a>. I recommend you download it, keep it in the same directory where <code>site</code> is placed and use the script instead of <code>./site rebuild</code> (you have to run <code>sh clean.sh</code>.)</p>
+<li><p>In order to generate files, you can use <code>./site build</code> but if you have made deletions, then the changes do not propagate to _site folder. So you will have to use <code>./site rebuild</code> which basically removes the _site folder and then starts a fresh build. The problem here is that rebuild will remove all contents of _site folder including the .git file, which messes up things. To combat this problem, I wrote a tiny script <code>clean.sh</code> which you can get <a href="https://github.com/blog1729/blog1729.github.io/blob/source/clean.sh">here</a>. I recommend you download it, keep it in the same directory where <code>site</code> executable is placed and use the script instead of <code>./site rebuild</code> (you have to run <code>sh clean.sh</code>.)</p>
 <p>If, by mistake, the <code>.git</code> file inside <code>_site</code> got removed, you may create a file with the same name having content <code>gitdir: ../.git/modules/_site</code>.</p></li>
 <li><p><code>cd _site</code>, <code>git add --all</code>, <code>git commit -m 'changes'</code>.</p></li>
-<li><p>Push the changes (of _site folder) to github by <code>git push origin master</code>. Similarly, push the changes of the root folder (the source branch) to github by <code>git push origin source</code>.</p></li>
+<li><p>Push the changes (of <code>_site</code> folder) to github by <code>git push origin master</code>. Similarly, push the changes of the root folder (the source branch) to github by <code>git push origin source</code>.</p></li>
 </ol>
-<p>That’s it! Now your blog will be alive at the address <code>username.github.io</code>. Happy Hakyll!</p>
+<p>That’s it. Now your blog will be live at the address <code>username.github.io</code>!</p>
 
         </div>
         <div id="footer">
