@@ -9,5 +9,5 @@ emacs like keybinding.
 
 To do this, add the line `gtk-key-theme-name = "Emacs"` in your gtk configuration file.
 This will partially implement Emacs keybindings in Firefox.
-Apart from that, there is a Firefox extension named [Firefox](https://addons.mozilla.org/en-us/firefox/addon/firemacs/) by which more Emacs keybindings can be made to work.
+Apart from that, there is a Firefox extension named [Firemacs](https://addons.mozilla.org/en-us/firefox/addon/firemacs/) by which more Emacs keybindings can be made to work.
 
