@@ -2,4 +2,4 @@
 title: Contact
 ---
 
-I would not like to be contacted.
+Email me at <span class="reverse">moc.liamg@sisylanafosmlaer</span> (don't copy-paste).
