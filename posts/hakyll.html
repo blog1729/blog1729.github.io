@@ -64,6 +64,20 @@
 </ol>
 <p><strong>Bonus</strong>: In the current setup, once you make the necessary changes, you will have to first commit in <code>_site</code>, push to master, commit and push source. Basically you are repeating yourself. If you want to avoid this, you may you the shell script <a href="https://github.com/blog1729/blog1729.github.io/blog/source/bot">bot</a>. Once you have in in the source directory, then run the command <code>./bot &quot;Your commit message&quot;</code>.</p>
 <p>That’s it. Now your blog will be live at the address <code>username.github.io</code>!</p>
+<h2 id="listings">Listings</h2>
+<p><code>bot</code> script:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> _site
+<span class="kw">git</span> add .
+<span class="kw">git</span> commit -m <span class="st">&quot;</span><span class="ot">$1</span><span class="st">&quot;</span>
+<span class="kw">git</span> push origin master
+<span class="kw">cd</span> ..
+<span class="kw">git</span> add .
+<span class="kw">git</span> commit -m <span class="st">&quot;</span><span class="ot">$1</span><span class="st">&quot;</span>
+<span class="kw">git</span> push origin source</code></pre></div>
+<p><code>clean.sh</code> script:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cp</span> _site/.git /tmp
+<span class="kw">./site</span> rebuild
+<span class="kw">cp</span> /tmp/.git _site/</code></pre></div>
 
         </div>
         <div id="footer">
