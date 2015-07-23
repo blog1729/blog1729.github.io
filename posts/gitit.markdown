@@ -33,7 +33,7 @@ The `gitit.sh` script in `~/.scripts` is listed below:
 
 ```bash
 #!/bin/sh
-(cd /home/harikrishnan/Documents/wiki/ && /home/harikrishnan/.cabal/bin/gitit)
+(cd /home/your-username/Documents/wiki/ && /home/your-username/.cabal/bin/gitit)
 ```
 
 Now you may enable the service by the command `systemctl enable gitit.service`.
