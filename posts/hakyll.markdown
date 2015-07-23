@@ -1,5 +1,6 @@
 ---
 title: Hakyll
+date: 2015-07-18
 ---
 
 Finally I've set up [Hakyll](http://jaspervdj.be/hakyll/)!
@@ -41,5 +42,10 @@ If you want to create a blog using Hakyll and Github pages, here is one way you 
 
 13. Push the changes (of `_site` folder) to github by `git push origin master`.
 	Similarly, push the changes of the root folder (the source branch) to github by `git push origin source`.
+
+**Bonus**: In the current setup, once you make the necessary changes, you will have to first commit in `_site`, push to master, commit and push source.
+Basically you are repeating yourself.
+If you want to avoid this, you may you the shell script [bot](https://github.com/blog1729/blog1729.github.io/blog/source/bot).
+Once you have in in the source directory, then run the command `./bot "Your commit message"`.
 
 That's it. Now your blog will be live at the address `username.github.io`!
