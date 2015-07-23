@@ -49,3 +49,26 @@ If you want to avoid this, you may you the shell script [bot](https://github.com
 Once you have in in the source directory, then run the command `./bot "Your commit message"`.
 
 That's it. Now your blog will be live at the address `username.github.io`!
+
+## Listings
+
+`bot` script:
+
+```bash
+cd _site
+git add .
+git commit -m "$1"
+git push origin master
+cd ..
+git add .
+git commit -m "$1"
+git push origin source
+```
+
+`clean.sh` script:
+
+```bash
+cp _site/.git /tmp
+./site rebuild
+cp /tmp/.git _site/
+```
