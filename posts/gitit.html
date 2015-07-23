@@ -56,7 +56,7 @@ ExecStart=/home/your-username/.scripts/gitit.sh
 WantedBy=multi-user.target</code></pre>
 <p>The <code>gitit.sh</code> script in <code>~/.scripts</code> is listed below:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/sh</span>
-<span class="kw">(cd</span> /home/harikrishnan/Documents/wiki/ <span class="kw">&amp;&amp;</span> <span class="kw">/home/harikrishnan/.cabal/bin/gitit)</span></code></pre></div>
+<span class="kw">(cd</span> /home/your-username/Documents/wiki/ <span class="kw">&amp;&amp;</span> <span class="kw">/home/your-username/.cabal/bin/gitit)</span></code></pre></div>
 <p>Now you may enable the service by the command <code>systemctl enable gitit.service</code>.</p>
 
         </div>
