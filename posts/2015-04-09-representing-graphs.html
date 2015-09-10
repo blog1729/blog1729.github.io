@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Representing Graphs</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Representing Graphs</h1>
+
+            <div class="info">
+    Posted on April  9, 2015
+    
+</div>
+
+<ul>
+<li>Graphs can be represented mainly represented in two different ways,</li>
+<li><strong>Adjacency list</strong> representation of a graph <span class="math inline">\(G = (V, E)\)</span> consists of array <code>Adj</code> of <span class="math inline">\(\vert V \vert\)</span> lists, one for each vertex in <span class="math inline">\(V\)</span>. For each <span class="math inline">\(u\in V\)</span>, the adjacency list <span class="math inline">\(Adj[u]\)</span> consists of all vertices <span class="math inline">\(v\)</span> such that there is an edge <span class="math inline">\((u,v)\in E\)</span>.</li>
+<li><strong>Adjacency matrix</strong> representation of a graph <span class="math inline">\(G = (V, E)\)</span> is where we represent the graph as a matrix that is defined as follows</li>
+</ul>
+<p><span class="math display">\[a_{ij} = \left\{ \begin{array}{c c} 1 &amp; \text{if } (i,j) \in E \\ 0 &amp; \text{otherwise} \end{array} \right.\]</span></p>
+<h3 id="space-complexity-of-representation">Space complexity of representation</h3>
+<ul>
+<li>The adjacency matrix requires <span class="math inline">\(\Theta(V^2)\)</span> memory while adjacency list requires <span class="math inline">\(\Theta(V+E)\)</span>.</li>
+<li>The adjacency list is usually preferred when the graph is sparse, i.e., when <span class="math inline">\(V+E\)</span> is very less than <span class="math inline">\(V^2\)</span> and vice-versa.</li>
+</ul>
+<h2 id="algorithm-for-finding-universal-sink">Algorithm for finding universal sink</h2>
+<p>A <strong>universal sink</strong> in a directed graph without any loops or multiple edges is a vertex with in-degree <span class="math inline">\(\vert V\vert-1\)</span> and an out-degree <span class="math inline">\(0\)</span>. The problem is to find if there is a universal sink in a given graph, provided it’s representation in adjacency-matrix form. There exists algorithm that can solve this in a time complexity of <span class="math inline">\(\mathcal O(\vert V\vert)\)</span>.</p>
+<p>The following bullets summarize the algorithm, suppose <span class="math inline">\(A\)</span> be the graph in adjacency matrix representation, then:</p>
+<ol style="list-style-type: decimal">
+<li>Start at <span class="math inline">\(A[1,1]\)</span></li>
+<li>Let the current position be <span class="math inline">\(A[i, j]\)</span></li>
+<li>If <span class="math inline">\(A[i,j]\)</span> is <span class="math inline">\(0\)</span>, then the next position is <span class="math inline">\(A[i, j+1]\)</span></li>
+<li>If not, then the next position is <span class="math inline">\(A[i+1, j]\)</span></li>
+<li>If either ends have not been reached, go back to step 2.</li>
+<li>If the end if reached, and let the column number of the current position be <span class="math inline">\(i\)</span>, then start from <span class="math inline">\(A[i,1]\)</span> and scan till <span class="math inline">\(A[i,N]\)</span>, if at least one of them is <span class="math inline">\(1\)</span>, then the graph does not contain a universal sink and if all of them are zeros, then the graph will contain a universal sink.</li>
+</ol>
+<h3 id="correctness">Correctness</h3>
+<p>The correctness of the algorithm is easy and can be easily constructed find out the following two observations, let us assume that <span class="math inline">\(i\)</span> is the label of the universal sink (and it exists):</p>
+<ul>
+<li>The <span class="math inline">\(i\)</span>th row of the adjacency-matrix will contain only zeros.</li>
+<li>The <span class="math inline">\(i\)</span>th column of all other rows except <span class="math inline">\(i\)</span>th row will contain only ones.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

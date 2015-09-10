@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Algorithm for finding closest pair of points</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Algorithm for finding closest pair of points</h1>
+
+            <div class="info">
+    Posted on March  4, 2015
+    
+</div>
+
+<h2 id="dimensional-case">1 Dimensional case</h2>
+<p>In a 1 dimensional case, the algorithm is easy. One can sort <span class="math inline">\(n\)</span> points in <span class="math inline">\(\Theta(n\lg n)\)</span> time and then spend linear time to find the minimum distance between adjacent points. But this becomes tricky in 2 dimensional case.</p>
+<h2 id="dimensional-case-1">2 Dimensional case</h2>
+<p>The distance between two points <span class="math inline">\((x_1, y_1)\)</span> and <span class="math inline">\((x_2, y_2)\)</span> is given by</p>
+<p><span class="math display">\[ \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2} \]</span></p>
+<p>Here there is a brute force algorithm that runs in <span class="math inline">\(\Theta(n^2)\)</span>. But we can use the divide and conquer design paradigm to devise an algorithm that runs in <span class="math inline">\(\Theta(n\lg n)\)</span>.</p>
+<h3 id="method">Method</h3>
+<p>We have input, a 2 set <span class="math inline">\(P\)</span> of 2-dimensional points. We sort the points according to the <span class="math inline">\(x\)</span> coordinate and save it in array <span class="math inline">\(X\)</span>, similarly sort the points according to the <span class="math inline">\(Y\)</span> coordinate and save it in the array <span class="math inline">\(Y\)</span>. Consider this as a pre-processing step which is going to take <span class="math inline">\(\mathcal O(n\lg n)\)</span> time.</p>
+<p>As usual, we need to split the problem into two sub-problems, solve the sub-problem and <em>somehow</em> use the solutions of the two sub-problems to arrive at the solution. Here the recursion ends when the number of elements in <span class="math inline">\(P\)</span> is less than or equal to <span class="math inline">\(3\)</span> (in this case use Brute-force method to sort).</p>
+<p><strong>Divide</strong>: Divide points of <span class="math inline">\(P\)</span> into almost two. In order to do this, find the median of the sorted array <span class="math inline">\(X\)</span> and <span class="math inline">\(P_l\)</span> shall consists of points whose <span class="math inline">\(x\)</span> coordinate lies in the left side of median, similarly <span class="math inline">\(P_r\)</span> be points whose <span class="math inline">\(x\)</span> coordinate lies in the right side of the median.</p>
+<p>Given the split of <span class="math inline">\(P\)</span> into <span class="math inline">\(P_l\)</span> and <span class="math inline">\(P_r\)</span>, it is easy to split <span class="math inline">\(X\)</span> into <span class="math inline">\(X_l\)</span> and <span class="math inline">\(X_r\)</span> (actually nothing to do). We also want to split the points of <span class="math inline">\(Y\)</span> into two, <span class="math inline">\(Y_l\)</span> and <span class="math inline">\(Y_r\)</span>. We use the fact that <span class="math inline">\(Y\)</span> is a sorted according to <span class="math inline">\(y\)</span> co-ordinate to devise a linear time algorithm.</p>
+<p><strong>Algorithm</strong></p>
+<p>{% gist 0dd5080962e82547175d %}</p>
+<p><strong>Conquer</strong> Having divided <span class="math inline">\(P\)</span> into <span class="math inline">\(P_l\)</span> and <span class="math inline">\(P_r\)</span>, we make two recursive calls, one to find the closest pair of points of <span class="math inline">\(P_l\)</span> and another one to find the closest pair of points in <span class="math inline">\(P_r\)</span>. The inputs to the first call are the subset <span class="math inline">\(P_l\)</span> and arrays <span class="math inline">\(X_l\)</span> and <span class="math inline">\(Y_l\)</span>; the second call inputs <span class="math inline">\(P_r, X_r,\)</span> and <span class="math inline">\(Y_r\)</span>. Let the closest-pair distances for <span class="math inline">\(P_l\)</span>, returned for <span class="math inline">\(P_l\)</span> and <span class="math inline">\(P_r\)</span> be <span class="math inline">\(\delta_l, \delta_r\)</span> respectively, and let <span class="math inline">\(\delta = \min \{ \delta_l, \delta_r\}\)</span>.</p>
+<p><strong>Combine</strong> We see that the closest pair is either the pair returned by the left recursive call or the right recursive call or a pair of points in which one lies on the left side of the line and the other on the right side. We shall devise a linear time algorithm to find the minimum distance point satisfying this criteria.</p>
+<p>Observe that the pair must be at a maximum distance of <span class="math inline">\(\delta\)</span> units from the vertical line.</p>
+<ul>
+<li><p>Create an array <span class="math inline">\(Y'\)</span>, which is array <span class="math inline">\(Y\)</span> with all points not in <span class="math inline">\(2\delta\)</span>-wide vertical strip removed. The array should be sorted according to the <span class="math inline">\(y\)</span>-coordinate, just as <span class="math inline">\(Y\)</span> is. One can devise a linear time algorithm to do this step–remove element if the <span class="math inline">\(x\)</span> coordinate is at a distance more than <span class="math inline">\(\delta\)</span> from the median line.</p></li>
+<li><p>For each point <span class="math inline">\(p\)</span> in the array <span class="math inline">\(Y'\)</span>, try to find points in <span class="math inline">\(Y'\)</span> that are within <span class="math inline">\(\delta\)</span> units of <span class="math inline">\(p\)</span>. We claim that one can achieve a linear time algorithm to do this step; only the <span class="math inline">\(7\)</span> points that follow <span class="math inline">\(p\)</span> need to be considered and keep track of the closest-pair distance <span class="math inline">\(\delta'\)</span> found over all pairs of points in <span class="math inline">\(Y'\)</span>.</p></li>
+</ul>
+<p>The mystery associated with the number <span class="math inline">\(7\)</span> can be easily proved. Imagine a <span class="math inline">\(2\delta \times \delta\)</span> rectangle inside the <span class="math inline">\(2\delta\)</span> strip with point <span class="math inline">\(p\)</span> at bottom edge of the rectangle. Divide it into <span class="math inline">\(8\)</span> equal squares of dimension <span class="math inline">\(\delta/2\)</span>. Firstly, one can immediately see that each square can contain at most one point. Secondly, apply pigeonhole principle. So this rectangle contains at most <span class="math inline">\(8\)</span> points. Excluding <span class="math inline">\(p\)</span>, there can be a total of <span class="math inline">\(7\)</span> points and as <span class="math inline">\(Y'\)</span> is sorted according to the <span class="math inline">\(y\)</span>-coordinate, we are golden.</p>
+<ul>
+<li>If <span class="math inline">\(\delta'&lt;\delta\)</span>, then the vertical strip does indeed contain a closer pair than the recursive calls. Return this pair and the distance <span class="math inline">\(\delta'\)</span>. Otherwise return the closest pair found by recursion and the distance <span class="math inline">\(\delta\)</span>.</li>
+</ul>
+<h2 id="time-complexity">Time complexity</h2>
+<p>If running time is <span class="math inline">\(T(n)\)</span>, we see that</p>
+<p><span class="math display">\[ T(n) = 2T(n/2) + \mathcal O(n)\]</span></p>
+<p>and therefore <span class="math inline">\(T(n) = \mathcal O(n\lg n)\)</span>.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

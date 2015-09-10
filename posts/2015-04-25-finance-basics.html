@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Finance Basics</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Finance Basics</h1>
+
+            <div class="info">
+    Posted on April 25, 2015
+    
+</div>
+
+<ul>
+<li>The rate of return <span class="math inline">\(K_s = \frac{S(1) - S(0)}{S(0)}\)</span>. Similarly, the return on an investment commencing at time <span class="math inline">\(s\)</span> and terminating at time <span class="math inline">\(t\)</span> is given by <span class="math inline">\(K(s,t) = \frac{V(t) - V(s)}{V(s)}\)</span>.</li>
+<li>Basic assumptions</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>The future stock price <span class="math inline">\(S(1)\)</span> is a random variable with at least two different values.</li>
+<li>The future stock price of a risk-free security is a known number.</li>
+<li>The prices of a stock price will always be positive.</li>
+<li>The investor may hold any number <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> of stock shares and bonds, whether integer of fractional, negative, positive or zero.</li>
+<li>The wealth of the investor should be non-negative at all time.</li>
+<li>The future price <span class="math inline">\(S(1)\)</span> of a stock is a random variable that taking only finitely many values.</li>
+<li>No-Arbitrage principle: The payoff for a non-risky asset cannot be always positive. In other words, there “free-lunches” does not exist.</li>
+</ol>
+<h2 id="risk-free-assets">Risk-free assets</h2>
+<ul>
+<li>In case of <em>simple interest rate</em>, the interest rate is equal to the return over one year, i.e., <span class="math inline">\(K(0,1) = r\)</span>.</li>
+<li>In case of periodic compounding, <span class="math inline">\(V(t) = \left(1 + \frac{r}{m}\right)^{tm}P\)</span>.</li>
+<li>The future value of <span class="math inline">\(V(t)\)</span> increases, if any one of the parameters <span class="math inline">\(m\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(t\)</span> or <span class="math inline">\(P\)</span> increases, while the others are kept unchanged.</li>
+<li><span class="math inline">\(V(0) = V(t)\left(1 + \frac{r}{m}\right)^{-tm}\)</span>.</li>
+<li>The factor in the right by which <span class="math inline">\(V(t)\)</span> is multiplied is known as the discount factor.</li>
+<li><em>Annuity</em> is a sequence of finitely many payments of a fixed amount due at equal time intervals.</li>
+<li>Suppose the fixed amount of payments be <span class="math inline">\(C\)</span> and the term be <span class="math inline">\(n\)</span> years, the interest rate for annual compounding be <span class="math inline">\(r\)</span>, then <span class="math inline">\(PA(r,n) = \frac{1}{1+r} + \cdots + \frac{1}{(1+r)^n}\)</span>.</li>
+<li>The continuous compounding is a case in which <span class="math inline">\(V(t) = V(0)e^{rt}\)</span>.</li>
+<li>The logarithmic return is defined by <span class="math inline">\(k(s,t) = \ln \frac{V(t)}{V(s)}\)</span>.</li>
+<li>The logarithmic return is additive.</li>
+</ul>
+<h2 id="money-market">Money market</h2>
+<ul>
+<li>A <em>bond</em> is a financial security promising the holder a sequence of guaranteed future payments. Bonds are risk-free, meaning that the payments are guaranteed.</li>
+<li><strong>Zero coupon bonds</strong>: This involves a single payment, a payment of amount <span class="math inline">\(F\)</span>, called the <em>face value</em>, at time <span class="math inline">\(T\)</span>.</li>
+<li>The present value of the bond with corresponding annual compounding rate <span class="math inline">\(r\)</span> is givey by <span class="math inline">\(V(0) = F(1+r)^{-1}\)</span>.</li>
+<li>The price of a bond at time <span class="math inline">\(t\)</span> is denoted by <span class="math inline">\(B(t,T)\)</span>. Thus, the price of the bond at <span class="math inline">\(0\)</span> is given by <span class="math inline">\(B(0, T)\)</span>.
+<ul>
+<li>For periodic compounding with frequency <span class="math inline">\(m\)</span>, <span class="math inline">\(B(t, T) = \left( 1+ \frac{r}{m}\right)^{-m(T-t)}\)</span>.</li>
+<li>For continuous compounding <span class="math inline">\(B(t, T) = \exp{(-r(T-t))}\)</span>.</li>
+</ul></li>
+<li><strong>Coupon bonds</strong>: Bonds promising a sequence of payments are called <em>coupon bonds</em>. These payments consist of the face value due at maturity, and coupons paid regularly, typically annually, semi-annually, or quarterly, the last coupon due at maturity.</li>
+<li>The coupon can be expressed as a fraction of the face value. <em>Assuming that the coupons are paid annually</em>, we shall write <span class="math inline">\(C = iF\)</span>, where <span class="math inline">\(i\)</span> is the coupon rate.</li>
+<li>Whenever coupons are paid annually, the coupon rate is equal to the interest rate for the annual compounding if and only if the price of the bond id equal to its face value. In this case we say that the bond sells <em>at par</em>.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Options General Properties</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Options General Properties</h1>
+
+            <div class="info">
+    Posted on March 22, 2015
+    
+</div>
+
+<h2 id="definitions">Definitions</h2>
+<ul>
+<li><p><strong>European call option</strong> is a contract giving the holder the right to <strong>buy an asset</strong>, called the underlying, for a price <span class="math inline">\(X\)</span> fixed in advance, known as <em>exercise price</em> or <em>strike price</em>, at a specified time <span class="math inline">\(T\)</span>, called the <em>exericse</em> or <em>expiry</em> time. Similalry, a <em>European put</em> option gives the right to sell the underlying asset for the strike price <span class="math inline">\(X\)</span> at the exercise time <span class="math inline">\(T\)</span>.</p></li>
+<li><p><strong>American call option</strong> or put option gives the right to buy or, respectively, to sell the underlying asset <span class="math inline">\(X\)</span> for the strike price <span class="math inline">\(X\)</span> at any time between now and a specified future time <span class="math inline">\(T\)</span>, called the <em>expiry time</em>.</p></li>
+<li><p><strong>Underlying asset</strong>: Apart from the typical assets such as stocks, commodities, or foreign currency, there are options on stock indices, interest rates, or even the snow level at a ski resort. Some underlying asset may be impossible to buy or sell.</p></li>
+<li><p>The <strong>payoff</strong> of a European call is given by <span class="math inline">\((S(T)-X)^{+}\)</span>, where we use the notation <span class="math display">\[x^{+} = \left\{ \begin{array}{cl} x&amp; \text{if } x&gt;0 \\ 0 &amp; \text{otherwise.} \end{array} \right.\]</span> For a put option, the payoff is given by <span class="math inline">\((X-S(T))^{+}\)</span>.</p></li>
+<li><p>Since the investor will not lose money under any circumstance, a <em>premium</em> has to be paid to enter into an option. The prices of the calls and puts will be denoted by <span class="math inline">\(C_E\)</span> and <span class="math inline">\(P_E\)</span> (for European options) and <span class="math inline">\(C_A\)</span>, <span class="math inline">\(P_A\)</span> (for American options).</p></li>
+<li><p>The gain of an option buyer at time <span class="math inline">\(T\)</span> is given by (for a European call)</p></li>
+</ul>
+<p><span class="math display">\[ (S(T) - X)^{+} - C_{E}e^{rT}\]</span></p>
+<h2 id="put-call-parity">Put-call parity</h2>
+<blockquote>
+<p><strong>Theorem</strong> For a stock that pays no dividends the following relation holds between the prices of European calls and put options, both with exercise price <span class="math inline">\(X\)</span> and exercise time <span class="math inline">\(T\)</span>:</p>
+<p><span class="math display">\[ C_E - P_E = S(0) - Xe^{-rT} \]</span></p>
+</blockquote>
+<p>The above result can easily be shown using the no-arbitrage principle. By making an equivalence with the forward contracts, we can prove the following results:</p>
+<ul>
+<li>If the stock pays a dividend of <span class="math inline">\(d_0\)</span> (<span class="math inline">\(d_0\)</span> is the present value of dividend, i.e., if a dividend is paid at time <span class="math inline">\(t\)</span>, then <span class="math inline">\(d_0 = de^{-rt}\)</span>) in between <span class="math inline">\(0\)</span> and <span class="math inline">\(T\)</span>, then the put-call parity relation is given by</li>
+</ul>
+<p><span class="math display">\[ C_E - P_E = S(0) - d_0 - Xe^{-rT} \]</span></p>
+<ul>
+<li>If the dividends are paid continuously, at a rate <span class="math inline">\(r_d\)</span>, then</li>
+</ul>
+<p><span class="math display">\[ C_E - P_E = S(0)e^{-r_dT} - Xe^{-rT} .\]</span></p>
+<blockquote>
+<p><strong>Theorem</strong> The prices of Americal put and call options with the same strike price <span class="math inline">\(X\)</span> and expiry time <span class="math inline">\(T\)</span> on a stock that pays no dividends satisfy</p>
+<p><span class="math display">\[ S(0) - Xe^{-rT} \ge C_A - P_A \ge S(0) - X \]</span></p>
+</blockquote>
+<ul>
+<li>For a stock that pays a dividend <span class="math inline">\(d_0\)</span> (the present value of dividend), then then the prices of American call and put satisfies <span class="math inline">\(S(0) - Xe^{-rT} \ge C_A - P_A \ge S(0) - d_0 - X\)</span>.</li>
+<li>For a stock that pays dividends continuously, <span class="math inline">\(S(0)- Xe^{-rT} \ge C_A - P_A \ge S(0)e^{-r_dT} - X\)</span>, where <span class="math inline">\(r_d\)</span> is the rate at which dividends are paid.</li>
+</ul>
+<h2 id="bounds-on-option-prices">Bounds on option prices</h2>
+<p>The following inequalities are obvious:</p>
+<p><span class="math display">\[ C_E \le C_A, \qquad P_E \le P_A \]</span></p>
+<p>One can also prove the following ones</p>
+<p><span class="math display">\[ \begin{align*}
+C_E &amp;&lt; S(0) \\
+S(0) - Xe^{-rT} &amp;\le C_E \\
+P_E &amp;&lt; Xe^{-rT} \\
+-S(0)+Xe^{-rT} &amp; \le P_E
+\end{align*}\]</span></p>
+<p>For dividend paying stocks, the bounds are</p>
+<p><span class="math display">\[ \begin{align*}
+\max\{0, S(0) - d_0 - Xe^{-rT}\} &amp;\le C_E \le S(0) - d_0 \\
+\max\{0, -S(0)+d_0+Xe^{-rT}\} &amp;\le P_E &lt; Xe^{-rT} \\
+\end{align*}\]</span></p>
+<h3 id="european-and-american-calls-on-non-dividend-paying-stock">European and American calls on Non-dividend paying stock</h3>
+<p><em>The prices of American and European call options on a stock that pays no dividends are equal</em>, i.e., <span class="math inline">\(C_A = C_E\)</span>, whenever the strike price <span class="math inline">\(X\)</span> and the expiry time <span class="math inline">\(T\)</span> are same for both the options.</p>
+<h3 id="american-options">American options</h3>
+<p>One can easily show the following inequalities for American options that pays no dividends.</p>
+<p><span class="math display">\[ \begin{align}
+(S(0)- Xe^{-rT})^{+} &amp;\le C_A \le S(0) \\
+(-S(0)+X)^{+} &amp;\le P_A \le X \\
+\end{align}\]</span></p>
+<h4 id="american-options-that-pays-dividends">American options that pays dividends</h4>
+<p>The prices of American put and call options on a stock that pays no dividends satisfy the inequalities</p>
+<p><span class="math display">\[
+\begin{align}
+\max \{ 0, S(0) - d_0-Xe^{-rT}, S(0)-X \} &amp;\le C_A &lt; S(0)\\
+\max \{0, -S(0) + d_0 + Xe^{-rT}, -S(0) + X \} &amp;\le P_A &lt; X \\
+\end{align} \]</span></p>
+<h2 id="variables-that-determine-option-prices">Variables that determine option prices</h2>
+<p>Here we shall analyze change of one variable keeping the other variables fixed.</p>
+<h2 id="european-options">European options</h2>
+<h3 id="strike-price-x">Strike price <span class="math inline">\(X\)</span></h3>
+<ul>
+<li>The function <span class="math inline">\(C_E(X)\)</span> is a decreasing and <span class="math inline">\(P_E(X)\)</span> is an increasing.</li>
+<li><p><span class="math inline">\(C_E(X)\)</span> and <span class="math inline">\(P_E(X)\)</span> are Lipschitz with Lipschitz constant <span class="math inline">\(e^{-rT}\)</span>. The following is true provided <span class="math inline">\(X' \le X''\)</span>:</p>
+<span class="math display">\[\begin{align} C_E(X') - C_E(X'') \le e^{-rT}(X''-X')\\
+  P_E(X') - P_E(X'') \le e^{-rT}(X''-X') \end{align}\]</span></li>
+<li><p><span class="math inline">\(C_E(X)\)</span> and <span class="math inline">\(P_E(X)\)</span> are convex functions on <span class="math inline">\(X\)</span>.</p></li>
+</ul>
+<h3 id="asset-price-s">Asset price <span class="math inline">\(S\)</span></h3>
+<p>Here we consider the asset as a portfolio and make conclusions:</p>
+<ul>
+<li>Functions <span class="math inline">\(C_E(S)\)</span> and <span class="math inline">\(P_E(S)\)</span> are increasing and decreasing, respectively.</li>
+<li>Suppose that <span class="math inline">\(S' \le S''\)</span>, then</li>
+</ul>
+<p><span class="math display">\[ \begin{align}
+C_E(S'') - C_E(S') &amp;\le S'' - S' \\
+P_E(S') - P_E(S') &amp; \le S'' - S'
+\end{align}
+\]</span></p>
+<ul>
+<li>Thus <span class="math inline">\(C_E(S)\)</span> and <span class="math inline">\(P_E(S)\)</span> are Lipschitz functions with a Lipschitz constant <span class="math inline">\(1\)</span>.</li>
+<li>The functions <span class="math inline">\(C_E(S)\)</span> and <span class="math inline">\(P_E(S)\)</span> are convex functions on <span class="math inline">\(S\)</span>.</li>
+</ul>
+<h2 id="american-options-1">American options</h2>
+<p>The relations of American options are more or less similar to that of European ones.</p>
+<h3 id="strike-price-x-1">Strike price <span class="math inline">\(X\)</span></h3>
+<ul>
+<li><span class="math inline">\(C_A(X)\)</span> and <span class="math inline">\(P_A(X)\)</span> are decreasing and increasing functions respectively.</li>
+<li>Suppose <span class="math inline">\(X' &lt; X''\)</span>. Then</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+C_A(X') - C_A(X'') \le X'' - X'\\
+P_A(X'') - P_A(X') \le X'' - X'
+\end{align}\]</span></p>
+<ul>
+<li>Thus the functions <span class="math inline">\(C_A(X)\)</span> and <span class="math inline">\(P_A(X)\)</span> are Lipschitz, with a Lipschitz constant <span class="math inline">\(1\)</span>.</li>
+<li>The functions <span class="math inline">\(C_A(X)\)</span> and <span class="math inline">\(P_A(X)\)</span> are convex functions on <span class="math inline">\(X\)</span>.</li>
+</ul>
+<h3 id="asset-price-s-1">Asset price <span class="math inline">\(S\)</span></h3>
+<ul>
+<li><span class="math inline">\(C_A(S)\)</span> and <span class="math inline">\(P_A(S)\)</span> are increasing and decreasing functions respectively.</li>
+<li>Suppose <span class="math inline">\(S' &lt; S''\)</span> then</li>
+</ul>
+<p><span class="math display">\[ C_A(S'')- C_A(S') \le S'' - S' \\
+P_A(S') - P_A(S) \le S'' - S'\]</span></p>
+<ul>
+<li>The functions <span class="math inline">\(C_A(S)\)</span> and <span class="math inline">\(P_A(S)\)</span> are Lipschitz with a Lipschitz constant <span class="math inline">\(1\)</span>.</li>
+<li>The functions <span class="math inline">\(C_A(S)\)</span> and <span class="math inline">\(P_A(S)\)</span> are convex.</li>
+</ul>
+<h3 id="dependence-on-expiry-time-t">Dependence on expiry time <span class="math inline">\(T\)</span></h3>
+<ul>
+<li>If <span class="math inline">\(T'&lt; T''\)</span>, then</li>
+</ul>
+<p><span class="math display">\[ \begin{align}
+C_A(T') &amp;\le C_A(T''), \\
+P_A(T') &amp;\le P_A(T'')
+\end{align}\]</span></p>
+<h2 id="time-value-of-options">Time value of options</h2>
+<p>We use the following terminology. We say that at time <span class="math inline">\(t\)</span> a call option with strike price <span class="math inline">\(X\)</span> is</p>
+<ul>
+<li><em>in the money</em> if <span class="math inline">\(S(t)&gt; X\)</span></li>
+<li><em>at the money</em> if <span class="math inline">\(S(t)=X\)</span></li>
+<li><em>out of the money</em> if <span class="math inline">\(S(t)&lt;X\)</span>.</li>
+</ul>
+<p>Similarly, we say that a put is:</p>
+<ul>
+<li><em>in the money</em> if <span class="math inline">\(S(t)&lt;X\)</span></li>
+<li><em>at the money</em> if <span class="math inline">\(S(t)= X\)</span>,</li>
+<li><em>out of the money</em> if <span class="math inline">\(S(t)&gt;X\)</span>.</li>
+</ul>
+<p>The terms <em>deep in the money</em> and <em>deep out of the money</em> is used to say that the difference in the level is very high.</p>
+<p><strong>Intrinsic value</strong>: At time <span class="math inline">\(t\le T\)</span>, the intrinsic value of a call option with strike price <span class="math inline">\(X\)</span> is equal to <span class="math inline">\((S(t)-X)^{+}\)</span>. The intrinsic value of a put option with the same strike price is <span class="math inline">\((X-S(t))^{+}\)</span>.</p>
+<p><strong>Time value</strong>: The time value of an option is the difference between the price of the option and its intrinsic value.</p>
+<p><strong>Proposition</strong>: For any European or American call or put option with strike price <span class="math inline">\(X\)</span>, the time value attains its maximum at <span class="math inline">\(S=X\)</span>.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

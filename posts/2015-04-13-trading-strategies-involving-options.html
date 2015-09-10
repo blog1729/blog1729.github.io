@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Trading Strategies Involving options</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Trading Strategies Involving options</h1>
+
+            <div class="info">
+    Posted on April 13, 2015
+    
+</div>
+
+<ul>
+<li>If a portfolio consists of a long position in a stock plus a short position in a call option, then this is known as <strong>writing a covered call</strong>. The long stock position <em>covers</em> or protects the investor from payoff on the short call that becomes necessary if there is a sharp rise in the stock price.</li>
+<li>A <strong>spread</strong> trading strategy involves taking a position in two or more options of the same type (i.e., two or more calls or two or more puts).</li>
+</ul>
+<h2 id="bull-spreads">Bull Spreads</h2>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Bull_spread_using_calls.png/300px-Bull_spread_using_calls.png" alt="Image courtesy: https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Bull_spread_using_calls.png/300px-Bull_spread_using_calls.png" />
+<p class="caption">Image courtesy: https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Bull_spread_using_calls.png/300px-Bull_spread_using_calls.png</p>
+</div>
+<p>The above diagram represents what the profit function of a Bull spread looks like.</p>
+<ul>
+<li>One can construct a bull spread using Call options.</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Long a call option with strike price <span class="math inline">\(K_2\)</span>,</li>
+<li>Short a call option with strike price <span class="math inline">\(K1 &lt; K_2\)</span>. (<em>Note</em>: Since <span class="math inline">\(K_1&lt;K_2\)</span>, <span class="math inline">\(C_E(K_1)&gt;C_E(K_2)\)</span>.</li>
+</ol>
+<ul>
+<li>The Bull spread strategy limits the investors upside as well as downside risk.</li>
+<li>One can also construct the bull spread using two put options in a similar way.</li>
+<li>An investor who enters into a bull spread is hoping that the stock price will increase.</li>
+</ul>
+<h2 id="bear-spreads">Bear Spreads</h2>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Bear_spread_using_puts.png" alt="Image courtesy: https://upload.wikimedia.org/wikipedia/commons/0/0f/Bear_spread_using_puts.png" />
+<p class="caption">Image courtesy: https://upload.wikimedia.org/wikipedia/commons/0/0f/Bear_spread_using_puts.png</p>
+</div>
+<p>The above diagram represents the profit function of a Bear spread.</p>
+<ul>
+<li>An investor who enters into a bear spread is hoping that the stock price will decrease.</li>
+<li>One can construct a bear spread using two put options</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Long a put option with strike price <span class="math inline">\(K_2\)</span></li>
+<li>Short a call option with strike price <span class="math inline">\(K_1&lt;K_2\)</span>. (<em>Note</em>: Since <span class="math inline">\(K_2&lt;K_2\)</span>, <span class="math inline">\(P_E(K_1)&lt;P_E(K_2)\)</span>)</li>
+</ol>
+<h2 id="box-spread">Box spread</h2>
+<ul>
+<li>Box spread is a combination of bull call spread with strike price <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span> and bear call spread with the same strike prices. The payoff of a box spread is always going to be <span class="math inline">\(K_2 - K_1\)</span>.</li>
+</ul>
+<h2 id="butterfly-spreads">Butterfly spreads</h2>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Butterfly_spread_with_calls.png/400px-Butterfly_spread_with_calls.png" alt="Image courtesy: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Butterfly_spread_with_calls.png/400px-Butterfly_spread_with_calls.png" />
+<p class="caption">Image courtesy: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Butterfly_spread_with_calls.png/400px-Butterfly_spread_with_calls.png</p>
+</div>
+<p>The above diagram represents the profit function in a Butterfly spread.</p>
+<ul>
+<li>A <strong>butterfly spread</strong> involves positions of options in three different strike prices.</li>
+<li>The butterfly spread can be modelled with the help of following strategy</li>
+<li>A long call option at strike price <span class="math inline">\(K_1\)</span></li>
+<li>Two short call option at strike price <span class="math inline">\(K_1 &lt; K_2\)</span></li>
+<li>A long call option at strike price <span class="math inline">\(K_3\)</span> (Note: Since <span class="math inline">\(K_1 &lt; K_2 &lt; K_3\)</span>, <span class="math inline">\(C_E(K_1)&gt;C_E(K_2)&gt;C_E(K_3)\)</span>, also one may choose <span class="math inline">\(K_2 = (K_1+K_3)/2\)</span>)</li>
+<li>The butterfly spread is usually used when the investor thinks that the stock price is going to be relatively stable.</li>
+</ul>
+<p><strong>Note</strong>: Using the put call parity, one can easily convert spreads modelled via calls into puts and vice-versa.</p>
+<p><strong>References</strong>. Chapter 10, Trading strategies involving options, Options futures and other derivatives 7ed; John C. Hull.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

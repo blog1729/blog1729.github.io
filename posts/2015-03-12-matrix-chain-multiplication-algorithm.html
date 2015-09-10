@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Algorithm for Matrix chain multiplication</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Algorithm for Matrix chain multiplication</h1>
+
+            <div class="info">
+    Posted on March 12, 2015
+    
+</div>
+
+<p>This is a nice application of <em>dynamic programming</em>. Suppose, we are given a sequence (chain) <span class="math inline">\(\langle A_1, \cdots, A_n \rangle\)</span> of <span class="math inline">\(n\)</span> matrices to be multiplied and we wish to compute the product</p>
+<p><span class="math display">\[ A_1A_2\cdots A_n\]</span></p>
+<p>We can evaluate the above matrix by using the standard algorithm which takes time of the order <span class="math inline">\(pqr\)</span> for multiplying matrices of order <span class="math inline">\(A_{p\times q}\)</span> and <span class="math inline">\(B_{q\times r}\)</span>. Since multiplication is associative, i.e., <span class="math inline">\(A(BC) = (AB)C\)</span>. The same thing evaluated in different ways can differ in time. The goal is to minimize the total time at which the algorithm executes.</p>
+<p>We use parenthesis to denote the order in which matrices are multiplied. For example, <span class="math inline">\((AB)(CD)\)</span> and <span class="math inline">\((ABC)D\)</span> denote two ways in which we can parenthesize <span class="math inline">\(ABCD\)</span>. Here <span class="math inline">\(p_{i-1} \times p_{i}\)</span> denotes the order of the matrix <span class="math inline">\(A_i\)</span>.</p>
+<h3 id="counting-the-number-of-parenthesizations">Counting the number of parenthesizations</h3>
+<p>Let <span class="math inline">\(P(n)\)</span> denote the number of ways in which one can parenthesize a <span class="math inline">\(n\)</span> element matrix chain. Clearly <span class="math inline">\(P(1) = 1\)</span> and <span class="math inline">\(P(n)\)</span> follows the following recurrence relation</p>
+<div>
+<span class="math display">\[P(n) = \left\{\begin{array}{cc}1 &amp; n = 1 \\\sum\limits_{k=1}^{n-1} P(k) P(n-k) &amp; n \ge 2\end{array}\right.\]</span>
+</div>
+<p>One can show that <span class="math inline">\(P(n) = \Omega ( 4^n / n^{3/2})\)</span>. But using dynamic programming, we can design an algorithm that does the same in polynomial complexity.</p>
+<h3 id="using-dynamic-programming">Using Dynamic programming</h3>
+Let us denote the matrix chain by <span class="math inline">\(A_1 \cdots A_n\)</span> and <span class="math inline">\(m[i,j]\)</span> denote the minimum number of multiplications that we have to do in order to multiply the matrices <span class="math inline">\(A_i\cdots A_j\)</span>. Clearly <span class="math inline">\(m[i,i] =0'\)</span>. Then <span class="math inline">\(m[i,j]\)</span> follows the following recurrence relation
+<div>
+<span class="math display">\[ m[i,j] =\left\{
+\begin{array}{cc}
+0 &amp; i = j \\
+\min_{i \le k &lt; j}\{ m[i,k] + m[k+1, j] + p_{i-1}p_{k}p_{j}\} &amp; i&lt;j 
+\end{array}
+\right.
+\]</span>
+</div>
+<p>Then <span class="math inline">\(m[1,n]\)</span> gives the cost of the optimal solutions to sub-problems. In order to trace the solution, we use another array <span class="math inline">\(s[i,j]\)</span> where <span class="math inline">\(s[i,j]\)</span> contains that value of <span class="math inline">\(k\)</span> for which the cost was minimum. Now, dynamic programming can be applied in a bottom-up fashion.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>A full parenthesization of an <span class="math inline">\(n\)</span>-element expression has exactly <span class="math inline">\(n-1\)</span> pairs of parenthesis. This can be easily proved by using recursion.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

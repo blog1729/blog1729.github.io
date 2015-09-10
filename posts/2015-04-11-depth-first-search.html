@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Depth first search</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Depth first search</h1>
+
+            <div class="info">
+    Posted on April 11, 2015
+    
+</div>
+
+<ul>
+<li>In Depth-first-search strategy, the algorithm searches deeper in the graph whenever possible.</li>
+<li>Whenever depth-first search discovers a vertex <span class="math inline">\(v\)</span> during a scan of the adjacency list of an already discovered vertex <span class="math inline">\(u\)</span>, it records this event by setting <span class="math inline">\(v\)</span>’s predecessor attribute <span class="math inline">\(v.\pi\)</span> to <span class="math inline">\(u\)</span>.</li>
+<li>We define the <strong>predecessor subgraph</strong> of depth first search as <span class="math inline">\(G_{\pi} = (V, E_{\pi})\)</span>, where <span class="math inline">\(E_\pi = \\{ (v.\pi, v) : v\in V \text{ and } v.\pi \neq \text{NIL} \\}\)</span>. The predecessor subgraphs of a depth first search forms a <strong>depth first forest</strong> comprising of several <strong>dept-first trees</strong>.</li>
+<li>A vertex is first white, then greyed once it is discovered and it’s <em>starting time</em> is noted, further once all it’s neighbouring vertices are visited, it is colored black and the <em>finishing time</em> is noted.</li>
+</ul>
+<h2 id="properties">Properties</h2>
+<ul>
+<li><strong>Parenthesis theorem</strong>: In any depth-first search of a directed or undirected graph <span class="math inline">\(G = (V, E)\)</span>, for any two vertices <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>, any one of the following property is true</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>the intervals <span class="math inline">\([u.d, u.f]\)</span> and <span class="math inline">\([v.d, v.f]\)</span> are disjoint,</li>
+<li>the interval <span class="math inline">\([u.d, u.f]\)</span> is a subset of the interval <span class="math inline">\([v.d, v.f]\)</span>, or</li>
+<li>the interval <span class="math inline">\([v.d, v.f]\)</span> is a subset of the interval <span class="math inline">\([v.d, v.f]\)</span>.</li>
+</ol>
+<ul>
+<li><strong>Nesting of descendants’ intervals</strong>. Vertex <span class="math inline">\(v\)</span> is a proper descendant of the vertex <span class="math inline">\(u\)</span> in any depth-first forest for a directed or undirected graph <span class="math inline">\(G\)</span> if and only if <span class="math inline">\(u.d &lt; v.d &lt; v.f &lt; u.f\)</span>.</li>
+<li><strong>White-path theorem</strong>. In a depth-first forest of a directed or undirected graph <span class="math inline">\(G=(V,E)\)</span>, vertex <span class="math inline">\(v\)</span> is a descendant of vertex <span class="math inline">\(u\)</span> if and only if at time <span class="math inline">\(u.d\)</span> that the search discovers <span class="math inline">\(u\)</span>, there is a path from <span class="math inline">\(u\)</span> to <span class="math inline">\(v\)</span> consisting entirely of white vertices.</li>
+</ul>
+<h2 id="classification-of-edges">Classification of edges</h2>
+<p>We can classify the edges in the graph after doing a BFS search into the following</p>
+<ol style="list-style-type: decimal">
+<li><strong>Tree edges</strong> are edges in the depth-first forest <span class="math inline">\(G_\pi\)</span>. Edge <span class="math inline">\((u,v)\)</span> is a tree edge if <span class="math inline">\(v\)</span> was first discovered by exploring edge <span class="math inline">\((u,v)\)</span>.</li>
+<li><strong>Back edges</strong> are those edges <span class="math inline">\((u,v)\)</span> connecting a vertex <span class="math inline">\(u\)</span> to an ancestor <span class="math inline">\(v\)</span> in an depth-first tree. We consider self-loops to be back-edges.</li>
+<li><strong>Forward edges</strong> are those non-tree edges <span class="math inline">\((u,v)\)</span> connecting a vertex <span class="math inline">\(u\)</span> to a descendant <span class="math inline">\(v\)</span> in a depth-first tree.</li>
+<li><strong>Cross edges</strong> are all other edges.</li>
+</ol>
+<p>In the DFS algorithm, one can show that following proposition, here while at edge <span class="math inline">\(u\)</span>, if we encounter the edge <span class="math inline">\((u,v)\)</span>, using the color of <span class="math inline">\(v\)</span>, we can classify the edge <span class="math inline">\((u,v)\)</span> as follows:</p>
+<ol style="list-style-type: decimal">
+<li>White indicates a tree edge,</li>
+<li>Gray indicates a Back edge,</li>
+<li>Black indicates a cross edge or forward edge.</li>
+</ol>
+<ul>
+<li><strong>Theorem</strong> In a depth-first search of an undirected graph <span class="math inline">\(G\)</span>, every edge of <span class="math inline">\(G\)</span> is either a tree edge or a back edge.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Suppose <span class="math inline">\((u,v)\)</span> is an edge of a graph <span class="math inline">\(G\)</span>, then <span class="math inline">\((u,v)\)</span> is</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>a tree edge or forward edge if and only if <span class="math inline">\(u.d &lt; v.d &lt; v.f &lt; u.f\)</span>,</li>
+<li>a back edge if and only if <span class="math inline">\(v.d \le u.d &lt; u.f \le v.f\)</span>, and</li>
+<li>a cross edge if and only if <span class="math inline">\(v.d &lt; v.f &lt; u.d &lt; u.f\)</span>.</li>
+</ol>
+<ul>
+<li>We can use depth first search to identify the connected components of an undirected graph and that the depth first forests contains as many trees as <span class="math inline">\(G\)</span> has connected components, one can show that the connected components are vertices in each tree that constitute the breadth first forest.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

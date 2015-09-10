@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Option Pricing</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Option Pricing</h1>
+
+            <div class="info">
+    Posted on April  6, 2015
+    
+</div>
+
+<ul>
+<li>We define a random variable of the form <span class="math inline">\(D(T) = f(S(T))\)</span>, where <span class="math inline">\(f\)</span> is a given function called <em>payoff</em> with stock <span class="math inline">\(S\)</span> as underlying asset, as a <em>European derivative security</em> or <em>contingent claim</em>.</li>
+<li>It is possible to replicate any contingent claim <span class="math inline">\(D(T)\)</span> by a replicating strategy, that is, an admissible strategy <span class="math inline">\(x(t), y(t)\)</span> with final value <span class="math inline">\(V(T) = D(T)\)</span>. Then the price <span class="math inline">\(D(0)\)</span> of the contingent claim at time <span class="math inline">\(0\)</span> must be equal to that of the replicating strategy, <span class="math inline">\(V(0) = D(0)\)</span>.</li>
+<li>The above theorem also solves the problem of hedging for an option writer, i.e., if the cash involved in writing the option is invested in the replicating strategy, all the risk associated with writing an option can be eliminated.</li>
+<li></li>
+</ul>
+<h2 id="european-options-in-the-binomial-tree-model">European options in the Binomial tree model</h2>
+<p>Refer to <a href="{%%20post_url%202015-04-02-binomial-model%20%}">Binomial model</a>.</p>
+<h3 id="one-step">One step</h3>
+<ul>
+<li>Recall that <span class="math inline">\(S_u = S(0)(1+u)\)</span> and <span class="math inline">\(S_d = S(0)(1+d)\)</span></li>
+<li>Let <span class="math inline">\(x(1)\)</span> be the amount invested in stock and <span class="math inline">\(y(1)\)</span> be the amount investment with a fixed payoff of <span class="math inline">\(1+r\)</span>, then the replicating portfolio shall satisfy
+<div>
+<p><span class="math display">\[ \left \{ \begin{array}{cc} x(1)S_u + y(1)(1+r) &amp; = f(S_u) \\
+x(1)S_u + y(1)(1+r) &amp; = f(S_d) \\ \end{array}
+\right.\]</span></p>
+</div></li>
+<li>By solving the above equation, one can see that <span class="math inline">\(x(1) = \frac{f(S_u) - f(S_d)}{S_u - S_d}\)</span>, which is the replicating position in the stock, called <strong>delta</strong> of the option. We can also see that the money market position is <span class="math inline">\(y(1) = \frac{(1+u)f(S_d) - (1+d)f(S_u)}{(u-d)(1+r)}\)</span>.</li>
+<li>Thus <span class="math inline">\(D(0) = x(1)S(0) + y(1)\)</span>.</li>
+<li>Recall that the risk-neutral probability is given by <span class="math inline">\(p_{*} = \frac{r-d}{u-d}\)</span>.</li>
+<li><strong>Theorem</strong>: The expectation of the discounted payoff computed with respect to the risk-neutral probability is equal to the present value of the contingent claim, i.e., <span class="math inline">\(D(0) = \frac{1}{1+r}E(f(S(1))\)</span>.</li>
+</ul>
+<h3 id="two-steps">Two steps</h3>
+<ul>
+<li>One can easily extend the model to suit two steps. In this case there are three possibilities, i.e., <span class="math inline">\(S_{uu}\)</span>, <span class="math inline">\(S_{ud}\)</span>, <span class="math inline">\(S_{dd}\)</span>.</li>
+<li>Similarly, we can show that <span class="math inline">\(D(0) = \frac{1}{(1+r)^2} E(f(S(2))\)</span> where the expectation involved the risk-neutral probability.</li>
+</ul>
+<h3 id="general-n-step-model">General <span class="math inline">\(N\)</span>-step model</h3>
+<p>The formula for <span class="math inline">\(D(0)\)</span> in an <span class="math inline">\(n\)</span> step model is</p>
+<p><span class="math display">\[ D(0) = \sum\limits_{k=0}^{N} \binom{N}{k} p^k_{*}(1-p_{*})^{N-k} f(S(0)(1+u)^{k}(1+d)^{N-k})\]</span></p>
+<ul>
+<li><strong>Theorem</strong> The value of a European derivative security with payoff <span class="math inline">\(f(S(N))\)</span> in the <span class="math inline">\(N\)</span>-step binomial model is the expectation of the discounted payoff under the risk-neutral probability: <span class="math inline">\(D(0) = E((1+r)^{-N}f(S(N))\)</span>.</li>
+</ul>
+<h2 id="cox-ross-rubinstein-formula">Cox-Ross-Rubinstein Formula</h2>
+<p>Let the payoff of a call option with strike price <span class="math inline">\(X\)</span> satisfies <span class="math inline">\(f(x) = 0\)</span> for <span class="math inline">\(x \le X\)</span>, which reduces the number of terms in the summation formula given in the previous section. Let <span class="math inline">\(m\)</span> be the smallest non-negative integer such that <span class="math inline">\(S(0)(1+u)^m(1+d)^{N-m}&gt;X\)</span>. Hence <span class="math display">\[C_E(0) = (1+r)^{-N}\sum\limits_{k=m}^{N}\binom{N}{k}p^K_{*}(1-p_{*})^{N-k}\left(S(0)(1+u)^{k}(1+d)^{N-k} - X \right).\]</span></p>
+<p>Further, the expressions of <span class="math inline">\(x(1)\)</span> and <span class="math inline">\(y(1)\)</span> are as follows</p>
+<p><span class="math display">\[ \begin{align}
+x(1) &amp;= \sum\limits_{k=m}^{N}\binom{N}{k}\left(p_{*}\frac{1+u}{1+r}\right)^k \left((1-p_{*})\frac{1+d}{1+r}\right)^{N-k}\\
+y(1) &amp;= -X (1+r)^{-N} \sum\limits_{k=m}^{N}\binom{N}{k} p_*^{k}(1-p_*)^{N-k}
+\end{align}\]</span></p>
+<p>If we define <span class="math inline">\(q = p_{*}\frac{1+u}{1+r}\)</span>, we can simplify the expression of <span class="math inline">\(x(1)\)</span>.</p>
+<ul>
+<li>Let <span class="math inline">\(\Phi(m,N,p)\)</span> denote the cumulative binomial distribution with <span class="math inline">\(N\)</span> trials and probability <span class="math inline">\(p\)</span> of success in each trial, <span class="math inline">\(\Phi(m,N,p) = \sum_{k=0}^{m}\binom{N}{k} p^k(1-p)^{N-k}\)</span>.</li>
+<li><strong>Theorem</strong> the price of European call and put option with strike price <span class="math inline">\(X\)</span> to be exercised after <span class="math inline">\(N\)</span> time steps is given by</li>
+</ul>
+<p><span class="math display">\[ \begin{align}
+C_E(0) &amp;= S(0)[1-\Phi(m-1, N, q)] - (1+r)^{-N}X[1-\Phi(m-1, N, p_{*})] \\
+P_E(0) &amp;= -S(0)\Phi(m-1, N, q) + (1+r)^{-N} X \Phi(m-1, N, p_{*}) \\ \end{align}\]</span></p>
+<ul>
+<li>The initial replicating portfolio <span class="math inline">\(x(1)\)</span> and <span class="math inline">\(y(1)\)</span> is given by:</li>
+</ul>
+<p><span class="math display">\[ \begin{array}{c| c| c}
+&amp; x(1) &amp; y(1) \\ \hline
+\text{for a call} &amp; 1-\Phi(m-1, N, q) &amp; -(1+r)^{-N}X[1-\Phi(m-1, N, p_{*})] \\
+\text{for a put} &amp; -\Phi(m-1, N, q) &amp; (1+r)^{-N}X \Phi(m-1, N,p_{*})
+\end{array}\]</span></p>
+<h3 id="american-options-in-the-binomial-tree-model">American options in the Binomial tree model</h3>
+<hr />
+<h2 id="notes">Notes</h2>
+<ul>
+<li>For <span class="math inline">\(n\)</span> step binomial model, there will be <span class="math inline">\(n+1\)</span> columns in tree model of stock price (including the initial stock price).</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

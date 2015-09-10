@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Topological sort</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Topological sort</h1>
+
+            <div class="info">
+    Posted on April 12, 2015
+    
+</div>
+
+<ul>
+<li>A <strong>topological sort</strong> of a directed acyclic graph (DAG) is a linear ordering of it’s vertices such that if <span class="math inline">\(G\)</span> contains an edge <span class="math inline">\((u,v)\)</span>, then <span class="math inline">\(u\)</span> comes before <span class="math inline">\(v\)</span> in the linear ordering.</li>
+<li>The algorithm is as follows</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Call DFS(G) to compute the finishing time of <span class="math inline">\(v.f\)</span> for each vertex <span class="math inline">\(v\)</span></li>
+<li>As each vertex if finished, insert it to the front of a linked list</li>
+<li>return the linked list</li>
+</ol>
+<ul>
+<li>Basically, the algorithm orders the vertices according to descending order of finishing time.</li>
+<li>The above algorithm takes a time complexity of <span class="math inline">\(\Theta(V+E)\)</span>.</li>
+</ul>
+<h2 id="correctness">Correctness</h2>
+<ul>
+<li><strong>Lemma</strong>. A directed graph <span class="math inline">\(G\)</span> is acyclic if and only if a depth-first search of <span class="math inline">\(G\)</span> yields no back edges. (This can be used in the proof of correctness of the aforementioned algorithm.)</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li><strong>Lemma</strong>. A directed acyclic graph <span class="math inline">\(G\)</span> shall contain at least a sink vertex, i.e., a vertex with out degree <span class="math inline">\(0\)</span>.</li>
+<li>The above property can be used to devise another algorithm that can run in <span class="math inline">\(\mathcal O(V+E)\)</span>.</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Find the sink vertex</li>
+<li>Remove the vertex and nodes associated with the above vertex from the graph to obtain a new graph <span class="math inline">\(G\)</span>.</li>
+<li>recurse on <span class="math inline">\(G\)</span> till <span class="math inline">\(G\)</span> is empty.</li>
+</ol>
+<ul>
+<li>In case of a directed graph <span class="math inline">\(G\)</span> that contains cycles, one might think that the TOPOLOGICAL-SORT will produce an ordering that minimizes the number of edges that are inconsistent, but this is incorrect.</li>
+<li>Suppose we are given a directed acyclic graph <span class="math inline">\(G = (V,E)\)</span> and two vertices <span class="math inline">\(t\)</span> and <span class="math inline">\(s\)</span> and we are required to find the number of simple paths from <span class="math inline">\(s\)</span> to <span class="math inline">\(t\)</span>, then we can make use of the following algorithm</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Create a new attribute to the graph nodes and this attribute of all edges except <span class="math inline">\(t\)</span> to be zero and <span class="math inline">\(t\)</span>’s attribute shall have value <span class="math inline">\(0\)</span>.</li>
+<li>Do a DFS search, but when the DFS procedure discovers the node <span class="math inline">\(t\)</span>, immediately, make it’s color black.</li>
+<li>When a vertex <span class="math inline">\(v\)</span> finished, let the value of our attribute to be the sum of values of the attribute to it’s immediate children.</li>
+<li>The value of the our attribute of <span class="math inline">\(p\)</span> after completion of DFS will be the number of simple paths from <span class="math inline">\(p\)</span> to <span class="math inline">\(t\)</span>.</li>
+</ol>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

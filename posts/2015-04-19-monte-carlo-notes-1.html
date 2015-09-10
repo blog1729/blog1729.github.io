@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Monte-carlo Simulation Notes-1</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Monte-carlo Simulation Notes-1</h1>
+
+            <div class="info">
+    Posted on April 19, 2015
+    
+</div>
+
+<h2 id="d-dimensional-normal-random-variables"><span class="math inline">\(d\)</span>-dimensional Normal random variables</h2>
+<ul>
+<li>Is characterized by <span class="math inline">\(d\)</span>-vector <span class="math inline">\(\mu\)</span>, <span class="math inline">\(d\times d\)</span> covariance matrix <span class="math inline">\(\Sigma\)</span>. <span class="math inline">\(\Sigma\)</span> should be positive definite and symmetric. The density of the <span class="math inline">\(d\)</span>-dimensional normal random variable is given by:</li>
+</ul>
+<p><span class="math display">\[\phi_{\mu, \Sigma} = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2}} \exp{\left(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)\right)}.\]</span></p>
+<ul>
+<li>If <span class="math inline">\(Z \sim \mathcal(0, I)\)</span>, then <span class="math inline">\(X = \mu + A Z \sim \mathcal(\mu, AA^{T})\)</span>. It remains to find <span class="math inline">\(A\)</span> such that <span class="math inline">\(AA^{T} = \Sigma\)</span>. We make use of Cholesky factorization for this.</li>
+</ul>
+<h3 id="cholesky-factorization">Cholesky factorization</h3>
+<ul>
+<li>For a <span class="math inline">\(2\times 2\)</span>, <span class="math inline">\(\Sigma\)</span>, we find a lower triangular matrix with the first row begin <span class="math inline">\(\sigma_1, 0\)</span> and the second row <span class="math inline">\(\rho \sigma_2\)</span>, <span class="math inline">\(\sqrt{1-\rho^2}\sigma_2\)</span>.</li>
+<li>In case of bivariate normal, we use the following equations:</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+X_1 &amp;= \mu_1 + \sigma_1 Z_1, \\
+X_2 &amp;= \mu_2 + \rho \sigma_2 Z_1 + \sqrt{1-\rho^2}\sigma_2 Z_2 \\
+\end{align*}\]</span></p>
+<ul>
+<li>For a general case, with covariance matrix <span class="math inline">\(\Sigma\)</span>, we get the following relations</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+A_{ij} &amp; = \frac{1}{A_jj}\left(\Sigma_{ij} - \sum_{k=1}^{j-1} A_{ik}A_{jk}\right), j&lt;i \\
+A_{ii} &amp;= \sqrt{\Sigma_{ii} - \sum_{k=1}^{j-1} A^2_{ik}}
+\end{align*}\]</span></p>
+<hr />
+<h2 id="brownian-motion">Brownian motion</h2>
+<ul>
+<li><p><strong>Wiener process</strong> A Wiener process (or Brownian motion; <span class="math inline">\(W_t\)</span> or <span class="math inline">\(W\)</span>) is a time continuous process with the following properties:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(W_0 = 0\)</span>.</li>
+<li><span class="math inline">\(W_t \sim \mathcal N(0, t)\)</span> for all <span class="math inline">\(t \ge 0\)</span>. That is, for each <span class="math inline">\(t\)</span>, the random variable <span class="math inline">\(W_t\)</span> is distributed normally with mean <span class="math inline">\(E(W_t) = 0\)</span> and variance <span class="math inline">\(\text{Var}(W_t) = E(W_t^2) = t\)</span>.</li>
+<li>All increments <span class="math inline">\(\Delta W_t := W_{t+\Delta t} + W_t\)</span> on non-overlapping time intervals are independent.</li>
+<li><span class="math inline">\(W_t\)</span> depends continuously on <span class="math inline">\(t\)</span>.</li>
+</ol></li>
+</ul>
+<p>Algorithm for simulation of standard Wiener process</p>
+<ul>
+<li>Start: <span class="math inline">\(t_0 = 0, W_0 = 0; \Delta t\)</span></li>
+<li>loop $j = 1,2, $:</li>
+<li><span class="math inline">\(t_j = t_{j-1} + \Delta t\)</span></li>
+<li>draw <span class="math inline">\(Z \sim N(0,1)\)</span>.</li>
+<li><p><span class="math inline">\(W_j = W_{j-1} + Z \sqrt{\Delta t}\)</span></p></li>
+<li><p>Almost all realization of Wiener processes are nowhere differentiable.</p></li>
+<li><p>For non-standard Brownian motion (<span class="math inline">\(\text{BM} (\mu,\sigma^2)\)</span>, the values are generated by the following equation:</p></li>
+</ul>
+<p><span class="math display">\[ X(t_{i+1}) = X(t_i) + \mu(t_{i+1}-t_{i}) + \sigma \sqrt{t_{i+1} - t_{i}} Z_{i+1}, \quad i = 0, 1, \cdots, n-1.\]</span></p>
+<ul>
+<li>With time-dependent coefficients, the recursion becomes</li>
+</ul>
+<p><span class="math display">\[X(t_{i+1}) = X(t_i) + \int_{t_i}^{t_{i+1}} \mu(s) \, \text ds + \sqrt{\int_{t_i}^{t_{i+1}} \sigma^2(u) \text du}\cdot Z_{i+1}, \quad i = 0, \cdots, n-1.\]</span></p>
+<ul>
+<li>The <strong>Euler approximation</strong> of the above formula is given by</li>
+</ul>
+<p><span class="math display">\[ X(t_{i+1}) = X(t_i) + \mu(t_i)(t_{i+1}-t_i) + \sigma(t_i) \sqrt{t_{i+1} - t_{i}} Z_{i+1}, i = 0, \cdots, n-1\]</span></p>
+<hr />
+<h2 id="geometric-brownian-motion">Geometric Brownian motion</h2>
+<ul>
+<li>Geometric Brownian motion is valuable in modelling of stock prices. An ordinary Brownian motion can take negative values, whereas the Geometric Brownian motion can take only positive values which is why it is useful in modelling stock markets.</li>
+<li>If <span class="math inline">\(S \sim \text{GB}(\mu, \sigma^2)\)</span> and if <span class="math inline">\(S\)</span> has an initial value of <span class="math inline">\(S(0)\)</span>, then <span class="math inline">\(S(t) = S(0) \exp((\mu - \frac{1}{2} \sigma^2) t + \sigma\cdot W(t))\)</span>. or more generally, if <span class="math inline">\(u &lt; t\)</span>, then</li>
+</ul>
+<p><span class="math display">\[ S(t) = S(u) \exp((\mu - \frac{1}{2} \sigma^2)\cdot (t-u) + \sigma(W(t) - W(u)).\]</span></p>
+<ul>
+<li>A recursion for simulating values is,</li>
+</ul>
+<p><span class="math display">\[ S(t_{i+1}) = S(t_i) \exp((\mu - \frac{1}{2} \sigma^2) \cdot (t_{i+1} - t_{i}) + \sigma (\sqrt{t_{i+1} - t_{i}}) \cdot Z_i)\]</span></p>
+<ul>
+<li>We also try to simulate jump at various time period. The algorithm is listed below</li>
+<li>Generate <span class="math inline">\(Z \sim \mathcal N(0, 1)\)</span></li>
+<li>Generate <span class="math inline">\(N \sim \text{Poisson}(\lambda(t_{i+1} - t_{i})\)</span></li>
+<li>If <span class="math inline">\(N \neq 0\)</span>, then
+<ul>
+<li>Generate <span class="math inline">\(log(Y_1), \cdots, log(T_N)\)</span> from their common distribution</li>
+<li>Set $ M = (Y_i)$</li>
+</ul></li>
+<li>If <span class="math inline">\(N \neq 0\)</span>, then
+<ul>
+<li>Set <span class="math inline">\(M = 0\)</span>.</li>
+</ul></li>
+<li>Set <span class="math inline">\(X(t_{i+1}) = X(t_i) + \left(\mu - \frac{1}{2} \sigma^2\right)(t_{i+1} - t_{i}) + \sigma \sqrt{t_{i+1} - t_{i}}\cdot Z + M.\)</span></li>
+</ul>
+<h3 id="code-in-r">Code in R</h3>
+<p>{% highlight R %}</p>
+<p>sigma = 0.3 mu = 0.06 N = 1000 flag = 0 lambda = c(0.01, 0.05, 0.1, 0.5, 1) xs = c(5) Xs = matrix(5, nrow = 5, ncol = N) zs = rnorm(N) for (i in 2:N) { xs[i] = xs[i-1] + (mu - 0.5<em>sigma</em>sigma)/N + sigma<em>sqrt(1/N)</em>zs[i] } for (j in 1:5) { for (i in 2:N) { n = rpois(1, lambda[j]<em>1/N) M = 0 if(n != 0) { flag &lt;&lt;- flag+1 ys = 0.1</em>rnorm(n, mean = 0, sd = 1)+1 M = 0 for (k in 1:n) M = M + log(ys[k]) } Xs[j, i] = Xs[j,i-1] + (mu-0.5<em>sigma</em>sigma)/N + sigma<em>sqrt(1/N)</em>zs[i] + M } } yM = max(max(xs), max(Xs)) ym = min(min(xs), min(Xs)) plot(xs, cex = 0.05, type=“l”, ylim=c(ym, yM)) lines(1:N, Xs[1,1:N], col=“red”) lines(1:N, Xs[2,1:N], col=“blue”) lines(1:N, Xs[3,1:N], col=“green”) lines(1:N, Xs[4,1:N], col=“violet”) lines(1:N, Xs[5,1:N], col=“orange”)</p>
+<p>{% endhighlight %}</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

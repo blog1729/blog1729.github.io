@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Matlab part 1</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Matlab part 1</h1>
+
+            <div class="info">
+    Posted on April 22, 2015
+    
+</div>
+
+<ul>
+<li><a href="https://www.gnu.org/software/octave/">GNU Octave</a> is a MATLAB clone! Hail GNU Octave!</li>
+<li><strong>Getting help</strong>: Use <code>doc blah</code> to get help on <code>blah</code>. The <code>blah</code> can be operators too!</li>
+<li><strong>Expressions</strong>: example, <code>5 + 5</code>, <code>ans = 10</code>, <code>y = sin(pi/2)</code>.</li>
+<li>Semicolon implies end of statement and that you want to suppress the output. For example: <code>sin(pi/2);</code> will calculate <code>sin(pi/2)</code> but will not echo the value of it in the terminal, while mere <code>sin(pi/2)</code> does echo the value. The same is true for variable assignment, i.e., <code>x =2;</code> will not echo, while <code>x = 2</code> does.</li>
+<li><strong>Comments</strong>: <code>%</code> can be used to add in line comments. Use <code>%{ ... %}</code> for block comments.</li>
+<li>Commonly used operators:</li>
+</ul>
+<p><code>+</code> | Plus, addition |<br />
+<code>-</code> | Minus, subtraction |<br />
+<code>*</code> | Scalar and matrix multiplication |<br />
+<code>.*</code>| Array multiplication operator, element wise multiplication |<br />
+<code>^</code> | Scalar and matrix exponentiation operator |<br />
+<code>.^</code> | Array exponentiation operator, element wise exponentiation |<br />
+<code>\</code> | Left division operator, <code>A\B</code> solves the system <code>Ax = B</code> |<br />
+<code>/</code> | Right division operator, <code>A/B</code> solves the system <code>Bx = A</code>|<br />
+<code>.\</code> | Array left division, <code>A.\B</code> does the left division pair wise|<br />
+<code>./</code> | Array right division |<br />
+<code>:</code> | Produces regularly spaced elements <code>j:k</code> is same as <code>[j j+1 ... j+k]</code> and <code>j:i:k</code> is same as <code>[j j+i j+2i ... j+mi]</code> |<br />
+<code>()</code> | Parenthesis; encloses function argument; <strong>array indices</strong>; overrides precision|<br />
+<code>[]</code> | Brackets; used to define array, e.g., <code>x = [1 2]</code>|<br />
+<code>.</code> | Decimal point |<br />
+<code>,</code> | Separates statements and elements in a row|<br />
+<code>;</code> | Separates columns and suppresses display |<br />
+<code>'</code> | Used to calculate transpose |<br />
+<code>.'</code>| Non-conjugated transpose operator|<br />
+<code>=</code> | Assignment operator |</p>
+<ul>
+<li>Special: <code>ans</code> represent the most recent answer; <code>i,j</code> for complex numbers; <code>inf</code> represent Infinity; <code>NaN</code> undefined number (not a number); <code>pi</code> the number <span class="math inline">\(\pi\)</span>.</li>
+<li><em>Variable</em> consist of a letter followed by any number of letters, digits, or underscores and MATLAB is case-sensitive.</li>
+<li><strong>Creating vectors</strong>:</li>
+<li><code>r = [1 2 3]</code> and <code>r = [1, 2, 3]</code> are the same and are ways in which one can create row vectors.</li>
+<li><code>r = [1; 2; 3]</code> represent a column vector. <code>[1; 2; 3] = [1 2 3]'</code>.</li>
+<li><strong>Creating Matrices</strong>:</li>
+<li><code>mat = [1 2 3; 4 5 6; 7 8 9]</code></li>
+<li><strong>Commands</strong>:</li>
+<li><code>clc</code> to clear command window, <code>clear</code> to remove variables from memory, <code>exist</code> to check whether a variable exist, <code>global</code> to declare a variable as global, <code>quit</code> to quit MATLAB, <code>who</code> to list current variable, <code>whos</code> to give a longer display.</li>
+<li><strong>Formatting and I/O</strong>: <code>disp</code> to display contents of an array or a string, <code>fscanf</code> for inputs, <code>fprintf</code> for printing, <code>input</code> for taking input.</li>
+<li><strong>Commands</strong>:</li>
+</ul>
+<p><code>cat</code> | concatenates arrays|<br />
+<code>find</code> | finds indices of nonzero elements|<br />
+<code>length</code> | computes the number of elements|<br />
+<code>linspace</code>| Creates a regularly spaced vector|<br />
+<code>max</code> | Returns the maximum element |<br />
+<code>min</code> | Returns the smallest element|<br />
+<code>prod</code> | Product of each column |<br />
+<code>reshape</code> | Changes the size |<br />
+<code>sort</code> | Sorts each column |<br />
+<code>sum</code> | sums each column |<br />
+<code>eye</code> | Creates an identity matrix |<br />
+<code>ones</code> | Creates an array of ones |<br />
+<code>zeros</code> | Creates an array of zeros |<br />
+<code>dot</code> | Computes the dot product |<br />
+<code>det</code> | Computes the determinant of a matrix |<br />
+<code>ceil</code> | Computes the ceiling of a number |</p>
+<ul>
+<li><strong>Plotting</strong>:</li>
+</ul>
+<p><code>axis</code> | Set axis limits |<br />
+<code>fplot</code> | intelligent plot of functions, use anonymous function as first input|<br />
+<code>grid</code>| displays grid lines|<br />
+<code>plot</code>| Generates an <span class="math inline">\(xy\)</span> plot, even for matrices|<br />
+<code>print</code>| Prints plot or saves plot into a file |<br />
+<code>title</code> | Puts up a title at the top of the plot|<br />
+<code>xlabel</code> | Adds an xlabel to the plot|<br />
+<code>ylabel</code> | Adds a ylabel to the plot|<br />
+<code>figure</code> | Opens up a new window for plot |<br />
+<code>legend</code> | Legend placement by mouse |<br />
+<code>subplot</code> | Creates plot in sub-windows|<br />
+<code>bar</code> | Creates a bar plot|<br />
+<code>hist</code> | Creates a histogram|<br />
+<code>hist3d</code>| Creates a 3-dimensional histogram |<br />
+<code>hist2d</code>| Creates a 2-dimensional histogram |</p>
+<ul>
+<li><strong>Scripts</strong></li>
+<li>Scripts are programs with <code>.m</code> extension. One can write a series of commands, but this does not accept input and does not return output.</li>
+<li><strong>Functions</strong> are programs in <code>.m</code> extension. They can accept input and return output. The file in which the function is written should have the name of the first function in the file. For example, if the name of the first function in the file is <code>fun</code>, then the name of the Matlab script should be <code>fun.m</code>.</li>
+<li>Function syntax: <code>function [x1, x2, ..., xn] = funtion-name(i1, i2, ...,im)</code>.</li>
+<li>Matlab does not use curly braces to denote scope. Instead for things like <code>if</code>, loops, etc, one can make use of the end command to denote the end of the current scope.</li>
+<li><strong>Loops</strong>:</li>
+<li><code>while</code>: use <code>while (expression) ... end</code></li>
+<li><code>for</code>: use <code>for a = 10:20 .. end</code>. Here <code>a = 10:20</code> is a sample and can be replaced with similar command that suits the need.</li>
+<li><p>One can use <code>break</code> command to exit from the loop, if required.</p></li>
+<li><p><strong>Some useful functions</strong>:</p></li>
+</ul>
+<p><code>mvnpdf</code>| Multivariate normal pdf|<br />
+<code>mvncdf</code>| Multivariate cumulative cdf|</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

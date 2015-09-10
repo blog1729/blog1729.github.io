@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Breadth first search</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Breadth first search</h1>
+
+            <div class="info">
+    Posted on April 10, 2015
+    
+</div>
+
+<ul>
+<li>Breadth first search is a simple algorithm for searching a graph.</li>
+<li>The following summarizes the algorithm when the inputs graph is given in adjacency list form and we also provide a source vertex</li>
+<li>For all vertices except <span class="math inline">\(s\)</span>, make the color white and the distance <span class="math inline">\(d\)</span> as <span class="math inline">\(\infty\)</span> and it’s predecessor, i.e. <span class="math inline">\(u.\pi\)</span> as <code>nil</code>.</li>
+<li>Make the color of <span class="math inline">\(s\)</span> as gray and insert <span class="math inline">\(s\)</span> into a queue which is initially empty.</li>
+<li>Repeat the following until the Queue is empty
+<ul>
+<li><span class="math inline">\(u=\)</span> Dequeue<span class="math inline">\((Q)\)</span></li>
+<li>for all vertex <span class="math inline">\(v\)</span> that is adjacent to <span class="math inline">\(u\)</span>, repeat the steps</li>
+<li>if color of <span class="math inline">\(v\)</span> is white, then make the color grey, <span class="math inline">\(v.d = u.d+1\)</span>, <span class="math inline">\(v.\pi = u\)</span> and enqueue <span class="math inline">\(v\)</span> into the Queue.</li>
+<li>color <span class="math inline">\(u\)</span> as Black, which indicates that we are done with <span class="math inline">\(u\)</span>.</li>
+</ul></li>
+<li><strong>Time complexity</strong>, the time complexity of the above algorithm is <span class="math inline">\(\mathcal O(V+E)\)</span>.</li>
+</ul>
+<h2 id="analysis-and-correctness">Analysis and Correctness</h2>
+<p>The following lemmas can be used to prove the correctness, here the graph <span class="math inline">\(G=(V,E)\)</span> can be directed or un-directed. By <span class="math inline">\(\delta(u,v)\)</span>, we denote the length of the shortest path from <span class="math inline">\(u\)</span> to <span class="math inline">\(v\)</span>, if it exists and if such a path doesn’t exists, then it is <span class="math inline">\(\infty\)</span>.</p>
+<ul>
+<li><strong>Lemma</strong> Let <span class="math inline">\(s\in V\)</span> be an arbitrary vertex. Then for any edge <span class="math inline">\((u,v)\in E\)</span>, <span class="math inline">\(\delta(s, v) \le \delta(s,u)+1\)</span>.</li>
+<li><strong>Lemma</strong> Suppose that BFS is run on <span class="math inline">\(G\)</span> from a given source vertex <span class="math inline">\(s\in V\)</span>. Then upon termination, for each vertex <span class="math inline">\(v\in V\)</span>, the <span class="math inline">\(v.d\)</span> computed by BFS satisfies <span class="math inline">\(v.d \ge \delta(s,v)\)</span>.</li>
+<li><strong>Lemma</strong> Suppose that the execution of BFS on a graph <span class="math inline">\(G\)</span>, the queue <span class="math inline">\(Q\)</span> contains vertices <span class="math inline">\(\langle v_1, v_2, \cdots, v_r \rangle\)</span>, where <span class="math inline">\(v_1\)</span> is the head of <span class="math inline">\(Q\)</span> and <span class="math inline">\(v_r\)</span> is the tail. Then <span class="math inline">\(v_r.d\le v_1.d+1\)</span> and <span class="math inline">\(v_i.d\le v_{i+1}.d\)</span> for <span class="math inline">\(i=1,2,\cdots, r-1\)</span>.</li>
+<li><strong>Lemma</strong> Suppose that the vertices <span class="math inline">\(v_i\)</span> and <span class="math inline">\(v_j\)</span> are enqueued during the execution of BFS, and that <span class="math inline">\(v_i\)</span> is enqueued before <span class="math inline">\(v_j\)</span>, then <span class="math inline">\(v_i.d \le v_j.d\)</span> at the time that <span class="math inline">\(v_j\)</span> is enqueued.</li>
+</ul>
+<h2 id="breadth-first-trees">Breadth-first trees</h2>
+<ul>
+<li>For a graph <span class="math inline">\(G=(V,E)\)</span> with source <span class="math inline">\(s\)</span>, we define <strong>predecessor subgraph</strong> of <span class="math inline">\(G\)</span> as <span class="math inline">\(G_\pi = (V_pi, E_pi)\)</span>, where <span class="math inline">\(V_\pi = \\{v\in V: v.\pi \neq \text{NIL}\\}\cup \{s\}\)</span> and <span class="math inline">\(E_\pi =\\{(v.\pi, v):v\in V_\pi -\\{s\\}\\}\)</span>.</li>
+<li>The predecessor graph is a <strong>breadth first tree</strong> if <span class="math inline">\(V_\pi\)</span> consists of the vertices reachable from <span class="math inline">\(s\)</span> and, for all <span class="math inline">\(v\in V_\pi\)</span>, the subgraph <span class="math inline">\(G_\pi\)</span> contains a unique simple path from <span class="math inline">\(s\)</span> to <span class="math inline">\(v\)</span> in <span class="math inline">\(G\)</span>. The breadth first tree is in fact a tree since <span class="math inline">\(\vert E_\pi \vert = \vert V_\pi \vert - 1\)</span>. We call the edges in <span class="math inline">\(E_\pi\)</span> <strong>tree edges</strong>.</li>
+<li><strong>Lemma</strong> When applied to a directed or un-directed graph, <span class="math inline">\(G=(V,E)\)</span>, procedure BFS constructs <span class="math inline">\(\pi\)</span> so that the predecessor subgraph <span class="math inline">\(G_\pi = (V_\pi, E_\pi)\)</span> is a breadth-first tree.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The BFS-algorithm also works fine even if we remove the stage at which we color the elements are grey. Thus we can store color (white or black) with one bit memory.</li>
+<li><strong>Checking if graph is bipartite</strong> using BFS search. A graph is Bipartite if we can divide the vertex set into two sets such that the set elements within the set does not have an edge between them.</li>
+<li><strong>Theorem</strong>: A graph <span class="math inline">\(G\)</span> is bipartite if and only if it contain no odd cycles.</li>
+<li>We can use the above theorem to devise an algorithm, for at each step if there is an neighbour of <span class="math inline">\(u\)</span> such that the color is grey, then, find the sum <span class="math inline">\(u.d+v.d\)</span>, if it is odd, then there is an odd cycle. For more details, refer <a href="https://www.cs.umd.edu/class/sum2005/cmsc451/bipartite.pdf">this</a>.</li>
+<li>In a breadth-first search, the value <span class="math inline">\(u.d\)</span> assigned to a vertex <span class="math inline">\(u\)</span> is independent of the order in which the vertices appear in each adjacency list.</li>
+<li>We can modify BFS search procedure to accommodate graph input as adjacency vertices.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

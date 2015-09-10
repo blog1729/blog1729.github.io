@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Huffman Codes</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Huffman Codes</h1>
+
+            <div class="info">
+    Posted on March 27, 2015
+    
+</div>
+
+<p>Firstly, this is an example of a greedy algorithm. We can represent data in files by using <strong>binary character code</strong> in which each character is represented by a unique binary string, which we call as a <strong>codeword</strong>. We may use a <strong>fixed-length code</strong> or a <strong>variable-length</strong> code. Typically, <strong>variable-length</strong> code is minimizes the amount of data required to store a file.</p>
+<h2 id="prefix-codes">Prefix Codes</h2>
+<p>In this case, no codeword is a prefix of another (and hence the name prefix codes). <em>One can show that a prefix code can always achieve the optimal data compression among any character code.</em> Since no code is a prefix of another, decoding is easy—read the code till you get a match.</p>
+<p>We see that a binary tree whose leaves are the given characters provide a nice representation of prefix codes. The binary representation of the prefix code can be interpreted in the following way: if a one is found it means to go to the right child and if a zero is found, go to the left child.</p>
+<p><em>One can show that an optimal code for a file is a always represented by a full binary tree</em> (a <strong>full binary tree</strong> is a tree in which every non-leaf node has two children).</p>
+<p><em>If <span class="math inline">\(C\)</span> is the alphabet from which characters are drawn, and all character frequencies are positive, then the tree for an optimal prefix code has exactly <span class="math inline">\(\vert, C\vert\)</span> leaves, one for each letter of the alphabet and exactly <span class="math inline">\(\vert C\vert -1\)</span> internal nodes.</em></p>
+<p>Given a tree <span class="math inline">\(T\)</span> corresponding to a prefix code, we can compute the number of bits required to encode a file. For each character <span class="math inline">\(c\)</span> in the alphabet <span class="math inline">\(C\)</span>, let <span class="math inline">\(c.freq\)</span> denote the frequency of <span class="math inline">\(c\)</span> in the file and <span class="math inline">\(d_T(c)\)</span> denote the depth of <span class="math inline">\(c\)</span>’s leaf in the tree. Thus the number of bits required to encode a file is thus</p>
+<p><span class="math display">\[B(T) = \sum_{c\in C} c.freq \cdot d_T(C)\]</span></p>
+<h2 id="constructing-a-huffman-code">Constructing a Huffman code</h2>
+<p>The algorithm proceeds as follows</p>
+<ul>
+<li>It first selects the two elements with minimum frequency, combines the two of them (virtually) and then (virtually) adds them into the list with frequency of the added element being the sum of the two elements initially selected. The added element can be visualized as a tree the leaf nodes being the two elements selected and the node contains the sum of frequencies of the two leaf elements.</li>
+<li>The above process is repeated until there are no elements left in the list.</li>
+</ul>
+<h3 id="modelling-algorithm-using-naive-recursion">Modelling algorithm using naive recursion</h3>
+<p>Using naive recursion is trivial and the running time take <span class="math inline">\(\mathcal O n^2\)</span>. But this can be improved.</p>
+<h3 id="modelling-the-algorithm-using-a-min-heap">Modelling the algorithm using a min heap</h3>
+<p>Let the list, which we referred to in the last paragraph be <span class="math inline">\(Q\)</span>, we use a min-heap to model the list. We shall do the <code>extract-min</code> operation twice and then insert the element which is the sum of two elements into the heap.</p>
+<p>The running time will then be <span class="math inline">\(\mathcal O (n\lg n)\)</span>, where there are <span class="math inline">\(n\)</span> calls to the <span class="math inline">\(Q\)</span> and at each call, <code>BUILD-MIN-HEAP</code> is to be called.</p>
+<h3 id="modelling-algorithm-using-two-queues">Modelling algorithm using two Queues</h3>
+<p>If the elements are sorted (or if sorting is done as a pre-processing step), we can design a <span class="math inline">\(\mathcal O(n)\)</span> algorithm (See <a href="http://en.wikipedia.org/wiki/Huffman_coding">Wikipedia</a>). The following is a brief outline of the method:</p>
+<ul>
+<li>Enqueue the first queue with elements that are in increasing order;</li>
+<li>Pop the two smallest elements from both the queues—the two smallest elements shall either be the first two elements in the first queue, the first two elements in the second queue or the first element of the first and the second queue.</li>
+<li>Add the frequencies of the two elements and then push them into the second queue.</li>
+<li>Repeat the process until there is one element left.</li>
+</ul>
+<p>It should be noted that the assumption that the elements are sorted in increasing order is important for proving the correctness of the above method.</p>
+<hr />
+<h2 id="correctness-of-huffmans-greedy-algorithm">Correctness of Huffman’s Greedy algorithm</h2>
+<ul>
+<li>A code tree that is incomplete is not optimal.</li>
+<li>Let <span class="math inline">\(T\)</span> be the tree we get from Huffman’s algorithm and <span class="math inline">\(T'\)</span> be the tree for the optimal prefix code. Let <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> the two elements with least frequencies. By replacing the elements that are siblings in <span class="math inline">\(T'\)</span> at the node with largest depth, we are only improving the average code length of the tree.</li>
+<li>Let the inductive hypothesis be the following: <span class="math inline">\(p(n)\)</span>: In an <span class="math inline">\(n\)</span> element alphabet, the Huffman algorithm is correct.</li>
+<li>Base case, i.e., <span class="math inline">\(n=1\)</span> is trivially true.</li>
+<li>Suppose <span class="math inline">\(n-1\)</span> is true, and <span class="math inline">\(T_1\)</span> be the tree generated by the alphabet <span class="math inline">\((Q-\{[a,b]\}) \cup \{[a+b]\}\)</span>. Now, the average length of <span class="math inline">\(T\)</span> is <span class="math inline">\(f(T) = f(T_1)+a+b\)</span>, which must the minimum average code length possible.</li>
+</ul>
+<hr />
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The same algorithm can be used for a ternary prefix code, where the tree shall have three nodes (For a proof, see <a href="https://engineering.purdue.edu/~ee608/handouts/hw10-2007-sol.pdf">here</a>).</li>
+<li>If the frequencies of the alphabet are Fibonacci numbers, then the tree has a particularly simple, predictable form.</li>
+<li>One can show that a binary tree that is not full cannot correspond to an optimal prefix code.</li>
+<li>Suppose that the frequency of the most frequent entry is less than or equal to <span class="math inline">\(0.33\)</span>, then the Huffman code of the alphabet is going to have at least two bits.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

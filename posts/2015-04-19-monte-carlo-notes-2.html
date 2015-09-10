@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Monte-Carlo Simulation Notes-2</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Monte-Carlo Simulation Notes-2</h1>
+
+            <div class="info">
+    Posted on April 19, 2015
+    
+</div>
+
+<h2 id="low-discrepancy-random-numbers">Low discrepancy random numbers</h2>
+<ul>
+<li>Given a collection <span class="math inline">\(\mathcal A\)</span> of Lebesgue measurable subset of <span class="math inline">\([0,1)^d\)</span>, the discrepancy of the point set <span class="math inline">\(\{x_1, \cdots, x_n \}\)</span> relative to <span class="math inline">\(\mathcal A\)</span> is</li>
+</ul>
+<p><span class="math display">\[ D(x_1,\cdots, x_n; \mathcal A) = \sup_{A \in \mathcal A} \left\vert \frac{\#\{x_i \in A\}}{n} - \text{vol} A \right\vert.\]</span></p>
+<ul>
+<li><p>The aim is to generate sequences whose deviation from “uniformity” is minimal, i.e., discrepancy is minimal.</p></li>
+<li><p><strong>Radical inverse function</strong>: For <span class="math inline">\(i = 1, 2, \cdots,\)</span> let <span class="math inline">\(i = \sum_{i=0}^{j} d_k b^K\)</span>, be the expression in base <span class="math inline">\(b\)</span> (integer <span class="math inline">\(\ge 2\)</span>) with digits <span class="math inline">\(d_k\in \{0, 1, \cdots, b-1 \}\)</span>. Then the radical inverse function is defined by</p></li>
+</ul>
+<p><span class="math display">\[ \phi_{b}(i) = \sum_{k=0}^{j}{b_k d^{-k-1}}\]</span></p>
+<ul>
+<li><strong>Van Der corput sequences</strong> is defined by <span class="math inline">\(x_i = \phi_2(i)\)</span>.</li>
+<li><strong>Halton Sequences</strong>: Let <span class="math inline">\(p_1,\cdots, p_n\)</span> be pairwise prime integers. The Halton sequence is define as the sequence of vectors</li>
+</ul>
+<p><span class="math display">\[x_i := (x_{p_1}(i), \cdots, x_{p_n}(i))\]</span></p>
+<hr />
+<ul>
+<li><strong>Central limit theorem</strong>: Let <span class="math inline">\(X_1, X_2, \cdots\)</span> be a sequence of identical and independent random variables, each with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span> and let <span class="math inline">\(S_n = \sum\limits_{i=1}^{n}X_i\)</span>. Then for large <span class="math inline">\(n\)</span>, <span class="math inline">\(S_n\)</span> behaves like <span class="math inline">\(\mathcal(n\mu, n\sigma^2)\)</span>, which in other words means that <span class="math inline">\(\frac{S_n - n\mu}{\sigma \sqrt{n}}\)</span> is approximately <span class="math inline">\(\mathcal{N} (0, 1)\)</span>.</li>
+</ul>
+<h2 id="confidence-intervals">Confidence intervals</h2>
+<ul>
+<li>The sample mean <span class="math inline">\(\mu_M\)</span> and the sample variance <span class="math inline">\(\sigma_M\)</span> of a sample of <span class="math inline">\(M\)</span> elements is defined by <span class="math inline">\(\mu_M = \frac1 M \sum_{i=1}^{M} x_i\)</span> and <span class="math inline">\(\sigma_M^2 = \frac{1}{M-1} \sum_{i=1}^{M} (x_i - \mu_M)^2\)</span>.</li>
+<li>Suppose that <span class="math inline">\(P(a \le X \le b) = 0.95\)</span>, we say that the interval <span class="math inline">\([a,b]\)</span> is <span class="math inline">\(95\%\)</span> interval for <span class="math inline">\(X\)</span>.</li>
+<li>If <span class="math inline">\(X \sim \mathcal N (\mu, \sigma^2)\)</span>, one can see that the interval <span class="math inline">\([ a_M - \frac{1.96 b_M}{\sqrt{M}}, a_M + \frac{1.96 b_M}{\sqrt{M}}].\)</span> is the <span class="math inline">\(95\%\)</span> confidence interval. The analysis leads to the basic Monte-carlo approximation of <span class="math inline">\(\mu\)</span>.</li>
+</ul>
+<hr />
+<ul>
+<li>There are methods in which one can reduce the variance in the Monte-Carlo approximation. One such method is known as using antithetic variates.</li>
+<li><p>Example in the case of uniform random variable. Suppose we want to estimate <span class="math inline">\(E[\exp(\sqrt{u})]\)</span> where <span class="math inline">\(u \sim \mathcal U (0,1)\)</span>, then instead of taking sample mean <span class="math inline">\(I_M = \frac{1}{M} \sum Y_i\)</span>, one can take <span class="math inline">\(\hat{I_M} = \frac{1}{M} \sum \hat{Y_i}\)</span> where <span class="math inline">\(\hat{Y_i} = \frac{\exp(\sqrt{1-u}) + \exp(\sqrt{u})}{2}\)</span> where <span class="math inline">\(u \sim \mathcal U (0,1)\)</span>. And it can be shown that the variance reduces by a factor or <span class="math inline">\(\approx 181\)</span>.</p></li>
+<li><p><strong>Result</strong>: Suppose that <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are both monotonic increasing or both monotonic decreasing functions, then, for any random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\text{Cov}(f(X), g(X)) \ge 0\)</span>.</p></li>
+</ul>
+<h2 id="analysis-of-uniform-case">Analysis of uniform case</h2>
+<ul>
+<li>To approximate <span class="math inline">\(I = E[f(U)]\)</span> where <span class="math inline">\(U \sim \mathcal U[0, 1]\)</span> for some function <span class="math inline">\(f\)</span>, instead of the standard Monte-Carlo estimate <span class="math inline">\(I_M = \frac{1}{M} \sum f(U_i)\)</span>, we can use <span class="math inline">\(\hat{I_M} = \frac{1}{M} \sum \frac{f(U_i) + f(1-U_i)}{2}\)</span>.</li>
+<li><strong>Result</strong>: If <span class="math inline">\(f\)</span> is monotonic, then we can see that <span class="math inline">\(\text{Var}\, \left(\frac{f(U_i) + f(1-U_i)}{2} \right) \le \frac{1}{2} \text{Var}\, (f(U_i))\)</span>.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

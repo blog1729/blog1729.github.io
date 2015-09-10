@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Forward and Futures Contract</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Forward and Futures Contract</h1>
+
+            <div class="info">
+    Posted on March 12, 2015
+    
+</div>
+
+<p><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> <strong>Forward contract</strong> An agreement to buy or sell an asset on a fixed date in the future, called the <em>delivery time</em>, for a price specified in advance, called the <em>forward price</em>.</p>
+<p><strong>Short forward position</strong> The party who agrees to <strong>sell the asset</strong> is said to be taking a <em>short forward position</em>. The other party, who agrees to <em>buy the asset</em> at delivery, is said to have a <em>long forward position</em>.</p>
+<p><strong>Notations</strong> The time at which forward contract is exchanged is <span class="math inline">\(0\)</span>, delivery time <span class="math inline">\(T\)</span>, and the forward price <span class="math inline">\(F(0,T)\)</span>. The time <span class="math inline">\(t\)</span> market price of the asset be <span class="math inline">\(S(t)\)</span>. (No payment is made by any party at time <span class="math inline">\(0\)</span>, when the forward contract is exchanged). The payoff at delivery is <span class="math inline">\(S(T)-F(t,T)\)</span> for a long forward position and <span class="math inline">\(F(t,T)-S(T)\)</span> for a short forward position.</p>
+<h2 id="forward-price">Forward price</h2>
+<p>Let <span class="math inline">\(r\)</span> denote risk free rate under continuous compounding which is assumed to be constant throughout.</p>
+<blockquote>
+<p><strong>Theorem</strong> For a stock paying no dividends, the forward price is</p>
+<p><span class="math display">\[F(0,T) = S(0) e^{rT}\]</span></p>
+<p>if the contract is initiated at a time <span class="math inline">\(t&lt;T\)</span>, then <span class="math inline">\(F(t,T) = S(t)e^{r(T-t)}\)</span>.</p>
+</blockquote>
+<p>The proof of the above theorem can be easily done using no-arbitrage principle.</p>
+<blockquote>
+<p><strong>Theorem</strong> The forward price of a stock paying exactly one dividend <span class="math inline">\(d\)</span> at time <span class="math inline">\(t\)</span>, where <span class="math inline">\(0&lt;t&lt;T\)</span>, is</p>
+<p><span class="math display">\[F(0.T) = [S(0) - e^{-rt}d]e^{rT}\]</span></p>
+</blockquote>
+<p>The proof of the above theorem can also be done using no-arbitrage principle. The above formula can be generalized to the case when dividends are paid more than once:</p>
+<p><span class="math display">\[F(0,T) = [S(0) - d_0]e^{rT},\]</span></p>
+<p>where <span class="math inline">\(d_0\)</span> is the present value of all dividends due during the lifetime of the forward contract.</p>
+<h2 id="dividend-yield">Dividend yield</h2>
+<p>Dividends are often paid continuously, with an interest <span class="math inline">\(r_d&gt;0\)</span>, the interest is called <em>(continuous) dividend yield</em>.</p>
+<blockquote>
+<p><strong>Theorem</strong> The forward price for stock paying dividends continuously at a rate <span class="math inline">\(r_d\)</span> is</p>
+<p><span class="math display">\[ F(0,T) = S(0)e^{(r-r_d)T}\]</span></p>
+<p>In general, if the contract is initiated at time <span class="math inline">\(t&lt;T\)</span>, then</p>
+<p><span class="math display">\[F(t,T) = S(t)e^{(r-r_d)(T-t)}\]</span></p>
+</blockquote>
+<h2 id="value-of-forward-contract">Value of forward contract</h2>
+<p>The value of a forward contract, at a time <span class="math inline">\(t\)</span>, can be defined as <em>the price one has to pay currently to initiate the forward contract, started at time <span class="math inline">\(0\)</span>, with maturity <span class="math inline">\(T\)</span> and payoff <span class="math inline">\(F(0,T)\)</span>, at time <span class="math inline">\(t\)</span></em>. Every forward contract has value zero, when initiated. As the price of the commodity changes, the value of the forward contract too, changes. In particular, at delivery time, the value of a long forward contract is <span class="math inline">\(S(T) - F(0,T)\)</span>. The value, of course, can be zero, positive or negative.</p>
+<blockquote>
+<p><strong>Theorem</strong> For any <span class="math inline">\(t\)</span> such that <span class="math inline">\(0 \le t \le T\)</span> the time <span class="math inline">\(t\)</span> value of a long forward contract with forward price <span class="math inline">\(F(0,T)\)</span> is given by</p>
+<p><span class="math display">\[V(t) = [F(t,T) - F(0,T)]e^{-r(T-t)}\]</span></p>
+</blockquote>
+<p>It should be noted that the above theorem works fine even if there are dividends involved! Now, for a stock paying no dividends, we see that <span class="math inline">\(V(t) = S(t) - S(0)e^t\)</span>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<h1 id="futures">Futures</h1>
+<p>One of the the two parties of a forward contract will be losing money (unless the payoff at <span class="math inline">\(T\)</span> is <span class="math inline">\(0\)</span>). Futures contracts are designed to eliminate such risk. It costs nothing to initiate a futures position.</p>
+<p>A <em>futures contract</em> involves an underlying asset and a specified time of delivery, a stock with prices <span class="math inline">\(S(n)\)</span> for <span class="math inline">\(n=0,1,\cdots\)</span> and time <span class="math inline">\(T\)</span>. In addition to the usual stock prices, the market dictates the so called <em>futures prices</em> <span class="math inline">\(f(n,T)\)</span> for each step <span class="math inline">\(n=0,1,\cdots\)</span> such that <span class="math inline">\(n\tau \le T\)</span>. A futures contract involves a random cash flow, known as <em>marking to market</em>. Namely, at each time set <span class="math inline">\(n=1,2,\cdots\)</span> such that <span class="math inline">\(n\tau \le T\)</span>, the holder of <strong>a long futures position</strong> will receive the amount</p>
+<p><span class="math display">\[f(n,T) - f(n-1,T)\]</span></p>
+<p>if positive, or will have to pay it if negative. The opposite payments apply for a short futures account. We impose the following two conditions:</p>
+<ol style="list-style-type: decimal">
+<li>The futures price at delivery is <span class="math inline">\(f(T,T) = S(T)\)</span>.</li>
+<li>At each time step <span class="math inline">\(n=0,1,\cdots\)</span> such that <span class="math inline">\(n\tau \le T\)</span> the value of a futures position is zero.</li>
+</ol>
+<h2 id="working">Working</h2>
+<ul>
+<li><strong>Initial margin</strong>: Each investor entering into a futures contract has to pay a deposit, called the initial margin, which is kept at the clear house as a collateral. Typically, a fixed percentage of current price of the stock.</li>
+<li>In case of a long futures position, the amount <span class="math inline">\(f(n,T)-f(n-1,T)\)</span> is added to the deposit if positive or subtracted if negative at each time step <span class="math inline">\(n\)</span> (the negative amount is added or subtracted in case of a short futures account).</li>
+<li><strong>Maintenance margin</strong>: If the deposit falls below a certain level, known as maintenance margin, the clearing house will issue a <em>margin call</em>, requesting the investor to make a payment and restore the deposit to the level of <em>initial margin</em>.</li>
+<li>The futures position can be closed at any time, in which case the deposit will be returned to the investor. In particular, if the investor fails to respond to the margin call, the clearing house will forcefully close the account.</li>
+</ul>
+<h2 id="pricing-of-f">Pricing of <span class="math inline">\(f\)</span></h2>
+<blockquote>
+<p><strong>Theorem</strong> If the interest rate is constant, then <span class="math inline">\(f(0,T) = F(0,T)\)</span>.</p>
+</blockquote>
+<h2 id="hedging-with-futures">Hedging with futures</h2>
+<p>It is possible to hedge risk associated with a stock by using the futures market, i.e., if you wishes to sell the stock at some point in the future, using a futures account, one can minimize the risk associated with this.</p>
+<p>The difference between the spot and futures prices is called the <em>basis</em>:</p>
+<p><span class="math display">\[ b(t,T) = S(t)- f(t,T)\]</span></p>
+<p>Clearly, the Basis converges to zero as <span class="math inline">\(t\rightarrow T\)</span>. In a market with constant interest rates, it is given explicitly by</p>
+<p><span class="math display">\[ b(t,T) = S(t)(1-e^{r(T-t)})\]</span></p>
+<p>Similarly, if the asset pays dividends at the rate <span class="math inline">\(r_d&gt;r\)</span>, then the basis is positive and is given by</p>
+<p><span class="math display">\[ b(t,T) = S(t)(1-e^{(r-r_d)(T-t)})\]</span></p>
+<h3 id="hedging-with-n-futures-account">Hedging with <span class="math inline">\(N\)</span> futures account</h3>
+<p>We may invest in <span class="math inline">\(N\)</span> futures account to decrease the risk. In this case, the basis is given by <span class="math inline">\(b_{N}(t,T) = S(t) - N f(t,T)\)</span> and hence the variance is:</p>
+<p><span class="math display">\[ \text{Var}(b_N(t,T)) = \sigma_s^2 + N^2\sigma_f^2 - 2 N\sigma_s \sigma_f \rho\]</span></p>
+<p>and the quadratic expression has a minimum at</p>
+<p><span class="math display">\[ N = \rho \frac{\sigma_s}{\sigma_f}.\]</span></p>
+<p>This ratio is known as <strong>optimal hedge ratio</strong>.</p>
+<ul>
+<li>If the interest rate is constant, it can be easily shown that <span class="math inline">\(N = e^{-r(T-t)}\)</span>.</li>
+</ul>
+<h3 id="futures-on-stock-index">Futures on stock index</h3>
+<p>A <strong>stock exchange index</strong> is a weighted average of a selection of stock prices with weights proportional to the market capitalization of stocks. An index of this kind is approximately proportional to the market portfolio. We can treat index as a security, for the purpose of the futures market.</p>
+<hr />
+<h4 id="beta-factor">Beta factor</h4>
+<p>(Topic from Portfolio management)</p>
+<p>It is important to understand how the return <span class="math inline">\(K_V\)</span> of a given portfolio or a single security will react to trends affecting the whole market. To this end, we can plot the values of <span class="math inline">\(K_V\)</span> for each market scenario agains those of the return <span class="math inline">\(K_M\)</span> on the market portfolio and compute the line of best fit, also known as the regression line or the charecterestic line. The equation of the best fit will be</p>
+<p><span class="math display">\[ y = \beta_V x + \alpha _ V. \]</span></p>
+<p>One can show that the gradient <span class="math inline">\(\beta_V\)</span> and the intercept <span class="math inline">\(\alpha_V\)</span> of the line of best fit,</p>
+<p><span class="math display">\[ \beta_V = \frac{\text{Cov}(K_V, K_M)}{\sigma^2_M}, \quad \alpha_V = \mu_V - \beta_V\mu_M. \]</span></p>
+<p>Further, it can be shown that the expected return of a portfolio <span class="math inline">\(\mu_V\)</span> is a linear function of the beta coefficient <span class="math inline">\(\beta_V\)</span> of the portfolio,</p>
+<p><span class="math display">\[ \mu_V = r_F + (\mu_M - r_F) \beta_V.\]</span></p>
+<p>where <span class="math inline">\(r_F\)</span> is the risk free return rate.</p>
+<p>The expected return on a portfolio over a time step of length <span class="math inline">\(\tau\)</span> is given by</p>
+<p><span class="math display">\[ \mu_V = r_F + (\mu_M - r_F)\beta_V\]</span></p>
+<hr />
+<p>By <span class="math inline">\(V(n)\)</span>, we shall denote the value of the portfolio at the <span class="math inline">\(n\)</span>th time step and we assume that the index is equal to the market portfolio. Hence the futures price is given by</p>
+<p><span class="math display">\[ f(n,T) = M(n)(1+r_F)^{T-n}\]</span></p>
+<p>We can form a new porfolio with value <span class="math inline">\(\bar{V}(n)\)</span> by supplementing the original portfolio with <span class="math inline">\(N\)</span> short futures contract on the index with delivery time <span class="math inline">\(T\)</span>. The value of the new portfolio at the nth step is given by</p>
+<p><span class="math display">\[ \bar{V}(n) = V(n) -n(f(n,T) - f(n-1,T)) \]</span></p>
+<p>The return on the portfolio in the first step is denoted by <span class="math inline">\(K_{\bar{V}}\)</span>.</p>
+<blockquote>
+<p><strong>Proposition</strong> If</p>
+<p><span class="math display">\[ N = (\beta_V - a)\frac{(1+r_F)V(0)}{f(0,T)} \]</span></p>
+<p>Then <span class="math inline">\(\beta_{\bar{V}} = a\)</span> for any given number <span class="math inline">\(a\)</span>.</p>
+</blockquote>
+<p>The proof of the above proposition boils down to calculating <span class="math inline">\(\text{Cov} (K_{\bar{V}}, K_M)/\sigma_M^2\)</span>. A straightforward corollary is that when <span class="math inline">\(a=0\)</span>, <span class="math inline">\(\beta_{\bar{V}} = 0\)</span> and hence <span class="math inline">\(\mu_{\bar{V}} = r_F\)</span>.</p>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>In case of hedging with futures account, there can be a possibility of loss or gain because of the marking to the market payments. But this does not exist when one hedges using a forward contract and the only downside of this is the default risk.</li>
+</ul>
+<hr />
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><strong>Reference</strong> Mathematics for finance, an introduction to financial engineering.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><small> Some parts, before section 6.2 Futures are skipped </small><a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Portfolio Management</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Portfolio Management</h1>
+
+            <div class="info">
+    Posted on February 28, 2015
+    
+</div>
+
+<p>The return on a risky invesment may be measured using the expected value or <span class="math inline">\(E(X)\)</span>, where <span class="math inline">\(X\)</span> is the random varaible that represent the amount of money to be received at the end. Risk may be measured by the variance of the random variable corresponding to return. Alternatively, one can also use the standard deviation which in certain cases is more convenient (when compared to variance) since the unit is same as the unit of return.</p>
+<h2 id="two-securities">Two securities</h2>
+<p>Let us prepare a portfolio <span class="math inline">\(V\)</span> whose value at time <span class="math inline">\(t\)</span> is given by <span class="math inline">\(V(t)\)</span> and consider two stocks <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> whose values at time <span class="math inline">\(t\)</span> is represented by <span class="math inline">\(S_1(t)\)</span> and <span class="math inline">\(S_2(t)\)</span> and define weights <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> by <span class="math display">\[ w_1 = \frac{x_1 S_1(0)}{V(0)}, \quad w_2 = \frac{x_2 S_2(0)}{V(0)},\]</span> where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are share numbers of stock <span class="math inline">\(1\)</span> and stock <span class="math inline">\(2\)</span>.</p>
+<p>One can easily observe that <span class="math inline">\(w_1+w_2 = 1\)</span>. If short-selling is allowed (borrowing of stock), the value of one of the weight can be negative and the other greater than <span class="math inline">\(100%\)</span>.</p>
+<blockquote>
+<p><b>Proposition</b></p>
+The return <span class="math inline">\(K_v\)</span> on a portfolio consisting of two securities is the weighted average <span class="math display">\[K_v = w_1K_1 + w_2K_2,\]</span> where <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> are the weights and <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span> the returns on the two components.
+</blockquote>
+<p>The proof of the above proposition is trivial and hence omitted. Similarly, one can easily see the following equation regarding the expected return <span class="math display">\[ E(K_V) = w_1E(K_1)+w_2E(K_2).\]</span></p>
+<blockquote>
+The variance of the return on a portfolio is given by <span class="math display">\[{\operatorname{Var}}(K_V) = w_1^2 {\operatorname{Var}}(K_1) + w_2^2{\operatorname{Var}}(K_2) +  2w_1w_2{\operatorname{Cov}}(K_1,K_2).\]</span>
+</blockquote>
+<blockquote>
+<p><b>Theorem</b></p>
+The variance <span class="math inline">\(\sigma^2_V\)</span> of a portfolio cannot exceed the greater of the variances <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span> of the components, <span class="math display">\[\sigma_v^2 \le \max\{\sigma_1^2, \sigma_2^2\},\]</span> if short sales are not allowed.
+</blockquote>
+<p>The proof of the above theorem easily follows from the fact that <span class="math inline">\({\operatorname{Cov}}(K_1,K_2) \le \sigma_1\sigma_2\)</span>. If short-selling is allowed there are examples for which the theorem is not true.</p>
+<blockquote>
+<p>If <span class="math inline">\(\rho_{12}=1\)</span>, the correlation coefficient is <span class="math inline">\(1\)</span>, then we can achieve <span class="math inline">\(\sigma_v = 0\)</span> when <span class="math inline">\(\sigma_1 \neq \sigma_2\)</span> under the weights <span class="math display">\[ w_2 = -\frac{\sigma_2}{\sigma_1 - \sigma_2}, \quad w_2 = \frac{\sigma_1}{\sigma_1 - \sigma_2}\]</span> (Short sales are necessary, since either <span class="math inline">\(w_1\)</span> or <span class="math inline">\(w_2\)</span> are negative.)</p>
+If <span class="math inline">\(\rho_{12}=-1\)</span>, then <span class="math inline">\(\sigma_V = 0\)</span> for <span class="math display">\[w_1 = \frac{\sigma_2}{\sigma_1+\sigma_2}, \quad w_2 = \frac{\sigma_1}{\sigma_1+\sigma_2}.\]</span> (No short sales are necessary, since both <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> are positive.)
+</blockquote>
+<p>The last theorem can be easily verified.</p>
+<ul>
+<li>If we take <span class="math inline">\(s=w_2\)</span> as a parameter, then we see that</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\mu_{V} &amp; = (1-s)\mu_1 + s \mu_2 \\
+\sigma^2_V &amp; = (1-s)^2 \sigma_1^2 + s^2 \sigma_2^2 + 2s(1-s)\rho_{12}\sigma_1\sigma_2. \\
+\end{align}\]</span></p>
+<ul>
+<li><strong>Theorem</strong>. For <span class="math inline">\(-1 &lt; \rho_{12} &lt; 1\)</span> the portfolio with minimum variance is attained at <span class="math inline">\(s_0 = \frac{\sigma_1^2 - \rho_{12}\sigma_1 \sigma2}{\sigma_1^2 + \sigma_2^2 - 2 \rho_{12}\sigma_1\sigma_2}\)</span>. If short sales are not allowed, then the smallest variance is attained at</li>
+</ul>
+<p><span class="math display">\[ s_{\text{min}} = \left\{ \begin{array}{cl} 0 &amp; \text{if } s_0 &lt; 0 \\
+s_0 &amp; \text{if } 0 \le s_0 \le 1, \\
+1 &amp; \text{if } 1&lt;s_0.
+\end{array}\right.\]</span></p>
+<ul>
+<li><strong>Corollary</strong>: Suppose that <span class="math inline">\(\sigma_1 \le \sigma_2\)</span>. Then the following three cases are possible</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(-1 \le \rho_{12}\le \frac{\sigma_1}{\sigma_2}\)</span>, then there is a portfolio without short-selling such that <span class="math inline">\(\sigma_V &lt; \sigma_1\)</span>.</li>
+<li>If <span class="math inline">\(\rho_{12} = \frac{\sigma_1}{\sigma_2}\)</span>, then <span class="math inline">\(\sigma_V \ge \sigma_1\)</span> for each portfolio.</li>
+<li>If <span class="math inline">\(\frac{\sigma_1}{\sigma_2} \le \rho_{12} &lt; 1\)</span>, there is a portfolio with short selling such that <span class="math inline">\(\sigma_V &lt; \sigma_1\)</span>, but each portfolio without short selling will have <span class="math inline">\(\sigma_V \ge \sigma_1\)</span>.</li>
+</ol>
+<ul>
+<li><strong>Proposition</strong>. The standard deviation <span class="math inline">\(\sigma_V\)</span> of a portfolio consisting of a risky security with expected return <span class="math inline">\(\mu_1\)</span> and standard deviation <span class="math inline">\(\sigma_1&gt;0\)</span>, and a risk-free security with return <span class="math inline">\(r_F\)</span> and standard deviation zero depends on the weight <span class="math inline">\(w_1\)</span> of the risky security as <span class="math inline">\(\sigma_V = \vert w_1\vert\sigma_1\)</span>.</li>
+</ul>
+<h2 id="several-securities">Several securities</h2>
+<ul>
+<li>A portfolio constructed from <span class="math inline">\(n\)</span> different securities can be described in terms of their weights <span class="math inline">\(w_i = \frac{x_i S_i(0)}{V(0}\)</span>, <span class="math inline">\(i = 1, \cdots, n\)</span>.</li>
+<li><span class="math inline">\({\bf w } = [w_1\ w_2 \ \cdots \ w_n ]\)</span> be the weight matrix. Then if <span class="math inline">\({\bf u} = [1 \ 1 \ \cdots 1]\)</span>, then <span class="math inline">\(1 = \bf{uw^{T}}\)</span>.</li>
+<li>Let <span class="math inline">\({\bf m} = [\mu_1 \ \mu_2 \ \cdots \ \mu_n ]\)</span> and let <span class="math inline">\(\bf C\)</span> be the Covariance matrix where <span class="math inline">\(c_{ij} = \operatorname{Cov}{(K_i, K_j)}\)</span>.</li>
+<li><strong>Theorem</strong>. <span class="math inline">\(\mu_V = \bf{mw^{T}}\)</span> and <span class="math inline">\(\sigma_V^2 = \bf wCw^{T}\)</span>.</li>
+<li><strong>Proposition</strong> (Minimum variance portfolio). The portfolio with the smallest variance in the attainable set has weights <span class="math inline">\(\bf w = \frac{uC^{-1}}{u C^{-1}u^{T}}\)</span>.</li>
+<li>The above proposition is proved by using method of Lagrange multipliers, where the function to be maximized is <span class="math inline">\(F({\bf w}, \lambda) = {\bf w Cw^{T}}-\lambda{\bf uw^{T}}\)</span>.</li>
+<li><strong>Proposition</strong> (Minimum variance line). The portfolio with the smallest variance among attainable portfolios with expected return <span class="math inline">\(\mu_V\)</span> can be found out by maximizing <span class="math inline">\(G({\bf w}, \lambda, \mu) = {\bf wCw^{T}} - \lambda{\bf u w^{T}} - \mu{\bf mw^{T}}\)</span>.</li>
+</ul>
+<h2 id="efficient-frontier">Efficient frontier</h2>
+<ul>
+<li>We say that a security with expected value <span class="math inline">\(\mu_1\)</span> and standard deviation <span class="math inline">\(\sigma_1\)</span> <em>dominates</em> another security with expected value <span class="math inline">\(\mu_2\)</span> and standard deviation <span class="math inline">\(\sigma_2\)</span> whenever <span class="math inline">\(\mu_1 \ge \mu_2\)</span>.</li>
+<li>A portfolio is called efficient if there is no other portfolio, except itself, that dominates it. The set of efficient portfolios among all attainable portfolios is called <em>efficient frontier</em>.</li>
+<li>Take any two portfolios on the minimum variance line, with weights <span class="math inline">\(\bf w'\)</span> and <span class="math inline">\(bf w''\)</span>. Then the minimum variance line consists of portfolios with weights <span class="math inline">\(c{\bf w'} + (1-c){\bf w''}\)</span> for any <span class="math inline">\(c\in \mathbb{R}\)</span> and only such portfolios.</li>
+<li>The weights of any portfolio belonging to the efficient frontier (except for the minimum variance portfolio) satisfy the condition <span class="math inline">\(\gamma {\bf w C} = {\bf m } - \mu{\bf u}\)</span> for some real numbers <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\mu\)</span>.</li>
+</ul>
+<h2 id="capital-asset-pricing-model">Capital asset pricing model</h2>
+<ul>
+<li>The <em>capital market line</em> joining the risk free-security and the market-portfolio satisfies the equation: <span class="math inline">\(\mu = r_F + \frac{\mu_M - r_F}{\sigma_M} \sigma\)</span>.</li>
+<li>The market-portfolio is a portfolio with standard deviation <span class="math inline">\(\sigma_M\)</span> and expected return <span class="math inline">\(\mu_m\)</span>, and has to contain all risky securities with weights equal to their relative share in the market.</li>
+<li></li>
+</ul>
+<h2 id="references">References</h2>
+<ol style="list-style-type: decimal">
+<li>Mathematics for finance, Marek Capinski and Thomasz Zastawniak.</li>
+</ol>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

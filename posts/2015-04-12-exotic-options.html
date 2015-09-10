@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Exotic options</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Exotic options</h1>
+
+            <div class="info">
+    Posted on April 12, 2015
+    
+</div>
+
+<ul>
+<li>Derivatives such as European and American call and put options are what are termed as <em>plain vanilla products</em>, they have standard well-defined properties and trade actively.</li>
+<li><p>There are a number of non-standard options created by a financial engineer. These products are termed as <em>exotic options</em>, or simply <em>exotics</em>.</p></li>
+<li><strong>Non standard American options</strong>: In a standard American option, exercise can take place at any time during the life of the option and the exercise price is always the same, but there are similar options with some variations, such as:</li>
+<li><strong>Bermuda option</strong>. Early exercise may be restricted to certain dates.</li>
+<li>Early exercise may be allowed during only part of life of the option, for example, there may be an initial “lock out” period with no early exercise.</li>
+<li><p>The strike price may change during the life of the option.</p></li>
+<li><p><strong>Chooser option</strong> (sometimes referred to as <em>as you like it</em> option) has a feature that, after a specified period of time, the holder can choose whether the option is a call or a put. Suppose the time when the choice is made is <span class="math inline">\(T_1\)</span>, the value of the option at the time is <span class="math inline">\(\max (c,p)\)</span>.</p></li>
+</ul>
+<h2 id="barrier-options">Barrier options</h2>
+<ul>
+<li><strong>Barrier options</strong> are options where the payoff depends on whether the underlying asset’s price reaches a certain level during a certain period of time.</li>
+<li>There are two different type of barrier options:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><strong>Knock-out option</strong>: ceases to exist when the price of underlying reaches a certain barrier.</li>
+<li><strong>Knock-in option</strong>: comes into existence when the price of underlying asset reaches a certain barrier.</li>
+</ol>
+<ul>
+<li>A <strong>down-and-out</strong> call is one type of knock-out option. It is a regular call option that ceases to exist if the asset price reaches a certain barrier level <span class="math inline">\(H\)</span>. The barrier level is below the initial asset price. The corresponding knock-in option is called <strong>down-and-in</strong> call.</li>
+<li>A <strong>up-and-out</strong> call is a regular call option that ceases to exist if the asset price reaches a barrier level, <span class="math inline">\(H\)</span>, that is higher than the current asset price. An <strong>up-and-in</strong> call is a regular call option that comes into existence only if a barrier is reached.</li>
+</ul>
+<h2 id="binary-option">Binary option</h2>
+<ul>
+<li><strong>Binary options</strong> are options with discontinuous payoffs. An example of a binary option is a <strong>cash-or-nothing</strong> call. This pays off nothing if the asset price ends up below the strike price at time <span class="math inline">\(T\)</span> and pays a fixed amount, <span class="math inline">\(Q\)</span>, if it ends up above the strike price. A <strong>cash-or-nothing put</strong> is defined analogously to a cash-or-nothing call.</li>
+<li><strong>Asset-or-nothing call</strong> pays off nothing if the underlying asset price ends up below the strike price and pays the asset price if it ends up above the strike price. Similarly, an <strong>asset-or-nothing</strong> put pays off nothing if the underlying asset price ends up above the strike price and the asset price if it ends up below the strike price.</li>
+<li>A regular European call option is equivalent to a long position in an asset-or-nothing call and a short position in a cash-or-nothing call, where the cash payoff of the cash-or-nothing call equals the strike price.</li>
+</ul>
+<h2 id="lookback-options">Lookback options</h2>
+<ul>
+<li>The payoffs from a <strong>lookback</strong> option depend on the maximum or minimum asset price reached during the life of the option. The payoff from a <strong>floating lookback call</strong> is the amount that the final asset price exceeds the minimum asset price achieved during the life of the option. The payoff from a <strong>floating lookback put</strong> is the amount by which the maximum asset price achieved during the life of the option exceeds the final asset price.</li>
+</ul>
+<h2 id="shout-options">Shout options</h2>
+<ul>
+<li>A <strong>shout option</strong> is a European option where the holder can “shout” to the writer at one time during its life. At the end of the life of the option, the option holder receives either the usual payoff from a European option or the intrinsic value at the time of shout, whichever is greater.</li>
+<li>A shout option has some of the same features as a lookback option, but it is considered less expensive.</li>
+<li>If the holder shouts at time <span class="math inline">\(\tau\)</span> when the asset price is <span class="math inline">\(S\_\tau\)</span>, the payoff from the option is $ (0, S_T - S_{}) + (S_- K)$.</li>
+</ul>
+<h2 id="exotic-options">Exotic options</h2>
+<ul>
+<li>Asian options are options where the payoff depends on the average price of the underlying asset during at least some part of the life of the option.</li>
+<li>The payoff from an <strong>average price call</strong> is <span class="math inline">\(\max (0, S\_{ave} - K)\)</span> and that of an <strong>average price put</strong> is <span class="math inline">\(\max(0, K - S\_{ave})\)</span>, where <span class="math inline">\(S\_{ave}\)</span> is the average value of the underlying asset calculated over a predetermined averaging period.</li>
+<li>The book, Options, Futures and other derivatives, mentions that the average options are less expensive than regular options.</li>
+<li>Another Asian option is an <strong>average strike option</strong> which pays off <span class="math inline">\(\max(0, S_T - S\_{ave})\)</span> and an <strong>average strike put</strong> pays off <span class="math inline">\(\max(0, S\_{ave} - S\_{T})\)</span>.</li>
+</ul>
+<p><strong>References</strong>: Chapter 24, Exotic options. Options, Futures and other derivatives, 7th ed; John C. Hull.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

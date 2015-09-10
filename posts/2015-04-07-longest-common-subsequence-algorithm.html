@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Dynamic Programming algorithm for Longest Common Subsequence</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Dynamic Programming algorithm for Longest Common Subsequence</h1>
+
+            <div class="info">
+    Posted on April  7, 2015
+    
+</div>
+
+<ul>
+<li>Given a sequence $X = x_1, x_2, , x_n $, another sequence <span class="math inline">\(Z = \langle z_1, \cdots, z_k \rangle\)</span> is said to be <strong>subsequence</strong> of <span class="math inline">\(X\)</span> if there exists a strictly increasing sequence <span class="math inline">\(\langle i_1, \cdots, i_k \rangle\)</span> of indices of <span class="math inline">\(X\)</span> such that <span class="math inline">\(j=1, 2, \cdots, k\)</span> such that <span class="math inline">\(x_{i_j} = z_j\)</span>.</li>
+<li>In the longest common subsequence problem, given two sequences <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, we wish find a maximum length common subsequence of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</li>
+<li><strong>Theorem</strong> Let <span class="math inline">\(X= \langle x_1, \cdots, x_n \rangle\)</span> and <span class="math inline">\(Y = \langle y_1, y_2, \cdots, y_m\rangle\)</span> be sequences, and let <span class="math inline">\(Z = \langle z_1, \cdots, z_k \rangle\)</span> be any Longest Common Subsequence of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Then</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(x_m = y_n\)</span>, then <span class="math inline">\(z_k = x_m = y_n\)</span> and <span class="math inline">\(Z_{k-1}\)</span> is a LCS of <span class="math inline">\(X_{m-1}\)</span> and <span class="math inline">\(Y_{m-1}\)</span>.</li>
+<li>If <span class="math inline">\(x_m \neq y_n\)</span>, then <span class="math inline">\(z_k \neq x_m\)</span> implies that <span class="math inline">\(Z\)</span> is a LCS of <span class="math inline">\(X_{m-1}\)</span> and <span class="math inline">\(Y_n\)</span>.</li>
+<li>If <span class="math inline">\(x_m \neq y_n\)</span>, then <span class="math inline">\(z_k \neq y_n\)</span> implies that <span class="math inline">\(Z\)</span> is a LCS of <span class="math inline">\(X_{m}\)</span> and <span class="math inline">\(Y_{n-1}\)</span></li>
+</ol>
+<ul>
+<li>The above theorem paves road for an optimal substructure.</li>
+<li><strong>Recursive solution</strong>: Let <span class="math inline">\(c[i,j]\)</span> denote the length of the LCS for sequences <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span>, then <span class="math inline">\(c[i,j]\)</span> will follow the following recursion: <span class="math display">\[c[i,j] = \left \{ \begin{array}{c c}
+  0 &amp; \text{if } i = 0 \text{ or } j=0, \\
+  c[i-1, j-1] + 1 &amp; \text{if } i,j &gt;0 \text{ and } x_i = y_i \\
+  \max \{ c[i,j-1], c[i-1, j] \} &amp; \text{if } i,j&gt;0 \text{ and } x_i \neq y_j.
+  \end{array} \right.\]</span></li>
+<li>Using dynamic programming, we can easily construct a solution to the problem that takes a time complexity of <span class="math inline">\(\Theta(mn)\)</span>. To re-construct the solutions to the problem, one can create an additional array that stores if the <span class="math inline">\(c[i,j]\)</span> was formed by adding 1 or points to the maximum element in the sub-structure. But in fact, as an optimization, one can avoid this and this detail can be re-constructed from the table.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>To find the longest monotonically increasing subsequence of a sequence of <span class="math inline">\(n\)</span> numbers, one can implement a <span class="math inline">\(\mathcal O(n^2)\)</span> algorithm that simply finds the LCS of the given sequence and the same sequence after sorting. (I’m told that one can improve the complexity to <span class="math inline">\(O(n \lg n)\)</span>.)</li>
+<li>The algorithm to reconstruct the LCS takes a complexity of <span class="math inline">\(\mathcal O(m+n)\)</span>.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

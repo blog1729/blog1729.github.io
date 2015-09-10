@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Single source Shortest path</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Single source Shortest path</h1>
+
+            <div class="info">
+    Posted on April 24, 2015
+    
+</div>
+
+<ul>
+<li>Given a weighted, directed graph <span class="math inline">\(G(V, E)\)</span>, with weight function <span class="math inline">\(w \colon E \rightarrow \mathbb{R}\)</span>, which maps every edge into a real number (can be negative). The weight of a path <span class="math inline">\(p = \langle v_0, v_1, \cdots , v_k \rangle\)</span> is given by <span class="math inline">\(w(p) = \sum w(v_i, v_{i+1})\)</span>.</li>
+<li>The shortest path weight between the vertices <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> is denoted by <span class="math inline">\(\delta(u,v)\)</span> and is given by <span class="math inline">\(\min \{w(p): u \rightarrow v \}\)</span>, i.e., minimum of the weight of every path from <span class="math inline">\(u\)</span> to <span class="math inline">\(v\)</span>, and if no path exists, the value of <span class="math inline">\(\delta(u,v)\)</span> is <span class="math inline">\(\infty\)</span>.</li>
+<li><strong>Optimal substructure</strong>: A shortest path between two vertices contains other shortest path within it. <strong>Lemma</strong>: Given a weighted, directed graph <span class="math inline">\(G = (V, E)\)</span> with weight function <span class="math inline">\(w\colon E\rightarrow \mathbb{R}\)</span>, let <span class="math inline">\(p = \langle v_0, v_1, \cdots, v_k \rangle\)</span> be a shortest path form vertex <span class="math inline">\(v_0\)</span> to <span class="math inline">\(v_k\)</span> and, for any <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> such that <span class="math inline">\(0 \le i \le j \le k\)</span>, let <span class="math inline">\(p_{ij} = \langle v_i, v_{i+1}, \cdots, v_j\rangle\)</span> be the subpath from the vertex <span class="math inline">\(v_i\)</span> to vertex <span class="math inline">\(v_j\)</span>. Then <span class="math inline">\(p_{ij}\)</span> is a shortest path from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_j\)</span>.</li>
+<li>We do not allow the graph to have negative weighted cycles, if it does have one, then the idea of shortest path becomes vague. Nevertheless, algorithms such as Bellman Ford, shall terminate and will report if there is a negative weighted cycle that is accessible from the source vertex.</li>
+<li>Similarly, we can exclude positive weighted cycles from the shortest path for trivial reasons.</li>
+<li>In order to trace the path, we maintain, for each vertex, a member, <span class="math inline">\(v.\pi\)</span>, which denotes the <em>predecessor</em> of <span class="math inline">\(v\)</span> in the shortest path.</li>
+<li>Algorithms pertaining to the subject in discussion uses a technique called <em>relaxation</em>. Relax(u,v,w) will change the value of <span class="math inline">\(v.d\)</span> to <span class="math inline">\(u.d + w(u,v)\)</span> if there is an edge between <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>, from a value <span class="math inline">\(v.d\)</span> such that <span class="math inline">\(v.d &gt; u.d + w(u,v)\)</span>. Also, we initialize every vertex’s <span class="math inline">\(v.d\)</span> value to <span class="math inline">\(\infty\)</span> at the beginning, except, of course, that of <span class="math inline">\(s.d\)</span> which will be initialized to <span class="math inline">\(0\)</span>.</li>
+</ul>
+<h2 id="properties">Properties</h2>
+<ul>
+<li><strong>Triangle inequality</strong>: For any edge <span class="math inline">\((u,v)\in E\)</span>, we have <span class="math inline">\(\delta(u,v) \le \delta(s,u) + w(u,v)\)</span>.</li>
+<li><strong>Upper-Bound property</strong>: We always have <span class="math inline">\(v.d \ge \delta(s,v)\)</span> for all vertices <span class="math inline">\(v\in V\)</span>, and once <span class="math inline">\(v.d\)</span> achieves the value <span class="math inline">\(\delta(s,v)\)</span>, it never changes.</li>
+<li><strong>No-path property</strong>: If there is no path from <span class="math inline">\(s\)</span> to <span class="math inline">\(v\)</span>, the we always have <span class="math inline">\(v.d = \delta(s,v) = \infty\)</span>.</li>
+<li><strong>Convergence property</strong>: If <span class="math inline">\(s\leadsto u \rightarrow v\)</span> is a shortest path in <span class="math inline">\(G\)</span> for some <span class="math inline">\(u,v \in V\)</span>, and if <span class="math inline">\(u.d = \delta(s,u)\)</span> any time prior to relaxing edge <span class="math inline">\((u,v)\)</span>, then <span class="math inline">\(v.d = \delta(s,v)\)</span> at all times afterward.</li>
+<li><strong>Path-relaxation property</strong>: If <span class="math inline">\(p = \langle v_0, v_1, \cdots, v_k \rangle\)</span> is a shortest path from $ s = v_0$ to <span class="math inline">\(v_k\)</span>, and we relax the edges of <span class="math inline">\(p\)</span> in the order <span class="math inline">\((v_0, v_1), (v_1, v_2), \cdots, (v_{k-1}, v_{k})\)</span>, then <span class="math inline">\(v_k.d = \delta(s, v_k)\)</span>. This property holds regardless of any other relaxation steps that occur, even if they are intermixed with relaxations of the edges of <span class="math inline">\(p\)</span>.</li>
+<li><strong>Predecessor-subgraph property</strong>: Once <span class="math inline">\(v.d = \delta(s,v)\)</span> for all <span class="math inline">\(v\in V\)</span>, the predecessor subgraph is a shortest-paths tree rooted at <span class="math inline">\(s\)</span>.</li>
+</ul>
+<h2 id="bellman-ford-algorithm">Bellman-Ford algorithm</h2>
+<p>{% highlight C%} BELLMAN-FORD(G, w ,s) Initialize-single-source(G, s) //initializes every v.d to positive infinity for i = 1 to |G.V|-1 Relax(u,v,w) for each edge (u,v) in G.E if v.d &gt; u.d + w(u,v) return FALSE return TRUE {% endhighlight %}</p>
+<ul>
+<li><strong>Lemma</strong>: Let <span class="math inline">\(G= (V, E)\)</span> be a weighted, directed graph with source <span class="math inline">\(s\)</span> and weight function <span class="math inline">\(w \colon E \rightarrow \mathbb{R}\)</span>, and assume that <span class="math inline">\(G\)</span> contains no negative-weight cycles that are reachable from <span class="math inline">\(s\)</span>. Then, after <span class="math inline">\(\vert V \vert - 1\)</span> iterations of the for loop of BELLMAN-FORD, we have <span class="math inline">\(v.d = \delta(s,v)\)</span> for all vertices <span class="math inline">\(v\)</span> that are reachable from <span class="math inline">\(s\)</span>.</li>
+<li><strong>Corollary</strong>: Let <span class="math inline">\(G = (V, E)\)</span> be a weighted, directed graph with source vertex <span class="math inline">\(s\)</span> and weight function <span class="math inline">\(w \colon E \rightarrow \mathbb{R}\)</span>, and assume that <span class="math inline">\(G\)</span> contains no negative-weight cycles that are reachable from <span class="math inline">\(s\)</span>. Then, for each vertex <span class="math inline">\(v\in V\)</span>, there is a path from <span class="math inline">\(s\)</span> to <span class="math inline">\(v\)</span> if and only if BELLMAN-FORD terminates with <span class="math inline">\(v.d&lt;\infty\)</span> when it is run on <span class="math inline">\(G\)</span>.</li>
+<li><p><strong>Theorem</strong> (Correctness of the Bellman-ford algorithm). Let BELLMAN-FORD be run on a weighted, directed graph <span class="math inline">\(G = (V, E)\)</span> with source <span class="math inline">\(s\)</span> and weight function <span class="math inline">\(w \colon E \rightarrow \mathbb{R}\)</span>. If <span class="math inline">\(G\)</span> contains no negative-weight cycles that are reachable from <span class="math inline">\(s\)</span>, then the algorithm returns TRUE, we have <span class="math inline">\(v.d = \delta(s,v)\)</span> for all vertices <span class="math inline">\(v\in V\)</span>, and the predecessor subgraph <span class="math inline">\(G_\pi\)</span> is a shortest-paths tree rooted at <span class="math inline">\(s\)</span>. If <span class="math inline">\(G\)</span> does contain a negative-weight cycle reachable from <span class="math inline">\(s\)</span>, then the algorithm returns FALSE.</p></li>
+<li><strong>Notes</strong>:</li>
+<li>Given a weighted, directed graph <span class="math inline">\(G=(V,E)\)</span> with no-negative weight cycles, let <span class="math inline">\(m\)</span> be the maximum over all vertices <span class="math inline">\(v\in V\)</span> of the minimum number of edges in a shortest path from the source <span class="math inline">\(s\)</span> to <span class="math inline">\(v\)</span>. Then if we modify the BELLMAN-FORD algorithm such that a flag is set to <span class="math inline">\(1\)</span> if at least one call to relax is given and the flag is re-initialized to <span class="math inline">\(0\)</span> at each iteration. If we write the for loop so that it checks whether the flag value of the previous iteration is <span class="math inline">\(0\)</span> (implying termination). This algorithm will terminate in <span class="math inline">\(m+1\)</span> passes.</li>
+<li><p>The time complexity of BELLMAN-FORD algorithm is <span class="math inline">\(\mathcal O (\vert V \vert\cdot \vert E \vert)\)</span>.</p></li>
+</ul>
+<h2 id="single-source-shortest-paths-in-directed-acyclic-graphs">Single-source shortest paths in directed acyclic graphs</h2>
+<ul>
+<li>Shortest paths are well defined in a DAG (since there are no cycles!).</li>
+<li>The algorithm starts by Topologically sorting the DAG.</li>
+</ul>
+<p>{% highlight C %} DAG-SHORTEST-PATH(G, w, s) topologically sort the vertices of G INITIALIZE-SINGLE-SOURCE(G,s) for each vertex u, taken in topologically sorted order for each vertex v in G.adj[u] RELAX(u,v,w) {% endhighlight %}</p>
+<ul>
+<li>The <strong>running time</strong> is <span class="math inline">\(\Theta (V+E)\)</span>.</li>
+<li><strong>Theorem</strong>: If a weighted, directed graph <span class="math inline">\(G = (V,E)\)</span> has source vertex <span class="math inline">\(s\)</span> and no cycles, then at the termination of the DAG-SHORTEST-PATHS procedure, <span class="math inline">\(v.d = \delta(s,v)\)</span> for all vertices <span class="math inline">\(v\in V\)</span>, and the predecessor subgraph <span class="math inline">\(g_\pi\)</span> is a shortest-paths tree.</li>
+</ul>
+<h2 id="dijkstras-algorithm">Dijkstra’s Algorithm</h2>
+<ul>
+<li>Dijkstra’s algorithm solves the single-source shortest paths problems on a weighted directed graph <span class="math inline">\(G=(V,E)\)</span> for the case in which <em>all edge weights are nonnegative</em>.</li>
+<li>The running time of Dijkstra’s algorithm is lower than Bellman Ford algorithm.</li>
+</ul>
+<p>{% highlight C %} DIJKSTRA(G, W, s) INITIALIZE-SINGLE-SOURCE(G, s) S = empty-set Q = G.V while Q is not empty u = EXTRACT-MIN(Q) S = S union {u} for each vertex v in G.Adj[u] RELAX(u,v,w) {% endhighlight %}</p>
+<ul>
+<li><strong>Theorem</strong>: Dijkstra’s algorithm, run on a weighted, directed graph <span class="math inline">\(G = (V,E)\)</span> with non-negative weight function <span class="math inline">\(w\)</span> and source <span class="math inline">\(s\)</span>, terminates with <span class="math inline">\(u.d = \delta(s,u)\)</span> for all vertices <span class="math inline">\(u\in V\)</span>.</li>
+<li>The above theorem can be easily shown with the help on induction where the loop invariant is: <em>At the start of each iteration of the while loop, <span class="math inline">\(v.d = \delta(s,v)\)</span> for each vertex <span class="math inline">\(v\in S\)</span></em>.</li>
+<li>If the queue is implemented using a priority queue, then the running time of the algorithm is <span class="math inline">\(\mathcal O ( E\lg V)\)</span>. We can improve the running time to <span class="math inline">\(\mathcal O (V\lg V + E)\)</span> by using Fibonacci heap.</li>
+</ul>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>The Dijkstra’s algorithm need not produce the correct answer when the edge weight can become negative.</li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
