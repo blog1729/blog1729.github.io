@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - Operating Systems</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Operating Systems</h1>
+
+            <div class="info">
+    Posted on August 12, 2015
+    
+</div>
+
+<h1 id="section">&lt;2015-07-28&gt;</h1>
+<ul>
+<li><p>An operating system is a program that allows us to create a computing environment such as interfacing with hardware and user which includes handling the I/O and other devices.</p></li>
+<li><p>A program loaded into the memory is called a <strong>process</strong>.</p></li>
+<li><p>Examples: Unix, GNU/Linux, Windows, Macintosh, etc.</p></li>
+<li><p>There are two ways in which we can process applications</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Serial processing</strong></p></li>
+<li><p><strong>Multi programming</strong>: in this method, the CPU is sort of shared between many processes, i.e., the CPU need not wait for one process to complete its execution; at a time more than once process can be loaded into the memory and CPU switches back and forth between different processes.</p></li>
+</ol>
+<p>Obviously, the multi programming method is better (as far as execution time is is concerned) as it makes sure that the maximum amount of resources are used.</p></li>
+<li><p><strong>Time Sharing</strong>: is an extension of the multi programming method, but here, the CPU switches back and forth so fast that each of the processes can interact with the system (in some sense, process in a parallel manner.)</p></li>
+<li><p>There are several jobs that are kept in the main memory ready to be executed, the CPU has to somehow choose a job among them to be executed next. This choice is made by the <strong>scheduling algorithm</strong> and this is called CPU Scheduling.</p></li>
+<li><p>A <strong>trap</strong> (or an <strong>exception</strong>) is a software-generated interrupt caused either by an error or by a specific request from a user program</p></li>
+<li><p>Modes of operation: a bit, called <strong>mode bit</strong> is added to the hardware of the computer to indicate the current mode of operation.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>user mode</strong>:</p></li>
+<li><p><strong>kernel mode</strong> (also called supervisor mode, system mode, or privileged mode.)</p></li>
+</ol>
+<p>When the computer system is executing on the behalf of the user application, the system is in the user mode and when a user application requires a service from the Operating system (via system calls), there should be a transition from the user mode to the kernel mode.</p></li>
+</ul>
+<h1 id="section-1">&lt;2015-07-29&gt;</h1>
+<ul>
+<li><p>Some terminology:</p>
+<ul>
+<li><p>Process or Job: a program that is executing.</p></li>
+<li><p>Text section: the program code.</p></li>
+<li><p>Program counter: the address of the next instruction.</p></li>
+<li><p>Stack: contains temporary data such as function parameters, return addresses, return addresses and local variables.</p></li>
+<li><p>Data section: contains global variables.</p></li>
+<li><p>Heap: where memory is dynamically allocated during process run time.</p></li>
+<li><p>Job queue: processes that enters a system are put into this queue.</p></li>
+<li><p>Ready queue: processes in main memory that are ready and waiting to execute are placed in this queue.</p></li>
+<li><p>Device queue: processes that wait for a device; each device has its own device queue, for example, I/O queue.</p></li>
+<li><p>Scheduler: processes migrate among various queues throughout its lifetime; hence the operating system must select processes for such migration, this is the purpose of a scheduler.</p></li>
+<li><p>Context switch: the task of switching the CPU to another process; this requires the state save of the current process and a state restore of a different process.</p></li>
+</ul></li>
+<li><p>Process States:</p>
+<ol style="list-style-type: decimal">
+<li><p>New: A new process that is being created.</p></li>
+<li><p>Running: Instructions are being executed</p></li>
+<li><p>Waiting: The process is waiting for some event to occur (for example, I/O or a signal)</p></li>
+<li><p>Ready: The process is waiting to be assigned to a processor.</p></li>
+<li><p>Terminated: The process has finished execution.</p></li>
+</ol></li>
+<li><p>The process control block (the structure <code>task_struct</code>) in Linux consists of the following:</p>
+<ul>
+<li><p><code>pid_t pid</code>: process id.</p></li>
+<li><p><code>long state</code>: process state.</p></li>
+<li><p><code>unsigned int time_slice</code>: scheduling information. (this is an interesting fact; in pintos, we don’t have this; probably I’m supposed to implement this!)</p></li>
+<li><p><code>struct files_struct *files</code>: list of 2open files.</p></li>
+<li><p><code>struct mm_struct *mm</code>: address space of this program.</p></li>
+</ul></li>
+<li><p>Types of Scheduler:</p>
+<ol style="list-style-type: decimal">
+<li><p>Long term scheduler or job scheduler: this one schedules processes that are spooled to a mass-storage/disk. Basically, this scheduler loads them into memory for execution.</p>
+<p>The duration at which this is invoked is typically large and is suitable for use in servers</p></li>
+<li><p>Short term scheduler or CPU scheduler: this one selects from processes that are ready to execute and allocates the CPU to one of them.</p>
+<p>This is typically invoked in every 100ms and is suitable for common use, like in a personal computer.</p></li>
+<li><p>Medium term scheduler: I don’t know what this does exactly, but it is executed more frequently than the long term scheduler and less frequently than the short term scheduler.</p></li>
+</ol></li>
+<li><p>Types of queues (non-exhaustive):</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Job queue</strong>: this queue consists of all processes in the system.</p></li>
+<li><p><strong>Ready queue</strong>: the processes that are ready to execute. (I think that the scheduler has to deal with this one.)</p></li>
+<li><p><strong>Device queue</strong>: contains the lists of all processes that are waiting for a device (the device can be I/O too.)</p></li>
+</ol></li>
+<li><p>Example of forking: ~/area51/os/fork.c</p></li>
+<li><p>Forking: this will create a copy of the process (this copy is called as child).</p>
+<p>In C language, this can be achieved by making use of <code>pid_t  fork()</code> function available from the header <code>unistd.h</code>. Note that the type <code>pid_t</code> is inherited from the header <code>sys/types.h</code>.</p>
+<ul>
+<li><p>[ ] The fork function behaves differently in the child and parent process. In the child process, the value returned by fork function is zero and in the parent process, the fork function returns the process id of the child that was forked. Note that a negative value returned by fork function indicates that the fork failed. (When can a fork fail, by the way?)</p></li>
+<li><p>A parent can kill the child for a variety of reasons (no pun intended). For example, the child has exceeded its usage of resources, task assiged to the child is no longer required or that the parent is exiting and that the operating system does not allow the child to continue if its parent terminates.</p></li>
+<li><p>In UNIX, use the function <code>exit()</code> to terminate a process and we can use <code>wait()</code>. The wait function basically waits for a state change to happen in the child. Valid state changes are: the child is terminated, the child was stopped by a signal or the child is resumed by a signal. Note that performing a wait process for a terminated child allows the system to release the resources. Refer <code>wait(2)</code> in the man pages. The function <code>waitid()</code> can be used to get precise control over the child that we are waiting for, i.e., this function takes a pid as argument.</p></li>
+<li><p>The textbook mentions that there are some operating systems that does not allow a child to exist if its parent has already terminated. This phenomenon is referred to as <strong>cascading termination</strong>.</p>
+<p>I think that Linux does not follow cascading termination. Text book mentions that for orphaned processes (processes with no parents, Linux and Unix assigns a process known as <code>init</code> as their parent.)</p></li>
+</ul></li>
+<li><p><strong>Context Switch</strong></p>
+<p>Interrupts can cause the operating system to change a CPU from the current task to run a kernel routine. When such an interrupt occurs, the system has to change the current context of the process on the CPU so that it can restore it at a later period of time.</p>
+<p>Switching the CPU to another process requires performing a sate save of the current process and a state restore of a different process. This task is called as <strong>context switch</strong>.</p>
+<p>When a context switch occurs, the kernel saves the state in the current process’s PCB (Process Control Block) and loads saved context of the to-be running process.</p></li>
+</ul>
+<h1 id="section-2">&lt;2015-07-30&gt;</h1>
+<ul>
+<li><p>In a multi programming system, we do not wish to waste the time at which CPU remains idle. So basically, when CPU is not in use, we shall pick a process from the ready queue and allocate CPU for it. This is done by the short-term scheduler.</p></li>
+<li><p>When does CPU-Scheduling decisions happen?</p>
+<ol style="list-style-type: decimal">
+<li><p>Process switch from running to waiting state.</p></li>
+<li><p>Process switches from running to waiting state.</p></li>
+<li><p>Process switches from waiting state to ready state.</p></li>
+<li><p>When a process terminates.</p></li>
+</ol></li>
+<li><p>In cases 1 and 4, we must choose a process from the ready queue, whereas in case of 2 and 3, this need not always be the case. We refer the former case as <strong>nonpreemtive</strong> or <strong>cooperative</strong> and the latter as <strong>preemptive</strong>.</p>
+<p>In case of a nonpreemptive scheduling, once the CPU has been allocated a process, the process keeps the CPU until it releases the CPU by either terminating or switching to the waiting state. In case of preemptive scheduling, a process can be sort of forced out of the CPU.</p></li>
+<li><p>Scheduling criteria:</p>
+<ol style="list-style-type: decimal">
+<li><p>CPU utilization: keep CPU as busy as possible.</p></li>
+<li><p>Throughput: Number of processes completed during unit time.</p></li>
+<li><p>Turnaround time: the time taken to execute a process, i.e., the time between starting and ending of a process.</p></li>
+<li><p>Waiting time: sum of periods of time spent in the ready queue.</p></li>
+<li><p>Response time: time time from the submission of request (ready request?) until first response is produced.</p></li>
+</ol></li>
+<li><p><strong>First-Come First-Server scheduling</strong>:</p>
+<p>In this scheme, the process that requests the CPU first is allocated it first. This can be easily implemented using a queue. The obvious disadvantage is that the average waiting time is long. Another case where there is a disadvantage is the following: one CPU intensive job and many IO intensive jobs; here if the CPU intensive job is allotted CPU first, then CPU might remain idle afterwards, which is a waste. Note that this algorithm is preemptive, i.e., once a process has been allotted CPU, it keeps the CPU until it terminates and thus is troublesome for time sharing systems, where it is important that each user get a share of CPU at regular intervals.</p></li>
+<li><p><strong>Shortest-Job-First Scheduling</strong>:</p>
+<p>When the CPU is available, the scheduler shall assign it to the process that has the smallest next CPU burst; if two processes have the same CPU burst, we break the tie by using FCFS scheduling.</p>
+<p>This algorithm shall minimize the average waiting time of processes (something that FCFS cannot do.) The obvious problem with this is that one cannot exactly estimate the next CPU burst, hence this is actually approximated.</p></li>
+</ul>
+<h1 id="section-3">&lt;2015-08-04&gt;</h1>
+<ul>
+<li><p>In shortest job first algorithm, there is no real way to find out what the exact value of the next CPU burst is. So if <span class="math inline">\(t_n\)</span> is the length of the $n$th CPU burst and <span class="math inline">\(\tau_{n}\)</span> be the predicted value of the $n$th CPU burst, then we may predict the value of $n+1$the CPU burst by the formula <span class="math inline">\(\tau_{n+1} =\alpha t_n +  (1-\alpha)\tau_n\)</span>. The formula defined above is called as <strong>exponential average</strong>.</p></li>
+<li><p>The SJF algorithm can have two variants: preemptive and non-preemptive. The non-preemptive SJF is also known as shortest-remaining-time-first-scheduling.</p></li>
+<li><p><strong>Priority Scheduling</strong>: this is a generalization of SJF, here the priority can be anything (not just shortest CPU burst). For example, the priority might be 1/CPU-Burst or IO-Burst/CPU-Burst (processes with high value of this metric are likely to be interactive program; thus giving priority to this metric means that interactive programs are more favored over, say, batch programs.)</p></li>
+<li><p>Priority scheduling can be either preemptive and non-preemptive.</p></li>
+<li><p>The major problem with priority scheduling is indefinite blocking or starvation. That is, if a process has a low priority and that a stream of high priority processes are always inserted into the queue, then this process is never executed, which is bad. The solution to this problem is <strong>Aging</strong>, i.e., we shall gradually increase the priority of a process that has been waiting for a long time.</p></li>
+<li><p>In priority scheduling, we may use FCFS to break the tie, in case two processes have the same priority.</p></li>
+<li><p><strong>Round-Robin Scheduling</strong>: in this scheduling algorithm, there is a time-slice, i.e., a fixed amount of time through which a process can execute. After a process completes its time-slice, it is then send back to the bottom of the queue. Note that if the process terminates before the time-slice, then the next process in the queue is allowed to execute immediately.</p></li>
+<li><p>Round-robin scheduling is designed especially for time-sharing systems. This is usually implemented using a First In First out queue. It is easy to see that RR algorithm is preemptive.</p></li>
+<li><p>Note that the ratio average-waiting-time/time-slice need not be monotonous.</p></li>
+<li><p><strong>Multilevel Queue Scheduling</strong>: here there is a classification between processes, and each partition has separate queue. For example, we may classify processes as <strong>foreground</strong> (interactive) and <strong>background</strong> (batch), and create queue for each of the.</p>
+<p>Usually various queues have different scheduling algorithm (the foreground-queue may be scheduled by RR algorithm and the background queue by FCFS algorithm.) Another possibility is the time-slice among the queues. For instance, the foreground queue may be given 80 percent of CPU time and the remaining for the background queue.</p></li>
+<li><p><strong>Multilevel Feedback-Queue Scheduling</strong>: in the previous case, process do not move between queues. In this algorithm, processes may move from one queue to another, for example, if a process uses too much CPU time, then it will be moved to a low-priority queue.</p></li>
+<li><p>Multilevel feedback-queue scheduler may be characterized by the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>Number of queues.</p></li>
+<li><p>The scheduling algorithm for each queue.</p></li>
+<li><p>The method used to determine when to upgrade a process to a higher-priority queue.</p></li>
+<li><p>The method used to determine when to demote a process to a lower priority queue.</p></li>
+<li><p>The method used to determine which queue a process will enter when that process needs a service.</p></li>
+</ol></li>
+</ul>
+<h1 id="section-4">&lt;2015-08-05&gt;</h1>
+<ul>
+<li><p>Usually system calls are executed in Kernel mode. There is a single bit called mode bit which is used to identify the mode of the process. This has a similar structure of execution with the interrupt, but the main difference between interrupts and system calls is that system calls are done voluntarily while the interrupts are most often involuntary.</p></li>
+<li><p><strong>Concurrency and Parallelism</strong>: In concurrent process, there will be one agent or a few agents and many processes while in parallel process, the ratio of the agents and process will be almost one, i.e., real parallelism happens in parallel processing while concurrent processing merely imitates the parallelism by continuously switching between processes.</p></li>
+<li><p><strong>Interprocess Communication</strong>: A process executing concurrently might be independent, i.e., it cannot affect of be affected by the other processes executing in the system (a process that do not share data is independent.) The opposite is called cooperating process, i.e., it can affect or be affected by other processes (a process that share data with other processes is cooperating.)</p></li>
+<li><p>Why process cooperation?</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Information sharing</strong>: same piece of information is shared.</p></li>
+<li><p><strong>Computational speedup</strong>: one may break a task into sub-tasks which may be executed in a parallel manner to provide a speedup.</p></li>
+<li><p><strong>Modularity</strong>.</p></li>
+<li><p><strong>Convenience</strong>.</p></li>
+</ol></li>
+<li><p>There are two ways in which cooperation between processes can happen:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Shared memory</strong>: processes read and write data to some memory that is common to all of them.</p></li>
+<li><p><strong>Message passing</strong>: messages are exchanged between cooperating processes.</p></li>
+</ol></li>
+<li><p>The shared memory model is faster than message parsing since the former often do not require kernel intervention while the latter does.</p></li>
+<li><p><strong>Shared-memory systems and the producer consumer problem</strong>:</p>
+<p>The producer process produces information that is consumed by a consumer process. How do we implement such a scenario? One solution to implementing this is using shared memory.</p>
+<p>The obvious way to implement this is have a shared buffer in which things that are produced are stored and the consumer will fetch things from this buffer. In case of a bounded buffer, if the buffer is full the producer has to wait , and similarly when the buffer is empty, the consumer has to wait. We may implement this feature by having a counter and doing <code>while(counter ==  BUFFER_SIZE);</code> and <code>while(counter == 0);</code> in producer and consumer respectively. Here once new items are produced or when items are consumed, we have to increment and decrement the counter respectively.</p>
+<p>The problem is that, the <code>counter++</code> or <code>counter--</code> is not an atomic instruction. Atomically, it boils down to copying value the counter to a register, incrementing the register and then assign the incremented value to counter. What if after assigned value to register, a context switch occur? Clearly this isn’t going to work properly in certain cases.</p>
+<p>Situations like these are known as <strong>race condition</strong>, where the value of some variable depends on a random event (we don’t know if a context switch is going to happen.)</p></li>
+<li><p>In case of cooperating process, there are sections within the code whose execution should be done in one go. For example, in the previous case it was <code>counter++</code> (this is an easy example; I guess in practice, the section can be much larger.) We call this part as <strong>critical section</strong>. So the main problem is that at a time only one process’s critical section should be allowed to execute.</p></li>
+<li><p>Our requirements:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Mutual exclusion</strong>: If a process <span class="math inline">\(P\)</span> is executing in critical section, then no other coordinating process can be executing in its critical sections.</p></li>
+<li><p><strong>Progress</strong>: If no other processes are executing in the critical section, then only the processes that are not executing in the remainder section can participate in decided which process takes the next turn and this selection cannot be postponed indefinitely.</p></li>
+<li><p><strong>Bounded waiting</strong>: There should be an upper bound on the number of times other processes are allowed to enter their critical sections after a process has made a request to enter its critical section and before that request is granted. (I think basically, we want the timer-interrupt to still work even if a process is in critical section, i.e., even if a process is executing in its critical section, after a period of time the scheduler must be allowed to switch context)</p></li>
+</ol></li>
+<li><p>One way of handling the critical section is to disable all interrupts and re-enable them once we are done executing the critical section. This problem ensures mutual exclusion, but does not guarantee that the waiting time is bounded. I also think that disabling all interrupts are bad since if you want to kill the process it must die immediately (<img src="http://i.imgur.com/6u3dd.png" alt />.) The book mentions that disabling interrupts is a time-consuming process.</p></li>
+<li><p>Many modern computer systems (the hardware) provides an atomic instruction called the <code>TestAndSet(boolean *target)</code>, this basically returns the value of the variable <code>lock</code> (the shared variable). Suppose several processes want to execute the critical section of the code, now they will first have to make sure that the value of the lock variable is false and then make it true (this means that that process can start executing its critical section.)</p></li>
+<li><p>Another way is to use an atomic <code>swap()</code> instruction. Here the <code>lock</code> variable is shared and processes will have a local <code>key</code> variable. Here we continuously swap the values of lock and key and stops when the value of key is false. This method is merely a variant of the previous one.</p></li>
+<li><p>Another nice way is illustrated in page 199 in the text book (mostly contains code).</p></li>
+</ul>
+<h1 id="section-5">&lt;2015-08-06&gt;</h1>
+<ul>
+<li><p>It should be noted that the solutions that were presented required hardware support to make sure that <code>swap</code>, <code>TestAndSet</code> were executed atomically.</p></li>
+<li><p><strong>Semaphores</strong>: This method does not require hardware support and can also be programmed. Semaphore is a variable that can only be accessed through two standard functions, <code>wait()</code> and <code>signal()</code>. The wait operation and the signal operation are also known as P and V respectively.</p></li>
+<li><p>The wait function merely executes an empty while loop until the value of S becomes positive, after than it decrements the value of S. The signal function merely increments the value of S.</p></li>
+<li><p>Constraints:</p>
+<ol style="list-style-type: decimal">
+<li><p>All modifications to the integer valued semaphore must be executed indivisibly, i.e., when one process modifies the value of the semaphore, no other process can modify the value of it.</p></li>
+<li><p>In case of wait function, testing of value S, i.e, S &lt;= 0 and its possible modification S– must be executed without interruption.</p></li>
+</ol></li>
+<li><p>Types of semaphore:</p>
+<ol style="list-style-type: decimal">
+<li><p>Binary semaphore: the value can range between 0 and 1. Also known as mutex locks.</p></li>
+<li><p>Counting semaphore: the value can range over unrestricted domain.</p></li>
+</ol></li>
+<li><p>So solve the critical section problem, we can employ a mutex. Here before the critical section, we shall call the <code>wait()</code> function and after the critical section we shall call the <code>signal()</code> function.</p></li>
+<li><p><strong>The Dining Philosophers Problem</strong>: Consider 5 dining [Chinese] philosophers using a circular dining table. These philosophers, obviously, eats or thinks; philosophers do not eat and think nor think and eat. There are 6 chopsticks, each philosopher has a chopstick to his right and one to his left. He can only eat if he get hold of both the chopstick. The problem is to design a protocol that is both deadlock-free and starvation-free. For example: consider the protocol in which if a philosopher wants to eat, she picks the right chopstick first and then the left chopstick; this can cause a deadlock when each of them changes state from thinking to eating at once (here all of them will have a right chopstick, but none of them will get a pair), a dead lock.</p></li>
+<li><p>Some solutions:</p>
+<ul>
+<li><p>Allow at most four philosopher to be sitting simultaneously at the table (then follow the solution mentioned as an example.)</p></li>
+<li><p>Allow a philosopher to pick up her chopsticks only if both chopsticks are available (critical section).</p></li>
+<li><p>Odd philosopher picks up left chopstick and then her right chopstick, while the even philosopher picks her right chopstick and then right chopstick.</p></li>
+</ul></li>
+<li><p>Even though the last bullet suggests deadlock free solutions, they do not guard the possibility of a philosopher starving to death.</p></li>
+</ul>
+<h1 id="section-6">&lt;2015-08-11&gt;</h1>
+<ul>
+<li><p><strong>Bounded buffer problem</strong>: this is the good old producer consumer problem. We have a pool of <span class="math inline">\(n\)</span> buffers, each capable of holding one item, the producer can produce an item and store it in the item, the consumer can consume an item from the the buffer. Obviously, a producer cannot produce if all the buffers are full and a consumer cannot consume when all the buffers are empty.</p>
+<p>One can make use of semaphores to solve this synchronization problem. We need a mutex and two counting semaphores called <code>full</code> and <code>empty</code>. The full is initialized to <span class="math inline">\(n\)</span> and the empty is initialized to <span class="math inline">\(0\)</span> at the beginning.</p>
+<p>Basically, the producer shall produce an item and before adding it to the buffer, it shall wait for the <code>empty</code> semaphore. Then it shall wait for the <code>mutex</code> to add the item to the buffer. After adding, it shall release the <code>mutex</code> semaphore and further release the full semaphore.</p>
+<p>The consumer, on the other hand, waits for the <code>full</code> semaphore and <code>mutex</code> to remove an item from the buffer. After removing, it shall then release the mutex and <code>empty</code> semaphore.</p>
+For pseudo-code, refer to page 205 in the book.</li>
+<li><strong>Readers-Writers problem</strong>: There are two variants of this problem
+<ol style="list-style-type: decimal">
+<li><p>First readers-writers problem: no reader shall be kept waiting unless a writer has already obtained permission to use the shared object.</p>
+<p>This can be implemented using a <code>mutex</code> and <code>wrt</code> (both binary semaphores, initialized to 1), and a <code>readcount</code> variable which is an integer.</p>
+<p>The <code>wrt</code> semaphore ensures mutual exclusion between writers and the mutex ensures mutual exclusion when the read count is updated.</p>
+Refer to page 207 of the text for details.</li>
+<li><p>Second readers-writers problem: once a writer is ready, no reader should for for other readers to finish, so that writer can get the control as soon as possible.</p></li>
+</ol></li>
+</ul>
+<h1 id="section-7">&lt;2015-08-20&gt;</h1>
+<ul>
+<li><p><strong>Peterson’s solution</strong>: For two process, <span class="math inline">\(P_0\)</span> and <span class="math inline">\(P_1\)</span>, we share the two variables <code>int turn</code> and <code>bool turn[2]</code>. For convenience if <span class="math inline">\(i\)</span> denote the index of one of the process, then <span class="math inline">\(j\)</span> shall denote the index of the other process.</p>
+<p>The value of <code>flag[i]</code> indicates that the process wishes to get into the critical section. After making <code>flag[i] = TRUE</code>, we shall set the value of turn to be j and do a <code>while(flag[j] &amp;&amp; turn == j)</code>. After this empty while loop breaks the critical section begins and <code>flag[i] = FALSE</code> shall denote the end of CS.</p>
+<p>This solution shall ensure Mutual Exclusion, for to break the while loop, either <code>flag[i] == FALSE</code> (this means that the other process has successfully completed executing its critical section.) If the value of <code>turn</code> is not j, this means that one of the process will be inside the while loop while the other will be able to execute the critical section and once it finishes execution of CS, it shall change the value of flag.</p>
+The book also shows that progress requirement and bounded waiting is also met, though I wasn’t able to fully comprehend it.</li>
+<li><strong>Busy wait</strong>: While a process is in critical section, other processes must loop continuously in the entry code, i.e., CPU wastage happens.</li>
+<li><p><strong>Implementing a semaphore</strong>: A semaphore implementation that busy waits is known as <strong>spinlock</strong>; these have an advantage that there is no context switch that has to take place when a process must wait for a lock which can be useful since context switches can often consume time and resources.</p>
+<p>The semaphore can be implemented as a C structure with an integer element value and a pointer to a list (the value variable stores the number of elements in the list.) When a process waits for a semaphore, it is added to a list. Further, a signal () operation removes one process from the list of waiting process and awakens the process. (Refer to page 202, for sample code for the wait and signal functions)</p>
+<p>But it should be guaranteed that the wait and signal functions are executed atomically (In pintos, I think that it does this by disabling interrupts.)</p></li>
+</ul>
+<h1 id="section-8">&lt;2015-08-25&gt;</h1>
+<p>(Did not go to class.)</p>
+<ul>
+<li><p>Semaphores, when incorrectly used can lead to some nasty bugs. To solve this problem, a “high-level” synchronization construct was constructed, it is called the <strong>monitor</strong> type.</p></li>
+<li><p>To synchronize, we can define a variable of type condition where this variable can have two operations, <code>wait</code> and <code>signal</code>.</p>
+<p>The wait operation means that the process invoking this operation is suspended until another process invokes the signal operation.</p>
+<p>The signal operation, when invoked shall resume exactly one suspended process. If no processes are suspended, then the signal operation has no effect. Notice that this need not be the case with semaphores.</p>
+<p>If the signal operation is invoked by a process P, then there is a suspended process Q that shall be executed. But then if Q is allowed to be executed and when P already has the monitor, P must wait or that P must be allowed to continue and Q waits until P leaves the monitor. These cases are respectively referred to as <strong>signal and wait</strong>, and <strong>signal and continue</strong>.</p></li>
+<li><p><strong>Dining philosophers using monitors</strong>: We shall describe the state of the philosopher using an enum (the possible states are thinking, hungry and eating.) The variable can only be changed if her two neighbors are not eating. (The indices corresponding to neighbors of <span class="math inline">\(i\)</span> are <span class="math inline">\((i+4) % 5\)</span> and <span class="math inline">\((i+1) % 5\)</span>.)</p></li>
+</ul>
+<h1 id="section-9">&lt;2015-09-01&gt;</h1>
+<ul>
+<li><p>CPU can directly access only main memory and registry.</p></li>
+<li><p>We have to make sure that each process has a separate memory space so that we can ensure that the memory doesn’t get corrupted by other applications. To do this, we have two registers, the base register holds the smallest legal physical memory address and the limit register specifies the size of the range.</p>
+<p>To ensure protection, we can simply check whether the address generated by a process lies in its range and if it doesn’t this results in an error.</p></li>
+<li><p><strong>Address Binding</strong></p>
+<p>Addresses in the source program is generally symbolic (relative) and the compiler has to bind these symbolic addresses to relocatable addresses (eg: 14 bytes beginning from this module). After that the loader or the linkage editor binds the relocatable address to absolute address (like 237343 in Main memory.)</p>
+<ul>
+<li><p><strong>Compile time</strong>: if, at compile time, it is known where a process will reside in memory, then the <strong>absolute code</strong> can be generated.</p></li>
+<li><p><strong>Load time</strong>: if, at compile time, it is <strong>not</strong> known where a process will reside in memory, then the compiler should generate <strong>relocatable code</strong> and the final binding is delayed until load time.</p></li>
+<li><p><strong>Execution time</strong>: if the process can be moved during its execution time from one memory segment to another, then the binding must be delayed until the run time. Special hardware should be made available; used in most general purpose OS.</p></li>
+</ul></li>
+<li><p>The address generated by CPU is called <strong>logical address</strong> or <strong>virtual address</strong> while the address seen by memory unit, i.e., the address that is loaded into the <strong>memory-address register</strong> of the memory is referred to as <strong>physical address</strong>.</p>
+<p>The set of all logical address generated by a program is a <strong>logical address space</strong>, similarly we can define <strong>physical address space</strong>. In case of execution-time address-binding scheme, the logical and physical address space can differ.</p>
+<p>The run time mapping of a logical addresses to physical addresses is done by a hardware device called <strong>memory management unit</strong> (MMU).</p>
+<p>Example of working of MMU: let us call base register by relocation register and the value of the relocation register is added to the every address that the user generates.</p></li>
+<li><p><strong>Dynamic loading</strong>:</p></li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
