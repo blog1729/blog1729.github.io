@@ -11,25 +11,27 @@ title: Matlab part 1
 * **Comments**: `%` can be used to add in line comments. Use `%{ ... %}` for block comments.
 * Commonly used operators:
 
-| `+` | Plus, addition |
-| `-` | Minus, subtraction |
-| `*` | Scalar and matrix multiplication |
-| `.*`| Array multiplication operator, element wise multiplication |
-| `^` | Scalar and matrix exponentiation operator |
-| `.^` | Array exponentiation operator, element wise exponentiation |
-| `\` | Left division operator, `A\B` solves the system `Ax = B` |
-| `/` | Right division operator, `A/B` solves the system `Bx = A`|
-| `.\` | Array left division, `A.\B` does the left division pair wise|
-| `./` | Array right division |
-| `:` | Produces regularly spaced elements `j:k` is same as `[j j+1 ... j+k]` and `j:i:k` is same as `[j j+i j+2i ... j+mi]` |
-| `()` | Parenthesis; encloses function argument; **array indices**; overrides precision|
-| `[]` | Brackets; used to define array, e.g., `x = [1 2]`|
-| `.` | Decimal point |
-| `,` | Separates statements and elements in a row|
-| `;` | Separates columns and suppresses display |
-| `'` | Used to calculate transpose |
-| `.'`| Non-conjugated transpose operator|
-| `=` | Assignment operator |
+  Op         Operation
+  ---------- ----------------------------------------------------------------------------------------------------------------------------------
+  \`+\`      Plus, addition
+  \`-\`      Minus, subtraction
+  \`\*\`     Scalar and matrix multiplication
+  \`.\*\`    Array multiplication operator, element wise multiplication
+  \`\^\`     Scalar and matrix exponentiation operator
+  \`.\^\`    Array exponentiation operator, element wise exponentiation
+  \`\`       Left division operator, \`A\B\` solves the system \`Ax = B\`
+  \`/\`      Right division operator, \`A/B\` solves the system \`Bx = A\`
+  \`.\`      Array left division, \`A.\B\` does the left division pair wise
+  \`./\`     Array right division
+  \`:\`      Produces regularly spaced elements \`j:k\` is same as \`\[j j+1 ... j+k\]\` and \`j:i:k\` is same as \`\[j j+i j+2i ... j+mi\]\`
+  \`()\`     Parenthesis; encloses function argument; **\*array indices\***; overrides precision
+  \`\[\]\`   Brackets; used to define array, e.g., \`x = \[1 2\]\`
+  \`.\`      Decimal point
+  \`,\`      Separates statements and elements in a row
+  \`;\`      Separates columns and suppresses display
+  \`'\`      Used to calculate transpose
+  \`.'\`     Non-conjugated transpose operator
+  \`=\`      Assignment operator
 
 * Special: `ans` represent the most recent answer; `i,j` for complex numbers; `inf` represent Infinity; `NaN` undefined number (not a number); `pi` the number $\pi$.
 * *Variable* consist of a letter followed by any number of letters, digits, or underscores and MATLAB is case-sensitive.
@@ -43,40 +45,46 @@ title: Matlab part 1
 * **Formatting and I/O**: `disp` to display contents of an array or a string, `fscanf` for inputs, `fprintf` for printing, `input` for taking input.
 * **Commands**:
 
-| `cat` | concatenates arrays|
-| `find` | finds indices of nonzero elements|
-| `length` | computes the number of elements|
-| `linspace`| Creates a regularly spaced vector|
-| `max` | Returns the maximum element |
-| `min` | Returns the smallest element|
-| `prod` | Product of each column |
-| `reshape` | Changes the size |
-| `sort` | Sorts each column |
-| `sum` | sums each column |
-| `eye` | Creates an identity matrix |
-| `ones` | Creates an array of ones |
-| `zeros` | Creates an array of zeros |
-| `dot` | Computes the dot product |
-| `det` | Computes the determinant of a matrix |
-| `ceil` | Computes the ceiling of a number |
+  Function       Operation
+  -------------- --------------------------------------
+  \`cat\`        concatenates arrays
+  \`find\`       finds indices of nonzero elements
+  \`length\`     computes the number of elements
+  \`linspace\`   Creates a regularly spaced vector
+  \`max\`        Returns the maximum element
+  \`min\`        Returns the smallest element
+  \`prod\`       Product of each column
+  \`reshape\`    Changes the size
+  \`sort\`       Sorts each column
+  \`sum\`        sums each column
+  \`eye\`        Creates an identity matrix
+  \`ones\`       Creates an array of ones
+  \`zeros\`      Creates an array of zeros
+  \`dot\`        Computes the dot product
+  \`det\`        Computes the determinant of a matrix
+  \`ceil\`       Computes the ceiling of a number
+
 
 * **Plotting**:
 
-| `axis` | Set axis limits |
-| `fplot` | intelligent plot of functions, use anonymous function as first input|
-| `grid`| displays grid lines|
-| `plot`| Generates an $xy$ plot, even for matrices|
-| `print`| Prints plot or saves plot into a file |
-| `title` | Puts up a title at the top of the plot|
-| `xlabel` | Adds an xlabel to the plot|
-| `ylabel` | Adds a ylabel to the plot|
-| `figure` | Opens up a new window for plot |
-| `legend` | Legend placement by mouse |
-| `subplot` | Creates plot in sub-windows|
-| `bar` | Creates a bar plot|
-| `hist` | Creates a histogram|
-| `hist3d`| Creates a 3-dimensional histogram |
-| `hist2d`| Creates a 2-dimensional histogram |
+  Name          Function
+  ------------- ----------------------------------------------------------------------
+  \`axis\`      Set axis limits
+  \`fplot\`     intelligent plot of functions, use anonymous function as first input
+  \`grid\`      displays grid lines
+  \`plot\`      Generates an $xy$ plot, even for matrices
+  \`print\`     Prints plot or saves plot into a file
+  \`title\`     Puts up a title at the top of the plot
+  \`xlabel\`    Adds an xlabel to the plot
+  \`ylabel\`    Adds a ylabel to the plot
+  \`figure\`    Opens up a new window for plot
+  \`legend\`    Legend placement by mouse
+  \`subplot\`   Creates plot in sub-windows
+  \`bar\`       Creates a bar plot
+  \`hist\`      Creates a histogram
+  \`hist3d\`    Creates a 3-dimensional histogram
+  \`hist2d\`    Creates a 2-dimensional histogram
+
 
 * **Scripts**
   * Scripts are programs with `.m` extension. One can write a series of commands, but this does not accept input and does not return output.
@@ -92,5 +100,5 @@ title: Matlab part 1
 
 | `mvnpdf`| Multivariate normal pdf|
 | `mvncdf`| Multivariate cumulative cdf|
-| 
+ 
 
