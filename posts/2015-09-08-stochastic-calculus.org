@@ -1,4 +1,9 @@
+---
+title: Notes on Stocastic Calculus for finance
+---
+
 #+TITLE: Notes on Stochastic Calculus for finance
+#+AUTHOR: $h\lambda$
 #+LATEX_CLASS_OPTIONS: [12pt]
 #+LATEX_HEADER: \usepackage[sc, osf]{mathpazo}
 #+LATEX_HEADER: \usepackage[euler-digits, small]{eulervm}
@@ -485,7 +490,141 @@
     true for a general random walk (where $p$ and $q$ are not
     necessarily the same.)
 
-  + *Brownian motion*
+  + *Brownian motion*: Let $(\Omega, \F, \P)$ be a probability space.
+    For each $\omega \in \Omega$, suppose that there is a continuous
+    function $W(t)$ of $t \ge 0$ that satisfies $W(0) = 0$ and that
+    depends on $\omega$.  Then $W(t)$ $t \ge 0$, is a Brownian motion
+    if for all $0 = t_0 < t_1 < \cdots, t_m$, the increments
+
+    $$W(t_1), W(t_2) - W(t_1), W(t_3) - W(t_2), \cdots, W(t_m) - W(t_{m-1}).$$
+
+    are independent and each of these increments is normally
+    distributed with 
+
+    $$\E[W(t_{i+1}) - W(t_i)) = 0,$$
+    $$\Var[W(t_{i+1}) - W(t_{i})] = t_{i+1} - t_i.$$
+
+    Interestingly, it can be found out that $W(t)$ is a nowhere
+    differentiable function (this follows from the fact that a
+    Brownian motion is self-similar.)
+
+  +
+
+* Stochastic Calculus
+  + *Ito integral*. I think this is same as the Riemann-Stieltjes
+    integral.  $W(t)$ represents a Brownian motion, $\F(t)$, a
+    filtration and $\Delta(t)$ be an adapted stock price process. The
+    integral
     
+    $$\int \Delta(t) dW(t).$$
     
+    is called the Ito integral (the construction of the integral is
+    very similar to that of the Riemann-Stieltjes integral; I don't
+    know why they are mute about Riemann-Stietljes. [[http://math.stackexchange.com/questions/426786/why-isnt-the-ito-integral-just-the-riemann-stieltjes-integral][Math.SE]] link that
+    offers something more.)
+
+  + *Theorem*. The Ito integral is a martingale.
+
+  + *Theorem*. (Ito Isometry). The Ito integral satisfies
     
+    $$\E I^2(t) = E \int_{0}^{t} \Delta^2 (u)\, du.$$
+
+  + *Theorem*. The quadratic variation accumulated upto time $t$ by
+    the Ito integral is
+    
+    $$[I, I](t) = \int_{0}^{t} \Delta^2(u)\, du.$$
+
+  + To sum things up, $I(t)$ has the following properties. 
+
+    + Paths of $I(t)$ are continuous (yes, $I$ is a process.)
+
+    + $I(t)$ is $\F(t)$ measurable.
+
+    + Linearity is obeyed.
+
+    + $I(t)$ is a martingale.
+
+    + Ito Isometry.
+
+    + Quadratic variation.
+
+  + *Remark*.
+
+    $$\int_0^T W(t)\, dW(t) = \frac12 \cdot W^2(T) - \frac12\cdot T.$$
+
+  + A shorthand representation of things (these doesn't posses
+    rigorous meaning.)
+
+    1. $dt\,dt = 0$.
+
+    2. $dW(t)\, dt = 0$.
+
+    3. $dW(t)\, dW(t) = dt$.
+
+** Ito-Doeblin Formula
+   + Here $f(x)$ is is a differentiable function and $W(t)$ is a
+     Brownian motion. 
+
+   + *Differential form*
+     
+     $$df(W(t)) = f'(W(t))\,dW(t) + \frac12 f''(W(t))\, dt.$$
+     
+     *Integral form*
+
+     $$f(W(t)) - f(W(0)) = \int_0^t f'(W(u))\, dW(u) + \frac12 \int_0^t f''(W(u))\, du.$$
+
+   + *Theorem* (Ito-Doeblin formula for Brownian motion).  Let $f(t,
+     x)$ be a function for which the partial derivatives $f_t(t, x),
+     f_x(t, x)$, and $f_{xx}(t, x)$ are defined and continuous, and
+     let $W(t)$ be a Brownian motion.  Then for every $T \ge 0$, 
+     
+     $$f(T, W(T)) = f(0, W(0)) + \int_0^T f_t(t, W(t))\, dt + \int_0^T
+     f_x(t, W(t))\,dW(t) + \frac12 \int_0^T f_{xx}(t, W(t)) dt.$$
+
+   + *Ito Process*. Let $W(t)$ be a Brownian motion, $\F(t)$ be
+     associated filtration.  An Ito process is a stochastic process of
+     the form
+     
+     $$X(t) = X(0) + \int_0^t \Delta(u) dW(u) + \int_0^t \Theta(u)\, du.$$
+     
+     where $X(0)$ is nonrandom and $\Delta(u)$ and $\Theta(u)$ are
+     adapted stochastic processes.
+     
+     In differential form, this can be thought of as
+     
+     $$dX(t) = \Delta(t)\,dW(t) + \Theta(t)\, dt.$$
+
+   + *Lemma*. The quadratic variation of the Ito process is
+     
+     $$[X, X](t) = \int_0^t \Delta^2(u)\, du.$$
+
+   + Let $X(t)$ be an Ito process, let $\Gamma(t)$ be an adapted
+     process.  We define the integral with respect to an Ito process
+     as
+     
+     $$\int_0^t \Gamma(u)\, dX(u) = \int_0^t \Gamma(u)\Delta(u)\,
+     dW(u) + \int_0^t \Gamma(u)\Theta(u)\, du.$$
+
+   + *Theorem* (Ito-Doeblin formula for an Ito process). Let $X(t)$ be
+     an Ito process, $f(t,x)$ be a function for which the partial
+     derivatives $f_t(t,x)$, $f_x(t, x)$, and $f_{xx}(t, x)$ are
+     defined and continuous.  Then for every $T \ge 0$, 
+     
+     #+BEGIN_LaTeX
+       \begin{align*}
+         f(T, X(T)) &= f(0, X(0)) + \int_0^T f_t(t, X(t))\, dt + \int_0^T
+                      f_x(t, X(t)) dX(t)+ \frac12 \int_0^T f_{xx}(t, X(t)) d[X, X](t)\\
+                    &= f(0, X(0)) + \int_0^T f_t(t, X(t))\, dt + \int_0^T 
+                      f_x(t, X(t))\Delta(t)\, dW(t)\\&\quad + \int_0^Tf_x(t, X(t))
+                      \Theta(t)\, dt + \frac12 \int_0^T f_{xx}(t, X(t))\Delta^2(t)\,dt\notag
+       \end{align*}
+     #+END_LaTeX
+
+   + *Theorem* (Ito Integral of a deterministic Integral). $\Delta(s)$
+     be a non-random function of time. $I(t) = \int_0^{t} \Delta(s)\,
+     dW(s)$.  For each $t \ge 0$, the random variable $I(t)$ is
+     normally distributed with expected value zero and variance
+     $\int_0^t\Delta^2(s)ds$.
+
+   + 
+
