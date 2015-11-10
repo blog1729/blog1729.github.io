@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Blog1729 - 2015-09-08-stochastic-calculus</title>
+        <title>Blog1729 - Notes on Stocastic Calculus for finance</title>
         <link rel="stylesheet" type="text/css" href="../css/default.css" />
 	<script type="text/x-mathjax-config">
 	  MathJax.Hub.Config({
@@ -35,7 +35,7 @@
         </div>
 
         <div id="content">
-            <h1>2015-09-08-stochastic-calculus</h1>
+            <h1>Notes on Stocastic Calculus for finance</h1>
 
             <div class="info">
     Posted on September  8, 2015
@@ -260,7 +260,75 @@
  \F_k] = M_k\)</span> for <span class="math inline">\(k &lt; l\)</span>.</p>
 <p>The <strong>quadratic variation</strong> of the symmetric random walk <span class="math inline">\([M, M]_K =
  \sum_1^k (M_j - M_{j-1})^2 = k\)</span>. Note that this property is also true for a general random walk (where <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> are not necessarily the same.)</p></li>
-<li><p><strong>Brownian motion</strong></p></li>
+<li><p><strong>Brownian motion</strong>: Let <span class="math inline">\((\Omega, \F, \P)\)</span> be a probability space. For each <span class="math inline">\(\omega \in \Omega\)</span>, suppose that there is a continuous function <span class="math inline">\(W(t)\)</span> of <span class="math inline">\(t \ge 0\)</span> that satisfies <span class="math inline">\(W(0) = 0\)</span> and that depends on <span class="math inline">\(\omega\)</span>. Then <span class="math inline">\(W(t)\)</span> <span class="math inline">\(t \ge 0\)</span>, is a Brownian motion if for all <span class="math inline">\(0 = t_0 &lt; t_1 &lt; \cdots, t_m\)</span>, the increments</p>
+<p><span class="math display">\[W(t_1), W(t_2) - W(t_1), W(t_3) - W(t_2), \cdots, W(t_m) - W(t_{m-1}).\]</span></p>
+<p>are independent and each of these increments is normally distributed with</p>
+<p><span class="math display">\[\E[W(t_{i+1}) - W(t_i)) = 0,\]</span> <span class="math display">\[\Var[W(t_{i+1}) - W(t_{i})] = t_{i+1} - t_i.\]</span></p>
+<p>Interestingly, it can be found out that <span class="math inline">\(W(t)\)</span> is a nowhere differentiable function (this follows from the fact that a Brownian motion is self-similar.)</p></li>
+</ul>
+<p>+</p>
+<h1>Stochastic Calculus</h1>
+<ul>
+<li><p><strong>Ito integral</strong>. I think this is same as the Riemann-Stieltjes integral. <span class="math inline">\(W(t)\)</span> represents a Brownian motion, <span class="math inline">\(\F(t)\)</span>, a filtration and <span class="math inline">\(\Delta(t)\)</span> be an adapted stock price process. The integral</p>
+<p><span class="math display">\[\int \Delta(t) dW(t).\]</span></p>
+<p>is called the Ito integral (the construction of the integral is very similar to that of the Riemann-Stieltjes integral; I don’t know why they are mute about Riemann-Stietljes. <a href="http://math.stackexchange.com/questions/426786/why-isnt-the-ito-integral-just-the-riemann-stieltjes-integral">Math.SE</a> link that offers something more.)</p></li>
+<li><p><strong>Theorem</strong>. The Ito integral is a martingale.</p></li>
+<li><p><strong>Theorem</strong>. (Ito Isometry). The Ito integral satisfies</p>
+<p><span class="math display">\[\E I^2(t) = E \int_{0}^{t} \Delta^2 (u)\, du.\]</span></p></li>
+<li><p><strong>Theorem</strong>. The quadratic variation accumulated upto time <span class="math inline">\(t\)</span> by the Ito integral is</p>
+<p><span class="math display">\[[I, I](t) = \int_{0}^{t} \Delta^2(u)\, du.\]</span></p></li>
+<li><p>To sum things up, <span class="math inline">\(I(t)\)</span> has the following properties.</p>
+<ul>
+<li><p>Paths of <span class="math inline">\(I(t)\)</span> are continuous (yes, <span class="math inline">\(I\)</span> is a process.)</p></li>
+<li><p><span class="math inline">\(I(t)\)</span> is <span class="math inline">\(\F(t)\)</span> measurable.</p></li>
+<li><p>Linearity is obeyed.</p></li>
+<li><p><span class="math inline">\(I(t)\)</span> is a martingale.</p></li>
+<li><p>Ito Isometry.</p></li>
+<li><p>Quadratic variation.</p></li>
+</ul></li>
+<li><p><strong>Remark</strong>.</p>
+<p><span class="math display">\[\int_0^T W(t)\, dW(t) = \frac12 \cdot W^2(T) - \frac12\cdot T.\]</span></p></li>
+<li><p>A shorthand representation of things (these doesn’t posses rigorous meaning.)</p>
+<ol>
+<li><p><span class="math inline">\(dt\,dt = 0\)</span>.</p></li>
+<li><p><span class="math inline">\(dW(t)\, dt = 0\)</span>.</p></li>
+<li><p><span class="math inline">\(dW(t)\, dW(t) = dt\)</span>.</p></li>
+</ol></li>
+</ul>
+<h2>Ito-Doeblin Formula</h2>
+<ul>
+<li><p>Here <span class="math inline">\(f(x)\)</span> is is a differentiable function and <span class="math inline">\(W(t)\)</span> is a Brownian motion.</p></li>
+<li><p><strong>Differential form</strong></p>
+<p><span class="math display">\[df(W(t)) = f'(W(t))\,dW(t) + \frac12 f''(W(t))\, dt.\]</span></p>
+<p><strong>Integral form</strong></p>
+<p><span class="math display">\[f(W(t)) - f(W(0)) = \int_0^t f'(W(u))\, dW(u) + \frac12 \int_0^t f''(W(u))\, du.\]</span></p></li>
+<li><p><strong>Theorem</strong> (Ito-Doeblin formula for Brownian motion). Let <span class="math inline">\(f(t,
+ x)\)</span> be a function for which the partial derivatives <span class="math inline">\(f_t(t, x),
+ f_x(t, x)\)</span>, and <span class="math inline">\(f_{xx}(t, x)\)</span> are defined and continuous, and let <span class="math inline">\(W(t)\)</span> be a Brownian motion. Then for every <span class="math inline">\(T \ge 0\)</span>,</p>
+<p><span class="math display">\[f(T, W(T)) = f(0, W(0)) + \int_0^T f_t(t, W(t))\, dt + \int_0^T
+ f_x(t, W(t))\,dW(t) + \frac12 \int_0^T f_{xx}(t, W(t)) dt.\]</span></p></li>
+<li><p><strong>Ito Process</strong>. Let <span class="math inline">\(W(t)\)</span> be a Brownian motion, <span class="math inline">\(\F(t)\)</span> be associated filtration. An Ito process is a stochastic process of the form</p>
+<p><span class="math display">\[X(t) = X(0) + \int_0^t \Delta(u) dW(u) + \int_0^t \Theta(u)\, du.\]</span></p>
+<p>where <span class="math inline">\(X(0)\)</span> is nonrandom and <span class="math inline">\(\Delta(u)\)</span> and <span class="math inline">\(\Theta(u)\)</span> are adapted stochastic processes.</p>
+<p>In differential form, this can be thought of as</p>
+<p><span class="math display">\[dX(t) = \Delta(t)\,dW(t) + \Theta(t)\, dt.\]</span></p></li>
+<li><p><strong>Lemma</strong>. The quadratic variation of the Ito process is</p>
+<p><span class="math display">\[[X, X](t) = \int_0^t \Delta^2(u)\, du.\]</span></p></li>
+<li><p>Let <span class="math inline">\(X(t)\)</span> be an Ito process, let <span class="math inline">\(\Gamma(t)\)</span> be an adapted process. We define the integral with respect to an Ito process as</p>
+<p><span class="math display">\[\int_0^t \Gamma(u)\, dX(u) = \int_0^t \Gamma(u)\Delta(u)\,
+ dW(u) + \int_0^t \Gamma(u)\Theta(u)\, du.\]</span></p></li>
+<li><p><strong>Theorem</strong> (Ito-Doeblin formula for an Ito process). Let <span class="math inline">\(X(t)\)</span> be an Ito process, <span class="math inline">\(f(t,x)\)</span> be a function for which the partial derivatives <span class="math inline">\(f_t(t,x)\)</span>, <span class="math inline">\(f_x(t, x)\)</span>, and <span class="math inline">\(f_{xx}(t, x)\)</span> are defined and continuous. Then for every <span class="math inline">\(T \ge 0\)</span>,</p>
+  \begin{align*}
+    f(T, X(T)) &amp;= f(0, X(0)) + \int_0^T f_t(t, X(t))\, dt + \int_0^T
+                 f_x(t, X(t)) dX(t)+ \frac12 \int_0^T f_{xx}(t, X(t)) d[X, X](t)\\
+               &amp;= f(0, X(0)) + \int_0^T f_t(t, X(t))\, dt + \int_0^T 
+                 f_x(t, X(t))\Delta(t)\, dW(t)\\&amp;\quad + \int_0^Tf_x(t, X(t))
+                 \Theta(t)\, dt + \frac12 \int_0^T f_{xx}(t, X(t))\Delta^2(t)\,dt\notag
+  \end{align*}
+</li>
+<li><p><strong>Theorem</strong> (Ito Integral of a deterministic Integral). <span class="math inline">\(\Delta(s)\)</span> be a non-random function of time. <span class="math inline">\(I(t) = \int_0^{t} \Delta(s)\,
+ dW(s)\)</span>. For each <span class="math inline">\(t \ge 0\)</span>, the random variable <span class="math inline">\(I(t)\)</span> is normally distributed with expected value zero and variance <span class="math inline">\(\int_0^t\Delta^2(s)ds\)</span>.</p></li>
+<li></li>
 </ul>
 
         </div>
