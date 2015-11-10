@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Blog1729 - 2015-11-10-data-communications</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	  tex2jax: {
+	  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+	  displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+	  processEscapes: true
+	  },
+	  TeX: {
+	  Macros: {
+	  R: "\\mathbb{R}",
+	  C: "\\mathbb{C}"
+	  }}	  
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Blog1729</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>2015-11-10-data-communications</h1>
+
+            <div class="info">
+    Posted on November 10, 2015
+    
+</div>
+
+<h1>Chapter 1</h1>
+<ul>
+<li><p>“The fundamental problem of communication is that of reproducing at one point either exactly or approximately a message selected at another point.” Claude Shannon.</p></li>
+<li><p>Terminology:</p>
+<ol>
+<li><p><strong>Source</strong>: this device generates the data to be transmitted.</p></li>
+<li><p><strong>Transmitter</strong>: the data to be transmitted is encoded so that we can simply transmit the electro-magnetic signal, for example, a modem.</p></li>
+<li><p><strong>Transmission system</strong>: a network connecting source and destination.</p></li>
+<li><p><strong>Receiver</strong>: accepts the signal from the transmission system.</p></li>
+<li><p><strong>Destination</strong>: takes incoming data from the receiver.</p></li>
+</ol></li>
+<li><p>Networks terminology:</p>
+<ol>
+<li><p><strong>LAN</strong>: Local Area Network. The scope of LAN is small and is typically used in buildings.</p></li>
+<li><p><strong>MAN</strong>: Metropolitan Area Network. Can span over 100s of kilometers.</p></li>
+<li><p><strong>WAN</strong>: Wide Area Network. Can span over the entire globe.</p></li>
+<li><p><strong>Circuit switching</strong>: In this case we shall dedicate a path for a given communication, this is used in telephone networks.</p></li>
+<li><p><strong>Packet switching</strong>: we does not necessarily dedicate transmission capacity along a path through the network. Here data is sent as a stream of small packets; commonly used for terminal to computer communications and computer to computer communications. At each node, data is received, stored for some period of time and then sent to another node.</p></li>
+<li><p><strong>Frame relay</strong>: I think this is similar to packet switching but the overhead in error control is reduced (how?). This helps in increased bandwidth; the book mentions that the data rate of packet switching about 64 kbps while using frame delay, we can get data rates of upto 2 Mbps.</p></li>
+<li><p><strong>ATM</strong> (Asynchronous transfer mode): is an evolution of frame delay method. ATM used fixed-length packets (?) known as cells, while the frame relay method uses variable length packet known as frames. These are designed to work in the range of 10s and 100s of Mbps, and in the Gbps range.</p></li>
+</ol></li>
+<li><p>Internet terminology:</p>
+<ol>
+<li><p><strong>ISP</strong>: Internet Service Provider.</p></li>
+<li><p><strong>POP</strong>: Point of Presence. Connections from users are accepted and authenticated here.</p></li>
+<li><p><strong>CPE</strong>: Customer Premises Equipment.</p></li>
+<li><p><strong>NAP</strong>: Network Access Point. Where several ISPs ties up.</p></li>
+<li><p><strong>NSP</strong>: Network Service Provider. Provides backbone services to ISP.</p></li>
+</ol></li>
+<li><p>Communication model: <strong>Source</strong> -&gt; <strong>Transmitter</strong> -&gt; <strong>Transmission System</strong> -&gt; <strong>Receiver</strong> -&gt; <strong>Destination</strong>.</p></li>
+<li><p>More Terminology:</p>
+<ol>
+<li><strong>Addressing</strong> and <strong>routing</strong>: When more than two devices share a transmission facility, a source system must indicate the identity of the indented destination and has to ensure that only the destination system receives the data. These two concepts, play a role in this system.</li>
+</ol></li>
+</ul>
+<h1>Chapter 2</h1>
+<ul>
+<li><p>Some tasks that has to be done:</p>
+<ol>
+<li>The source system must activate direct communication path or inform the communication network of the identity of the desired destination system.</li>
+<li>Source system must make sure that destination system is ready to receive data.</li>
+<li>File transfer application on the source system must ascertain that the file management program is prepared to accept and manage the file.</li>
+<li>If file formats used between two different systems are different, then one or the other system must perform a translation.</li>
+</ol></li>
+<li><p>There should be a high level of cooperation between two computer systems,</p>
+<p>that are communicating. Peer layers communicate by means of formatted blocks of data that obey a set of rules or conventions that are known as protocol. Some features of protocol:</p>
+<ol>
+<li><p>Syntax: format of the data blocks.</p></li>
+<li><p>Semantics: control information and error handling.</p></li>
+<li><p>Timing: speed matching and sequencing.</p></li>
+</ol></li>
+<li><p>Different layers in communication:</p>
+<ol>
+<li><p>Physical layer: interface between data transmission device (e.g., computer) and the network to which it is attached.</p></li>
+<li><p>Network access layer: exchange of data between end system (computer) and the network to which it is attached. This is also concerned with access to and routing data across a network for two end systems attached to the same network. This is where the Internet Protocol (IP) is implemented.</p></li>
+<li><p>Host-to-host, or transport layer: provided reliability of transmissions; a mechanism that is used here is called Transmission Control Protocol (TCP).</p></li>
+<li><p>Application layer: logic needed to support the various user applications.</p></li>
+</ol></li>
+<li><p>Before sending information via TCP protocol, it adds control information known as TCP header. The control information is then used by the receiver of the signal.</p>
+<p>The following are information that is contained in the TCP header:</p>
+<ol>
+<li><p>Destination port: from whom the data are to be delivered.</p></li>
+<li><p>Sequence number: TCP shall number the segments that it sends to a particular destination port sequentially, so that even if they arrive out of order, the TCP entity at the destination can reorder them.</p></li>
+<li><p>Checksum: a code that is a function of the remainder of the segment. The receiver performs the same calculation and compares the result with the incoming code; a discrepancy results if there is some error in transmission.</p></li>
+</ol></li>
+</ul>
+<h1>Chapter 3</h1>
+<ul>
+<li>More terminology:
+<ul>
+<li>There are two types of transmission media.
+<ol>
+<li><strong>Guided media</strong>: here the electromagnetic waves are transferred through a</li>
+</ol></li>
+</ul></li>
+</ul>
+physical path, for example twisted and coaxial cable, and optical fiber.
+<ol>
+<li><strong>Unguided media</strong>: also known as wireless, provides means for transmitting</li>
+</ol>
+the waves but do not guide them; examples are propagation through air, vacuum and seawater.
+<ul>
+<li><strong>Direct link</strong>: transmission path between sender and receiver with no intermediate devices, other than amplifiers and repeaters used to increase signal strength.</li>
+<li><strong>Point to point</strong>: we say that a guided transmission medium is point to point if it provides a direct link between these two devices; in a <strong>multipoint</strong> guided configuration more than two devices share the same medium.</li>
+<li><strong>Simplex</strong>: transmitted in only one direction there is a receiver and a transmitter.</li>
+<li><strong>Half-duplex</strong>: both stations may transmit, but only one at a time.</li>
+<li><strong>Full-duplex</strong>: both stations may transmit simultaneously.</li>
+<li><strong>Digital signal</strong>: signal intensity remains fixed for some period of time and changes abruptly to another constant level.</li>
+<li><strong>Periodic signal</strong>: is periodic, otherwise the signal is called <strong>aperiodic</strong>.</li>
+<li><strong>Peak amplitude</strong>: Maximal value or strength of the signal over time, typically measured in Volts.</li>
+<li><strong>Frequency</strong>: rate at which cycle repeats; unit is cycles per second.</li>
+<li><strong>Phase</strong>: Measure of relative position in time.</li>
+<li><strong>Wavelength</strong>: distance occupied by a single cycle.</li>
+<li>In frequency domain representation, i.e., when the wave is a linear combination of several sinusoidal waves, we may represent it w.r.t to each component’s frequency and amplitude. If the second frequency is an integer multiple of the other, then the latter frequency is referred to as <strong>fundamental frequency</strong>.</li>
+<li><strong>Spectrum</strong> of the signal is the range of frequencies that it contains.</li>
+<li>The <strong>absolute bandwidth</strong> of the signal is the width of the spectrum.</li>
+<li><p>The energy of the signal is contained in a relatively narrow band of frequencies. This band is referred to as <strong>effective bandwidth</strong> or <strong>bandwidth</strong>.</p>
+I think that the energy of the signal can be calculated by taking the square of the amplitude.</li>
+</ul>
+<ul>
+<li>In general a digital waveform will have infinite bandwidth, so technically it is impossible to transmit a digital waveform with 100 percent accuracy. Hence digital information is often approximated by a signal of limited bandwidth.</li>
+<li>Transmission of digital signals are generally cheaper than transmission of analog signals and is less susceptible to noise interference. But digital signals suffer more from attenuation than analog signals.</li>
+<li>Why Digital system?
+<ol>
+<li><strong>Digital technology</strong>: With LSI and VLSI, there is a continuous drop in cost of the digital circuitry. A similar change is <strong>not</strong> observed in analog systems.</li>
+<li><strong>Integrity of Data</strong>: Book mentions that use of repeaters instead of amplifiers somehow ensures integrity of data.</li>
+<li><strong>Capacity utilization</strong>: It is economical to build transmission links of very high bandwidth.</li>
+<li><strong>Security and Privacy</strong>: Encryption techniques can be easily applied to digital data and to analog data that have been digitalized.</li>
+<li><strong>Integration</strong>: If we treat both analog and digital data digitally, we can use the same techniques in both the cases, which is convenient.</li>
+</ol></li>
+</ul>
+<h2>Transmission Impairments</h2>
+<ul>
+<li>The signal that is received may differ from signal that is transmitted, we term this as an impairment.</li>
+<li>Types of impairment
+<ol>
+<li>Attenuation and attenuation distortion,</li>
+<li>Delay distortion,</li>
+<li>Noise.</li>
+</ol></li>
+<li><p><strong>Attenuation</strong>: Strength of the signal falls off with distance over any transmission media. For example, in guided media, the reduction in the strength is generally exponential and is usually expressed in Decibels unit.</p>
+If <span class="math inline">\(P_O\)</span> is the the power measured at the output and <span class="math inline">\(P_I\)</span> is the power measured at input, then the attenuation <span class="math inline">\(N_f\)</span> is given by <span class="math display">\[N_f = 10\cdot\log_{10}\frac{P_I}{P_O}\]</span></li>
+<li><p><strong>Delay Distortion</strong>: This is caused because the velocity of propagation of the signal through a guided medium varies with frequency. The velocity tends to be highest near the center frequency and falls off toward two edges of the band. Hence the components of the signal arrive at the receiver at different times, resulting in phase shifts between different frequencies.</p>
+This type of distortion is particularly critical for Digital data and is a major limitation to maximum bit rate over a transmission channel.</li>
+<li><p><strong>Noise</strong>: Unwanted signals that are inserted somewhere in the transmission system is known as noise.</p>
+Noise can be divided into the following categories:
+<ol>
+<li><strong>Thermal Noise</strong>: Due to the thermal agitation of electrons.</li>
+</ol>
+<p>Present in all electronic media and transmission media and is a function of the temperature.</p>
+<p>This is uniformly distributed across all the frequencies and hence is termed as <strong>white noise</strong>.</p>
+<p>The amount of thermal noise to be found in a bandwidth of <span class="math inline">\(1\)</span> Hz in any divide or conductor is <span class="math display">\[N_0 = kT(W/\text{Hz})\]</span> where <span class="math inline">\(N_0\)</span> is the noise power density in watts per 1 Hz of the bandwidth, <span class="math inline">\(k\)</span> is the Boltzmann’s constant and <span class="math inline">\(T\)</span> is the temperature, in Kelvins.</p>
+The thermal noise can be expressed as <span class="math display">\[N = kTB\]</span> or, in decibel-watts <span class="math display">\[N = 10\log k + 10\log T + 10\log B.\]</span>
+<ol>
+<li><strong>Intermodulation Noise</strong>: When signals at different frequencies share</li>
+</ol>
+the same transmission medium, the result may be <strong>intermodulation noise</strong>. This shall produce signals at frequency that is the sum or difference of the two original frequencies or multiples of of those frequencies.
+<ol>
+<li><strong>Crosstalk</strong>: This happens when there is an unwanted coupling between two</li>
+</ol>
+signal paths, such as electrical coupling between nearby twisted pairs or coax cable lines carrying multiple signals. This can also occur when the microwave antennas pick up unwanted signals.
+<ol>
+<li><strong>Impulse Noise</strong>: Non continuous, consisting of irregular pulses or noise</li>
+</ol>
+<p>spikes of short duration and of relatively high amplitude. Causes can be external electromagnetic disturbances, such as lightning, and faults and flaws in the communications system.</p></li>
+</ul>
+<h2>Channel Capacity</h2>
+<ul>
+<li><p>The maximum rate at which data can be transmitted over a medium is known as <strong>channel capacity</strong>.</p></li>
+<li><p><strong>Data rate</strong>: the rate, in bits per second (bps), at which data can be communicated.</p></li>
+<li><p><strong>Band width</strong>: the bandwidth of the transmission signal as constrained by the transmitter and nature of the transmission medium.</p></li>
+<li><p><strong>Noise</strong>: The average level of noise over the communication path.</p></li>
+<li><p><strong>Error rate</strong>: the rate at which errors occur, where an error is the reception of a 1 where a 0 was transmitted or the reception of a 0 where a 1 is transmitted.</p></li>
+<li><p><strong>Nyquist Bandwidth</strong>: Consider the case of a channel that is noise free; in such an environment, the data rate is simply the bandwidth of the signal.</p>
+<p>One way to formulate this limitation is that if the rate of signal transmission is 2B, then a signal with frequencies no greater than B is sufficient to carry the signal rate.</p>
+<p>The converse is also true, i.e., given a bandwidth of B, the highest signal rate that can be carried is 2B.</p>
+<p>If signal is transmitted by 2 voltage levels, i.e., binary, then the data rate that is supported by B Hz is 2B bps. But with more than two levels, the Nyquist formulation becomes <span class="math display">\[C = 2B\log_2
+ M.\]</span> where <span class="math inline">\(M\)</span> is the number of discrete signal or voltage levels.</p>
+<p>Thus, for a given bandwidth, the data rate can be increased by increasing the number of different signal elements. But this places an increased burden on the receiver, which instead of distinguishing one or two possible signal elements during each signal time, has to distinguish one of <span class="math inline">\(M\)</span> possible signal elements.</p></li>
+<li><p><strong>Shannon capacity formula</strong>: Notice that when data rate is increased, the bits get shorter and hence more and more bits are going to be affected by a given pattern of noise.</p>
+<p><strong>Signal-to-noise ratio</strong> (SNR, or S/N) is the ratio of the power in a signal to the power contained in the noise that is present at a particular point in the transmission. <span class="math display">\[\text{SNR}_{\text{dB}} = 10\cdot \log_{10}{\frac{\text{signal
+ power}}{\text{noise power}}}.\]</span></p>
+<p>A high SNR will mean a high-quality signal and a low number of required intermediate repeaters. <strong>Shannon’s maximum channel capacity formula</strong>: the maximum channel capacity in bits per second, obeys the equation <span class="math display">\[C = B\cdot\log_{2}(1 +
+ \text{SNR}).\]</span></p>
+<p>Here <span class="math inline">\(C\)</span> is the capacity of the channel in bits per second and <span class="math inline">\(B\)</span> is the bandwidth of the channel in Hertz. This formula represents the theoretical maximum, and in practice, only much lower rates are obtained. (<strong>Note</strong>: The logarithm is <span class="math inline">\(\log_{2}\)</span>.)</p>
+<p>This formula assumes white noise (thermal noise), impulse noise is not accounted for, nor are attenuation or delay distortion. Other encoding issues also contribute to our inability to achieve the Shannon capacity.</p>
+<p><strong>The expression</strong> (<span class="math inline">\(E_b/N_0\)</span>): The ratio of the signal energy per bit to noise power density per Hertz, <span class="math inline">\(E_b/N_0\)</span>.</p>
+<p><span class="math display">\[\frac{E_b}{N_0} = \frac{S/R}{N_0} = \frac{S}{kTR}.\]</span></p>
+<p>The relation between <span class="math inline">\(E_b/N_0\)</span> and SNR</p>
+<p><span class="math display">\[\frac{E_b}{N_0} = \frac{S}{N_0R} = \frac{S}{N} \frac{B_T}{R}.\]</span></p>
+<p>Shannon’s equation can be rewritten as</p>
+<p><span class="math display">\[\frac{S}{N} = 2^{C/B} - 1.\]</span></p>
+<p><span class="math display">\[\frac{E_b}{N_0} = \frac{B}{C}(2^{C/B} - 1).\]</span></p>
+<p>The above formula relates achievable spectral efficiency <span class="math inline">\(C/B\)</span> to <span class="math inline">\(E_b/N_0\)</span>.</p></li>
+</ul>
+<h1>Chapter 4</h1>
+<ul>
+<li><p>The <strong>transmission medium</strong> is the physical path between the transmitter and the receiver.</p></li>
+<li><p>Design factors:</p>
+<ol>
+<li><p><strong>Bandwidth</strong>: Keeping other factors constant, the higher the bandwidth, the higher is the data rate that can be achieved.</p></li>
+<li><p><strong>Transmission impairments</strong>: We need to decrease the amount of transmission impairment.</p></li>
+<li><p><strong>Interference</strong>: Decrease interference.</p></li>
+<li><strong>Number of receivers</strong>: decrease the number of receivers as each attachments introduces some attenuation and distortion on the line.</li>
+</ol></li>
+</ul>
+<h2>Guided transmission medium</h2>
+<ul>
+<li><p>The transmission capacity depends on the distance and whether the medium is point-to-point or multi-point.</p></li>
+<li><p>Examples of transmission media: twisted pair, coaxial cables, optical fibers etc.</p></li>
+<li><p><strong>Twisted pair</strong>: least expensive; consists of two insulated copper wires arranged in a regular spiral pattern.</p>
+<p>Twisted pairs can be used to transmit both analog and digital transmission. For analog signals, we require amplifiers every 5 to 6 Km, while for digital transmission, repeaters are required every 2 or 3 Km.</p>
+<p>There are two varieties of twisted pairs, unshielded (UTP) and shielded. There are also various categories of UTP. As we go higher in the category of UTP, the Attenuation and crosstalk gets lower.</p></li>
+<li><p><strong>Coaxial cable</strong>: used mainly in television distribution, long-distance telephone transmission, short-run computer system links and local area networks. It can be used to transmit both analog and digital signals. Its frequency characteristic is superior to that of that of twisted pair and hence can be used effectively at higher frequencies and data rates.</p></li>
+<li><p><strong>Optical fiber</strong>: thin, flexible medium capable of guiding an optical ray; various glasses and plastics are used to make them. It has a cylindrical shape and consists of three concentric section: core, cladding and jacket.</p>
+<p><strong>Applications</strong>:</p>
+<ol>
+<li><p><strong>Greater capacity</strong>: potential bandwidth and data rate of optical fiber is immense.</p></li>
+<li><p><strong>Smaller size and lighter weight</strong>.</p></li>
+<li><p><strong>Lower attenuation</strong>.</p></li>
+<li><p><strong>Electromagnetic isolation</strong>: optical fiber systems are not affected by external electromagnetic fields; these are not vulnerable to interference, impulse noise, or crosstalk, and there is a high degree of security from eavesdropping.</p></li>
+<li><strong>Greater repeater spacing</strong>. I’m told that excluding the initial setup, the optical fiber is the least expensive medium of communication.</li>
+</ol></li>
+</ul>
+<h2>Wireless Transmission</h2>
+<ul>
+<li><p>Frequencies in range of about 1 GHz to 40 GHz are referred to as <strong>microwave frequencies</strong>.</p></li>
+<li><p><strong>Antenna</strong>: electrical conductor or system of conductors used for radiating or collecting electromagnetic energy. An antenna often does not perform in the same manner in all the directions. We say that an antenna is <strong>isotropic</strong>, if it radiates power in all directions equally.</p></li>
+<li><p><strong>Parabolic reflective antenna</strong>: If a source of electromagnetic energy is placed at the focus of the paraboloid, and if the paraboloid is a reflecting surface, then the wave will bounce back in lines parallel to the axis of the axis of the paraboloid.</p></li>
+<li><p><strong>Antenna gain</strong>: is a measure of the directional of the antenna; this is typically done by comparing how the antenna does in a given direction to a isotropic (or omnidirectional) antenna. If, an antenna has a gain of 3 dB, then the antenna improves upon the isotropic antenna in the direction by 3 dB, or a factor of 2 (often at the expense of power radiated at other directions.)</p>
+<p>The relationship between the antenna gain to effective area: <span class="math display">\[G
+ = \frac{4\pi A_e}{\lambda^2}.\]</span></p></li>
+<li><p>For a parabolic antenna, the effective area is 0.56 times that of its face.</p></li>
+<li><p>Microwave loss via attenuation can be expressed as <span class="math display">\[L =
+ 10\log{\left(\frac{4\pi d}{\lambda}\right)^2}\, \text{dB}.\]</span></p>
+<p>Here <span class="math inline">\(d\)</span> is the distance, <span class="math inline">\(\lambda\)</span> is the wavelength in the same unit.</p></li>
+<li>Notice that the loss varies exponential with distance, while in case of coaxial and twisted pairs, the loss varies linear in decibels.</li>
+</ul>
+<h2>Wireless Propagation</h2>
+<ul>
+<li><p>There are three ways for a signal radiated from an antenna to travel:</p>
+<ol>
+<li>Ground wave propagation. Frequencies upto 2 Mhz.</li>
+<li>Sky wave propagation. Usually used for amateur radio, CB radio (Citizens Band radio), international broadcasters like BBC.</li>
+</ol>
+Here, a signal from an earth-based antenna is reflected from the ionized layer of the upper atmosphere (the ionosphere) back down to the earth.
+<ol>
+<li>Line-of-sight propagation. Above 30 MHz; the transmitting and the receiving antennas must be within an effective light of sight from each other.</li>
+</ol></li>
+</ul>
+<h1>Chapter 5</h1>
+<ul>
+<li><p>Terminology</p>
+<ol>
+<li><p>A <strong>carrier signal</strong> is a continuous constant frequency signal.</p></li>
+<li><p><strong>Modulation</strong>: the process of encoding source data onto a carrier signal with frequency <span class="math inline">\(f\)</span>.</p></li>
+<li><p>The input signal is called modulating signal or <strong>baseband signal</strong>; this can be digital or analog.</p></li>
+<li><p><strong>Digital signal</strong> is a sequence of discrete, discontinuous voltage pulses. Each pulse is a signal element.</p>
+<p>Binary data can be encoded into signal element; in the simplest case there is a one-to-one correspondence between the binary data and the signal element (note that this is not always the case.)</p></li>
+<li><p>If all signal elements have the same sign, then we say that the signal is <strong>unipolar</strong>.</p></li>
+<li><p>The <strong>data signal rate</strong> or data rate is the rate, in bits per second, at which data is transmitted. And the duration or the length of the bit is the amount of time it takes for the transmitter to emit the bit (for a data rate of <span class="math inline">\(R\)</span>, the bit duration is <span class="math inline">\(1/R\)</span>.)</p></li>
+<li><p>The modulation rate is the rate at which the signal level is changed; it is expressed in baud, which means signal elements per second.</p></li>
+<li><p><strong>Differential encoding</strong>: the information to be transmitted is represented in terms of the changes between successive elements, rather than the signal element the signal element themselves.</p>
+<p>Example: NRZI (Nonreturn to zero; invert on ones) scheme.</p>
+<p>Some benefits:</p>
+<ol>
+<li>More reliable to detect a transition in the presence of</li>
+</ol></li>
+</ol></li>
+</ul>
+<p>noise than to compare the value to a threshold.</p>
+<ol>
+<li>In case of complex transmission system, we may drop the idea</li>
+</ol>
+<p>of the polarity of the signal. For example, in case of twisted-pair line, if the leads from an attached device to the twisted pair are inverted, the differential encoding can still work.</p>
+<ul>
+<li><p>Some facts:</p>
+<ol>
+<li><p>Increase in data rate increases bit error rate.</p></li>
+<li><p>Increase in SNR decreases bit error rate.</p></li>
+<li><p>Increase in bandwidth allows an increase in data rate.</p></li>
+</ol></li>
+<li><p>Ways to compare different encoding systems:</p>
+<ol>
+<li><p><strong>Signal spectrum</strong>:</p>
+<p>Some desirable features:</p>
+<ul>
+<li><p>Lack of high-frequency components.</p></li>
+<li><p>Lack of dc component.</p></li>
+</ul>
+<p>It is considered as a good practice to create the signal spectrum in such a way that energy is focused on the center of the bandwidth.</p></li>
+<li><p><strong>Clocking</strong>: we need to figure out the beginning and ending of a signal element.</p></li>
+<li><p><strong>Error detection</strong>: useful to have error detection capabilities built into the system.</p></li>
+<li><p><strong>Signal interference and noise immunity</strong>: some codes are better than other codes, when it comes to interference.</p></li>
+<li><p><strong>Cost and complexity</strong>:</p></li>
+</ol></li>
+<li><p>Terminology</p>
+<ol>
+<li><p><strong>Polar</strong>: one logic state is represented by a positive voltage level and the other by a negative voltage level.</p></li>
+<li><p><strong>Unipolar</strong>: if the signal elements all have the same algebraic sign.</p></li>
+<li><p><strong>Data signaling rate</strong> or <strong>data rate</strong> is the rate, in bits per second, at which data are transmitted.</p></li>
+<li><p>The duration or length of a bit is the amount of time it takes for the transmitter to emit the bit; for data rate <span class="math inline">\(R\)</span>, the bit rate is <span class="math inline">\(1/R\)</span>.</p></li>
+<li><p>The <strong>modulation rate</strong> is the rate at which the signal element is changed. The unit is baud. For an example where the modulation and the data rate are different, see Manchester encoding or differential Manchester encoding.</p></li>
+<li><p>The terms “mark” and “space” refer to the binary digits. (Morse code?)</p></li>
+</ol></li>
+</ul>
+<h2>Digital Data, Digital Signals</h2>
+<ul>
+<li><p><strong>Nonreturn to Zero (NRZ) encoding</strong></p>
+<p>Two different voltage levels for two binary digits. For example, absence of a voltage can be used to represent a 0, while a constant positive voltage can be used to represent a 1.</p>
+<p>We can also maintain a fixed value when encountering a zero and invert while encountering a one; this scheme is called <strong>Nonreturn to Zero-level</strong> or NRZ-L. The other scheme is called <strong>NRZI</strong> (Nonreturn to Zero, invert on ones). This is an example of a <strong>differential encoding</strong>. Here a transition represents a 1 and a fixed value represents a 0.</p>
+<p>Limitations:</p>
+<ol>
+<li><p>Presence of a DC component.</p></li>
+<li><p>Lack of synchronization capability.</p></li>
+</ol></li>
+<li><p><strong>Multilevel Binary</strong></p>
+<p>In this case, more than two signal elements are used to represent two signal elements.</p>
+<p><strong>Bipolar AMI</strong>: a binary 0 is represented by no line signal, and a binary 1 is represented by a positive or negative pulse. The binary 1 pulse must alternate in polarity.</p>
+<p>Advantages:</p>
+<ol>
+<li><p>There is no loss in synchronization if a long string of 1 occurs.</p></li>
+<li><p>Since 1s alternate in polarity, there is no DC component in the signal.</p></li>
+<li><p>The text book mentions that the bandwidth of the signal is <em>considerably</em> less than the bandwidth of NRZ.</p></li>
+</ol>
+<p>A disadvantage is that the multilevel binary schemes does not make optimal usage of the bits, also long sequences of zero can create a loss in synchronization. Refer to scrambling techniques to see how the latter disadvantage can be circumvented.</p>
+<p><strong>Pseudoternary</strong> is the case where 1 is represented by a line signal, and zero represented by positive or negative pulse, alternating on successive zeros.</p></li>
+<li><p><strong>Biphase</strong></p>
+<p><strong>Manchester</strong>: there is a transition in the middle of each bit period which serves as a clocking mechanism and also as data; a low-to-high transition represents a 1, and a high-to-low transition represents a 0.</p>
+<p><strong>Differential Manchester</strong>: the midbit transition is used only to provide clocking; the encoding of 0 is represented by a transition at the beginning of a bit period, and a 1 is represented by the absence of a transition at the beginning; this scheme has an added advantage of employing a differential encoding.</p>
+<p>All biphase techniques require at least one transition per bit time and may have as many as two transitions; its modulation rate (?) is twice that of NRZ.</p>
+<p>Advantages:</p>
+<ol>
+<li><p><strong>Synchronization</strong>: since there is a predictable transition in every bit duration, the receiver can synchronize on that transition; for this reason, these codes are called self-correcting codes.</p></li>
+<li><p><strong>No dc component</strong>: these have no DC component.</p></li>
+<li><p><strong>Error detection</strong>: absence of an expected transition can be useful in detecting errors.</p></li>
+</ol></li>
+<li><p><strong>Modulation rate</strong>: is the rate at which signal elements are generated. For example, in the Manchester encoding scheme, if the bit rate is <span class="math inline">\(1/Tb\)</span>, the modulation rate is <span class="math inline">\(2/Tb\)</span>. The unit is baud.</p>
+<p>In general,</p>
+<p><span class="math display">\[D = \frac{R}{L} = \frac{R}{\log_2{M}}.\]</span></p>
+<p>where <span class="math inline">\(D\)</span> is the modulation rate, in baud; <span class="math inline">\(R\)</span> is the data rate, bps; <span class="math inline">\(M\)</span> is the number of different signal elements <span class="math inline">\(=2^L\)</span>; <span class="math inline">\(L\)</span> is the number of bits per signal element.</p></li>
+<li><p><strong>Scrambling techniques</strong>: sequences that would result in a constant voltage level are replaced by filling sequences that will provide sufficient transmissions for the receiver’s clock to maintain synchronization.</p>
+<p>The following are the goals: No DC component, no long sequences of zero-level line signals, no reduction is data rate, and error detection capabilities.</p>
+<ul>
+<li><p><strong>Bipolar with 8-zeros substitution (B8ZS)</strong>.</p>
+<ul>
+<li>If an octet of all zeros occur and the last voltage pulse</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>preceding this octet was positive, then the eight zeros of the octet are encoded as <code>000+-0-+</code>.</p>
+<ul>
+<li>If an octet of all zeros occur and the last voltage pulse</li>
+</ul>
+<p>preceding this octet was negative, then the eight zeros of the octet are encoded as <code>000-+0+-</code>.</p>
+<p>Notice that this forces two code violations (the positive and negative signals should always alternate, which is not the case here).</p>
+<ul>
+<li><p><strong>High-density bipolar-3 zeros (HDB3)</strong>.</p>
+<ul>
+<li>The scheme replaces strings of four zeros with sequences</li>
+</ul></li>
+</ul>
+<p>containing one or two pulses and the fourth zero is replaced by a code violation and such that no dc component is introduced; hence if the last violation was positive, then next violation should be negative.</p>
+<h2>Digital Data, Analog Signals</h2>
+<ul>
+<li><p>The most common example is the transmission of digital data through the public telephone network (I think internet used to be done this way, it is called as a dial-up connection.); here the modem converts digital information to analog and vice versa.</p></li>
+<li><p><strong>Amplitude shift keying</strong>:</p>
+<p><span class="math display">\[s(t) = \left\{\begin{array}{ll} A \cos(2\pi f_ct) &amp; \text{binary
+ 1}\\ 0 &amp; \text{binary 0}\end{array}\right.\]</span></p>
+<p>The ‘one’ binary digit is represented by the presence, at a constant amplitude, of the carrier, and the other by the absence of the carrier.</p>
+<p>This is susceptible to sudden gain changes (?) and is inefficient modulation technique.</p>
+<p>This technique is used to transmit data over optical fibers.</p></li>
+<li><p><strong>Frequency Shift Keying</strong>:</p>
+<p>Here two binary values are represented by two different frequencies near the carrier frequency.</p>
+<p><span class="math display">\[s(t) = \left\{\begin{array}{ll} A \cos(2\pi f_1t) &amp; \text{binary
+ 1}\\ A\cos(2\pi f_2t) &amp; \text{binary 0}\end{array}\right.\]</span></p>
+<p>The above signal is an example of a Binary Frequency Shift Keying. I think that it is called binary because there are only two levels, one can imagine a scenario in which multiple frequencies are used to represent different levels.</p>
+<p>BFSK is less susceptible to error than ASK.</p>
+<p>The MFSK’s (Multiple FSK) signal can be represented in the following manner.</p>
+<p><span class="math display">\[s_i(t) = A\cos(2\pi f_i t), \quad 1 \le i \le M.\]</span></p>
+<p>where <span class="math inline">\(f_i = f_c + (2i - 1- M)f_d\)</span>, <span class="math inline">\(f_c\)</span> is the carrier frequency, <span class="math inline">\(f_d\)</span>, the difference frequency, <span class="math inline">\(M\)</span> is the number of signal elements <span class="math inline">\(=2^L\)</span>, and <span class="math inline">\(L\)</span> being the number of bits per signal element. (Data rate <span class="math inline">\(= 1/T = 2Lf_d\)</span> ?)</p></li>
+<li><p><strong>Phase Shift Keying</strong>:</p>
+<p>In PSK, the phase of the carrier is shifted to represent data.</p>
+<p><strong>Two-level PSK</strong>.</p>
+<p><span class="math display">\[s(t) = \left\{\begin{array}{rl} A \cos(2\pi f_ct) &amp; \text{binary
+ 1}\\ -A\cos(2\pi f_c t) &amp; \text{binary 0}\end{array}\right.\]</span></p>
+<p>Alternative form of the above equation is:</p>
+<p><span class="math display">\[s_d(t) = A d(t) \cos(2\pi f_c t).\]</span></p>
+<p>Where <span class="math inline">\(d(t)\)</span> is a discrete function that takes on values <span class="math inline">\(+1\)</span> for one bit if the corresponding bit in the bit stream is <span class="math inline">\(1\)</span> and the value <span class="math inline">\(-1\)</span> if for one bit time if the corresponding bit in the bit stream is <span class="math inline">\(0\)</span>.</p>
+<p>In case of <strong>four-level PSK</strong> or quadrature phase shift keying (QPSK), more efficient use of bandwidth can be achieved if each signal element represents more than one bit; thus phase shifts by <span class="math inline">\(\pi/4\)</span> is used.</p>
+<p><strong>multilevel psk</strong>: we could use increase the number of phases possible, increasing the number of possible amplitudes (for two different angles.)</p>
+<p><strong>Quadrature Phase shift keying</strong>.</p>
+<p>The transmitted signal can be expressed as</p>
+<p><span class="math display">\[s(t) = \frac{1}{\sqrt{2}} I(t)\cos 2\pi f_ct -
+ \frac{1}{\sqrt{2}} Q(t) \sin{2\pi f_c t}.\]</span></p>
+<p>Where <span class="math inline">\(I(t)\)</span> and <span class="math inline">\(Q(t)\)</span> are two different discrete signals.</p></li>
+<li><p><strong>Performance</strong></p>
+<p>The transmission bandwidth <span class="math inline">\(B_T\)</span> for ASK is of the form</p>
+<p><span class="math display">\[B_T = (1 + r)R + \Delta.\]</span></p>
+<p>Where <span class="math inline">\(R\)</span> is the bit rate and <span class="math inline">\(r\)</span> is related to the technique by which signal is filtered.</p>
+<p>With multi level PSK (MPSK), in general</p>
+<p><span class="math display">\[B_T = \frac{1+r}{L}R = \frac{1 + r}{\log_2 M} R.\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is the number of bits encoded per signal element and <span class="math inline">\(M\)</span> is the number of different signal elements.</p>
+<p>For multilevel FSK (MFSK), we have</p>
+<p><span class="math display">\[B_T = \frac{(1 + r)M}{\log_2 M} R.\]</span></p>
+<p>In particular, for FSK (where <span class="math inline">\(M = 2\)</span>), we have (?)</p>
+<p><span class="math display">\[B_T = 2\cdot(1+r)R.\]</span></p>
+<p>Oddly enough, there is one more formula, and god know what.</p>
+<p><span class="math display">\[B_T = 2\Delta F + (1 + r)R.\]</span></p>
+<p>Note that the term <span class="math inline">\((R/B_T)\)</span> is called Bandwidth efficiency.</p></li>
+<li><p><strong>Quadrature Amplitude Modulation</strong></p>
+<p>This technique uses a combination of ASK and PSK. Here, out of a single signal, two signals of different phases are created. The coefficients of these two signals uses ASK-like technique.</p>
+<p><span class="math display">\[s(t) = d_1(t)\cos(2\pi f_c t) + d_2(t)\sin(2\pi f_c t).\]</span></p>
+<p>Using the above function, we can represent <span class="math inline">\(16\)</span> different states.</p></li>
+</ul>
+<h2>Analog Data, Digital Signals</h2>
+<ul>
+<li><p>The device used for converting analog data into digital form for transmission and subsequently recovering the original data from the digital is known as a <strong>codec</strong> (coder-decoder.)</p></li>
+<li><p><strong>Sampling theorem</strong></p>
+<p>If a signal <span class="math inline">\(f(t)\)</span> is sampled at regular intervals of time and at a rate higher than twice the highest signal frequency, then the samples contain all the information in the original sum.</p>
+<p>Note that if we approximate the value of <span class="math inline">\(f(t)\)</span> at each of these time points (which we often do!) the bizarre theorem does not guarantee that you can recover the original signal exactly. This error is often called as <strong>quantizing error</strong> or <strong>quantizing noise</strong>.</p>
+<p>The signal to noise ration for quantizing noise can be expressed using the following bizarre equation</p>
+<p><span class="math display">\[\text{SNR}_{dB} = 20\log 2^n + 1.76 dB = 6.02n + 1.76\ dB.\]</span></p></li>
+</ul>
+<h2>Analog Data, Analog Signals</h2>
+<ul>
+<li><p>Why analog to analog?</p>
+<ol>
+<li><p>A higher frequency may be required (recall that the length of the antenna required depends on the frequency that it transmits.)</p></li>
+<li><p>Frequency division multiplexing (?)</p></li>
+</ol></li>
+<li><p><strong>Amplitude Modulation</strong></p>
+<p><span class="math display">\[s(t) = [1 + n_ax(t)]\cos(2\pi f_c t).\]</span></p>
+<p>where <span class="math inline">\(\cos(2\pi f_c t)\)</span>. is the carrier and <span class="math inline">\(x(t)\)</span> is the input signal (both normalized to unit amplitude.) The parameter <span class="math inline">\(n_a\)</span> is known as <strong>modulation index</strong>, is the ratio of the amplitude of the input signal to the carrier. (The input signal is <span class="math inline">\(m(t) = n_a
+ x(t)\)</span>. If <span class="math inline">\(n_a &gt; 1\)</span>, the envelope will cross the time axis and there is a loss in information.</p>
+<p><span class="math display">\[P_t = P_c\left(1 + \frac{n_a^2}{2}\right).\]</span></p>
+<p>Where <span class="math inline">\(P_t\)</span> is the total transmitted power in <span class="math inline">\(s(t)\)</span> and <span class="math inline">\(P_c\)</span> is the transmitted power in the carrier. (We would like <span class="math inline">\(n_a\)</span> to be as large as possible so that most of the signal power is used to carry information. However, <span class="math inline">\(n_a\)</span> must remain below <span class="math inline">\(1\)</span>.)</p>
+<p><span class="math inline">\(s(t)\)</span> contains unnecessary components. A variant of AM called single sideband (SSB), takes advantage of this fact by sending only one of the sidebands eliminating the other sideband and the carrier. (Disadvantage of suppressing the carrier is that carrier can be used for synchronization purposes.)</p>
+<p>This helps in the following ways:</p>
+<ol>
+<li><p>Only half of the bandwidth is required.</p></li>
+<li><p>Less power is required.</p></li>
+</ol></li>
+<li><p><strong>Angle modulation</strong></p>
+<p><span class="math display">\[s(t) = A_c\cos[2\pi f_ct + \phi(t)].\]</span></p>
+<p>In case of <strong>phase modulation</strong> (here <span class="math inline">\(n_p\)</span> is the phase modulation index.)</p>
+<p><span class="math display">\[\phi(t) = n_p m(t).\]</span></p>
+<p>In case of <strong>frequency modulation</strong> (here <span class="math inline">\(n_f\)</span> is the frequency modulation index.)</p>
+<p><span class="math display">\[\phi'(t) = n_f m(t).\]</span></p>
+<p>The peak deviation <span class="math inline">\(\Delta F\)</span> can be seen to be equal to</p>
+<p><span class="math display">\[\Delta F = \frac{1}{2\pi} n_f A_m\ Hz\]</span></p>
+<p>where <span class="math inline">\(A_m\)</span> is the maximum value of <span class="math inline">\(m(t)\)</span>. The average power level of FM signal is <span class="math inline">\(A_m^2/2\)</span>.</p></li>
+<li><p>For AM, the bandwidth required is <span class="math inline">\(B_T = 2B\)</span></p></li>
+</ul>
+<h1>Chapter 6</h1>
+<ul>
+<li><p><strong>Asynchronous transmission</strong> ?</p></li>
+<li><p><strong>Synchronous transmission</strong> block of bits is transmitted in a steady stream without start and stop codes and the clocks must be somehow synchronized and each block is about 5 to 8 characters long.</p>
+<p>To determine the beginning and end of data, we use preamble and postamble bit patterns.</p></li>
+<li><p>Types of errors</p>
+<ol>
+<li><strong>Error burst</strong>: two successive error bits are separated by less than a given number <span class="math inline">\(x\)</span> of correct bits. This type of error can be caused by impulse noise.</li>
+</ol></li>
+<li><p>Error detection: <span class="math inline">\(k\)</span> bits of data is transmitted using <span class="math inline">\(n\)</span> bits (<span class="math inline">\(n &gt;k\)</span>) and the <span class="math inline">\(n - k\)</span> number of bits is used for the purpose of error detection.</p></li>
+<li><p><strong>Parity check</strong> append the parity of data to a bit called parity bit; this scheme can detect a single bit error.</p></li>
+<li><p><strong>Cyclic redundancy check</strong>: given <span class="math inline">\(k\)</span> bit block of bits, the transmitter generates <span class="math inline">\((n-k)\)</span>-bit sequence, known as frame check sequence (FCS), such that the resulting frame, consisting of <span class="math inline">\(n\)</span> bits is exactly divisible by some pre-determined number. The receiver then divides the incoming frame by that number and, if there is no remainder, assumes that there was no error.</p></li>
+<li><p>Terminology</p>
+<ul>
+<li><p><strong>Redundancy</strong> the ratio of redundant bits to data bits.</p></li>
+<li><p><strong>Code rate</strong> the ratio of data bits to the total bits; this is a measure of how much additional bandwidth is required.</p></li>
+</ul></li>
+<li><p><strong>Hamming distance</strong>: If <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> are two <span class="math inline">\(n\)</span>-bit binary sequence, the hamming distance is the number of bits in which <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> disagree.</p></li>
+<li><p>Let <span class="math inline">\(d_{\min} = \min_{i\neq j} d(v_i, v_j)\)</span>, then</p>
+<ol>
+<li><p>If <span class="math inline">\(d_{\min} \ge 2t + 1\)</span>, the the code can correct all bit errors up to and including errors of <span class="math inline">\(t\)</span> bits.</p></li>
+<li><p>If <span class="math inline">\(d_{\min} \ge 2t\)</span>, then all errors <span class="math inline">\(\le t -1\)</span> bits can be corrected and errors of <span class="math inline">\(t\)</span> bits can be detected but not, in general, corrected.</p></li>
+<li><p>Conversely, any code for which all errors of magnitude <span class="math inline">\(\le t\)</span> are corrected must satisfy <span class="math inline">\(d_{\min} \ge 2t +1\)</span>.</p></li>
+</ol></li>
+</ul>
+<h1>Chapter 7</h1>
+<ul>
+<li><p>We have a layer of logic added above the physical layer; this is called <strong>data link control</strong> or <strong>data link protocol</strong>. The transmission medium is referred to as <strong>data link</strong>.</p></li>
+<li><p>Terminology. Requirements and objective</p>
+<ul>
+<li><p><strong>Frame synchronization</strong>: The beginning and end of each frame must be recognizable.</p></li>
+<li><p><strong>Flow control</strong>: the sending station must not send frame at a rate faster than the receiving station can absorb them.</p></li>
+<li><p><strong>Error control</strong>: errors should be corrected.</p></li>
+<li><p><strong>Addressing</strong>: in case of shared systems, the message should be delivered to specific people.</p></li>
+<li><p><strong>Control and data on same link</strong>: receiver should be able to distinguish between data and control information.</p></li>
+<li><p><strong>Link management</strong>: Procedures for managing initiation, maintenance, and termination.</p></li>
+</ul></li>
+</ul>
+<h2>Flow control</h2>
+<ul>
+<li><p><strong>Terminology</strong></p>
+<ul>
+<li><strong>Propagation time</strong> is the time it takes for a bit to traverse the link between source and destination.</li>
+</ul></li>
+</ul>
+<h3>Stop and wait flow control</h3>
+<ul>
+<li><p>Methodology</p>
+<ol>
+<li><p>Source transmits a frame</p></li>
+<li><p>If the destination receives the frame, it indicates <em>willingness to accept another frame</em>.</p></li>
+<li><p>Source waits until it receives an acknowledgment.</p></li>
+</ol></li>
+<li><p><strong>Bit length of a link</strong> denoted by <span class="math inline">\(B\)</span></p>
+<p><span class="math display">\[B = R \times \frac{d}{V}.\]</span></p>
+<p><span class="math inline">\(B\)</span> is the length of the link in bits; <span class="math inline">\(R\)</span> is the data rate of the link; <span class="math inline">\(d\)</span> is the length or distance of the link in meters, <span class="math inline">\(V\)</span> is the velocity of propagation.</p>
+<p>Usually, we want the bit length to be smaller than the frame length.</p></li>
+<li><p>If the transmission time is normalized to <span class="math inline">\(1\)</span>, the propagation delay <span class="math inline">\(a\)</span> can be expressed as</p>
+<p><span class="math display">\[a = \frac{B}{L}.\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is the number of bits in the frame (length of the frame in bits.)</p>
+<p>If <span class="math inline">\(a &lt; 1\)</span>, then the propagation time is less than the transmission time, thus the frame is long enough that the first bits have arrived before source has completed transmission of frame. Similarly, one can form an equivalent statement when <span class="math inline">\(a &gt;
+ 1\)</span>. When <span class="math inline">\(a &gt; 1\)</span>, the line is underutilized and for <span class="math inline">\(a &lt; 1\)</span>, it is inefficiently utilized.</p></li>
+</ul>
+<h3>Sliding Window</h3>
+<ul>
+<li><p>When the bit length of the link is greater than the frame length, i.e., <span class="math inline">\(a &gt; 1\)</span>, efficiency can be improved by allowing multiple frames to be in transit at the same time.</p></li>
+<li><p>Working. Here <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are connected by a full-duplex link.</p>
+<ol>
+<li><p>Each fame is labeled with a number called <em>sequence number</em>.</p></li>
+<li><p><span class="math inline">\(B\)</span> acknowledges a frame by sending an acknowledgment that includes the sequence number of the next frame expected.</p></li>
+<li><p><span class="math inline">\(A\)</span> maintains a list of sequence numbers that it is allowed to send and <span class="math inline">\(B\)</span> maintains a list of sequence numbers that it is prepared to receive. Each of these lists can be thought of as a <em>window</em> of frames. The operation is called <strong>sliding-window flow control</strong>.</p></li>
+</ol></li>
+<li><p>The sequence number is limited to a range of values.</p></li>
+<li><p><strong>Piggybacking</strong>. If two stations exchange data, each needs to maintain two windows, one for transmission information and one for receiving information, in case of piggybacking, each <strong>data frame</strong> shall include a field that holds the sequence number of that frame plus a filed that holds the sequence number used for acknowledgment.</p></li>
+</ul>
+<h2>Error Control</h2>
+<ul>
+<li><p>Terminology</p>
+<ul>
+<li><p><strong>Lost fame</strong>: A frame that fails to arrive at the other side.</p></li>
+<li><p><strong>Damaged frame</strong>: A recognizable frame that does arrive, but some bits are in error.</p></li>
+<li><p><strong>Automatic repeat request</strong> (ARQ), deals with error detection, re-transmission after timeouts, etc. There are Stop-and-wait, Go-back-N and Selective-reject ARQs</p></li>
+</ul></li>
+</ul>
+<h3>Stop and Wait ARQ</h3>
+<ul>
+<li><p>Process</p>
+<ul>
+<li><p>The source sends a signal.</p></li>
+<li><p>If receiver receives the signal, it shall try out some error checking and shall request for re-transmission if there was an error.</p></li>
+<li><p>If there is no error, the receiver sends an acknowledgment signal.</p></li>
+<li><p>The sender is equipped with a timer so that if no acknowledgment is received within a time period, it shall re-transmit. (It is possible that the acknowledgment is damaged; this shall cover that too!)</p></li>
+</ul></li>
+</ul>
+<h3>TODO Go-back-N ARQ</h3>
+<ul>
+<li>A series of frames are sent and these are sequentially numbered modulo some maximum value. If there are no errors, the destination shall acknowledge incoming frames as usual (RR). If the destination station detects an errors in a frame, it may send a negative acknowledgment (REJ) and after this receiver shall discard every other frame that it receives.</li>
+</ul>
+<h2>TODO HDLC protocol</h2>
+<ul>
+<li><p>HDLC stands for High-Level Data Link Control.</p></li>
+<li><p>There are several terms involved in this. Refer page 222 in the text book and find it under the subsection “Basic Characteristics”.</p></li>
+</ul>
+<h1>Chapter 8</h1>
+<ul>
+<li><p>A generic term for sharing capacity of a link is <strong>multiplexing</strong>.</p></li>
+<li><p>A multiplexer combines different channels of data and this is and is transmitted over a higher capacity link, this is further decoded by a de-multiplexer.</p></li>
+<li><p>Why, a multiplexer?</p>
+<ol>
+<li>Higher data rate links can lead to cost-effectiveness.</li>
+</ol></li>
+<li><p>Types of multiplexers</p>
+<ol>
+<li><p>FDM: Frequency Division Multiplexing.</p>
+<p>In this case, various sources are fed into a multiplexer, which modulates each signal onto a different frequency. Each modulated signal requires a certain bandwidth centered on its carrier frequency, this is called as a <strong>channel</strong>.</p></li>
+<li><p>TDM: Time Division Multiplexing.</p></li>
+<li><p>WDM: Wavelength Division Multiplexing (this technique is equivalent to FDM.)</p></li>
+</ol></li>
+</ul>
+<h2>Frequency Division Multiplexing</h2>
+<ul>
+<li>A number of signals can be carried simultaneously if they are modulated onto different carrier frequencies and that the carrier frequencies are sufficiently separated. The carrier frequencies are termed as channels.</li>
+</ul>
+<h2>Time Division Multiplexing</h2>
+<ul>
+<li>This is possible when the achievable data rate of the medium exceeds the data rate of digital signals to be transmitted. Here multiple digital signals can be carried on a single transmission path by interleaving portions of each signal in time.</li>
+</ul>
+<h3>TODO TDM link control</h3>
+<h3>TODO Framing, Pulse Stuffing</h3>
+<h3>SONET/SDH</h3>
+<ul>
+<li>SONET (Synchronous Optical Network).</li>
+</ul>
+<h2>Statistical TDM</h2>
+<ul>
+<li><p>In case of time division multiplexing, many of the time, slots in a frame are wasted. An alternative is to dynamically allocating time slots on demand.</p></li>
+<li><p>Statistical FDM exploits the fact that not all devices are active at a given time point. Thus there are <span class="math inline">\(n\)</span> I/O lines and, but only <span class="math inline">\(k\)</span> time slots where <span class="math inline">\(k &lt; n\)</span>. Hence the actual data rate is less than the sum of all data rate of individuals.</p></li>
+<li><p>Some parameters:</p>
+<ol>
+<li><p><span class="math inline">\(I\)</span>: number of input sources.</p></li>
+<li><p><span class="math inline">\(R\)</span>: is the data rate of each source.</p></li>
+<li><p><span class="math inline">\(M\)</span>: is the effective capacity of multiplexed lines, in bytes per second.</p></li>
+<li><p><span class="math inline">\(\alpha\)</span>: mean fraction of time each source is transmitting.</p></li>
+<li><p><span class="math inline">\(K = \frac{M}{IR}\)</span>: the ratio of multiplexed line capacity to total maximum input.</p></li>
+</ol></li>
+</ul>
+<h2>Asymmetric Digital Subscriber Line</h2>
+<ul>
+<li><p>The term asymmetric refers to the fact that this provides more capacity downstream than upstream. This used FDM.</p>
+<ul>
+<li><p>Reserve the lowest 25 kHZ for voice.</p></li>
+<li><p>Allocate two bands, smaller for upstream and the larger one for downstream.</p></li>
+</ul></li>
+</ul>
+<h1>Fourier Analysis</h1>
+<p>This section contains some very basic stuff on Fourier series:</p>
+<ul>
+<li><p>Kronecker delta: the function <span class="math inline">\(\delta_{i,j}\)</span> such that <span class="math inline">\(\delta_{i,i} = 1\)</span> and <span class="math inline">\(\delta_{i, j} = 0\)</span> otherwise.</p></li>
+<li><p>Some identities that are useful:</p>
+<ol>
+<li><p><span class="math inline">\(\int_{-\pi}^\pi \sin(mx)\sin(nx) = \pi \delta_{m, n}\)</span></p></li>
+<li><p><span class="math inline">\(\int_{-\pi}^\pi \cos(mx)\cos(nx) = \pi \delta_{m, n}\)</span></p></li>
+<li><p><span class="math inline">\(\int_{-\pi}^\pi \sin(mx)\cos(nx) = 0\)</span></p></li>
+<li><p><span class="math inline">\(\int_{-\pi}^{\pi} \sin(mx) = 0\)</span></p></li>
+<li><p><span class="math inline">\(\int_{-\pi}^{\pi} \cos(mx) = 0\)</span></p></li>
+</ol></li>
+<li><p>The Fourier series of a function <span class="math inline">\(f(x)\)</span> is given by</p>
+<p><span class="math display">\[f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty}a_n\cos(nx) +
+ \sum_{n=1}^{\infty}b_n\sin(nx).\]</span></p>
+<p>where</p>
+<p><span class="math display">\[a_0 = \frac1\pi \int_{-\pi}^{\pi} f(x) dx\]</span></p>
+<p><span class="math display">\[a_n = \frac1\pi \int_{-\pi}^\pi f(x) \cos(nx) dx\]</span></p>
+<p><span class="math display">\[b_n = \frac1\pi \int_{-\pi}^\pi f(x) \sin(nx) dx\]</span></p></li>
+<li><p>Instead of <span class="math inline">\([-\pi, \pi]\)</span>, if the interval ranges from <span class="math inline">\([-L, L]\)</span>, we may simply change the variable by <span class="math inline">\(x' = Lx/\pi\)</span>.</p></li>
+<li><p>If the function is even, the coefficients of the <span class="math inline">\(\sin\)</span> terms are all zero.</p>
+<p>If the function is odd, then the coefficients of the <span class="math inline">\(\cos\)</span> terms are all zero.</p></li>
+<li><p>For a complex valued function, the Fourier series representation is</p>
+<p><span class="math display">\[f(x) = \sum_{-\infty}^\infty A_n e^{inx}\]</span></p>
+<p>The coefficients are given by</p>
+<p><span class="math display">\[A_n = \frac1{2\pi}\int_{-\pi}^\pi f(x) e^{-inx}.\]</span></p></li>
+<li><p><strong>Parseval’s theorem</strong>:</p>
+<p><span class="math display">\[\int_{-\infty}^{\infty} x_1(t) x_2^{*}(t) dt =
+ \int_{-\infty}^{\infty} x_1(f)x_2^{*}(f) df.\]</span></p></li>
+</ul>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
